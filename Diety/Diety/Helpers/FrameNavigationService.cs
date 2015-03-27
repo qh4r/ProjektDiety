@@ -64,7 +64,7 @@ namespace Diety.Helpers
 			{
 				if (!_pagesByKey.ContainsKey(pageKey))
 				{
-					throw new ArgumentException(string.Format("No such page: {0} ", pageKey), "pageKey");
+					throw new ArgumentException(string.Format("Nie ma takiej strony: {0} ", pageKey), "klucz");
 				}
 
 				var frame = (Application.Current.MainWindow as MainWindow).MainFrame;
@@ -92,35 +92,6 @@ namespace Diety.Helpers
 					_pagesByKey.Add(key, pageType);
 				}
 			}
-		}
-
-		private static FrameworkElement GetDescendantFromName(DependencyObject parent, string name)
-		{
-			var count = VisualTreeHelper.GetChildrenCount(parent);
-
-			if (count < 1)
-			{
-				return null;
-			}
-
-			for (var i = 0; i < count; i++)
-			{
-				var frameworkElement = VisualTreeHelper.GetChild(parent, i) as FrameworkElement;
-				if (frameworkElement != null)
-				{
-					if (frameworkElement.Name == name)
-					{
-						return frameworkElement;
-					}
-
-					frameworkElement = GetDescendantFromName(frameworkElement, name);
-					if (frameworkElement != null)
-					{
-						return frameworkElement;
-					}
-				}
-			}
-			return null;
 		}
 
 		#endregion
