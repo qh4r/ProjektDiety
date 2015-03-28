@@ -48,6 +48,14 @@ namespace Diety.ViewModel
 				return ServiceLocator.Current.GetInstance<SecondViewModel>();
 			}
 		}
+
+		public StartViewModel Start
+		{
+			get
+			{
+				return ServiceLocator.Current.GetInstance<StartViewModel>();
+			}
+		}
         
         public static void Cleanup()
         {

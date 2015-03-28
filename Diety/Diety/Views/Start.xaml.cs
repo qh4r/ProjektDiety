@@ -25,7 +25,6 @@ namespace Diety.Views
 	{
 		public Start()
 		{
-			DataContext = ServiceLocator.Current.GetInstance<StartViewModel>();
 			InitializeComponent();
 		}
 	}
