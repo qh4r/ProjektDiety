@@ -2,7 +2,7 @@
 
 namespace DietyData.Entities
 {
-	class Sample : ISample
+	public class Sample : ISample
 	{
 		#region Properties
 
