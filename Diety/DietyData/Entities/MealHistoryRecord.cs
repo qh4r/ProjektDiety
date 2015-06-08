@@ -12,7 +12,7 @@ namespace DietyData.Entities
         #region Properties
 
         public DateTime Date { get; set; }
-        IRecipe Recipe { get; set; }
+        public IRecipe Recipe { get; set; }
         bool IsPast { get; set; }
 
 

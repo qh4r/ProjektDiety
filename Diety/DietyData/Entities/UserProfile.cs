@@ -15,10 +15,10 @@ namespace DietyData.Entities
         public double Height { get; set; }
         public double Weight { get; set; }
         public double Bmi { get; set; }
-        IEnumerable<IMealHistoryRecord> PlannedMeals { get; set; }
-        IEnumerable<IWeightHistoryRecord> WeightHistory { get; set; }
-        IEnumerable<ITrainingHistoryRecord> TrainingsHistory { get; set; }
-        IEnumerable<IMealHistoryRecord> MealsHistory { get; set; }
+        public IEnumerable<IMealHistoryRecord> PlannedMeals { get; set; }
+        public IEnumerable<IWeightHistoryRecord> WeightHistory { get; set; }
+        public IEnumerable<ITrainingHistoryRecord> TrainingsHistory { get; set; }
+        public IEnumerable<IMealHistoryRecord> MealsHistory { get; set; }
 
         #endregion
 

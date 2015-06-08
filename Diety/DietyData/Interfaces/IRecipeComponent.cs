@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DietyData.Entities;
 
 namespace DietyData.Interfaces
 {
@@ -10,9 +11,9 @@ namespace DietyData.Interfaces
     {
         #region Properties
 
-        public IIngrdient Ingredient { get; set; }
-        public UnitTypes Unit { get; set; }
-        public double Amount { get; set; }
+        IIngrdient Ingredient { get; set; }
+        UnitTypes Unit { get; set; }
+        double Amount { get; set; }
 
         #endregion
     }

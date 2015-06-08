@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DietyData.Entities;
+
 
 namespace DietyData.Interfaces
 {
@@ -10,9 +12,9 @@ namespace DietyData.Interfaces
     {
         #region Properties
 
-        public SportTypes Sport { get; set; }
-        public Timespan Duration { get; set; }
-        public double CaloriesBurned { get; set; }
+        SportTypes Sport { get; set; }
+        TimeSpan Duration { get; set; }
+        double CaloriesBurned { get; set; }
 
         #endregion
     }

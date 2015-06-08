@@ -10,14 +10,14 @@ namespace DietyData.Interfaces
     {
         #region Properties
 
-        public string UserName{get; set;}
-        public double Height{get; set;}
-        public double Weight{get; set;}
-        public double Bmi{get; set;}
-        public IEnumerable<IMealHistoryRecord>  PlannedMeals{get; set;}
-        public IEnumerable<IWeightHistoryRecord> WeightHistory{get; set;}
-        public IEnumerable<ITrainingHistoryRecord> TrainingsHistory{get; set;}
-        public IEnumerable<IMealHistoryRecord> MealsHistory { get; set; }
+        string UserName{get; set;}
+        double Height{get; set;}
+        double Weight{get; set;}
+        double Bmi{get; set;}
+        IEnumerable<IMealHistoryRecord>  PlannedMeals{get; set;}
+        IEnumerable<IWeightHistoryRecord> WeightHistory{get; set;}
+        IEnumerable<ITrainingHistoryRecord> TrainingsHistory{get; set;}
+        IEnumerable<IMealHistoryRecord> MealsHistory { get; set; }
 
         #endregion
     }

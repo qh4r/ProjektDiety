@@ -10,8 +10,8 @@ namespace DietyData.Interfaces
     {
         #region Properties
 
-        public DateTime Date { get; set; }
-        public IRecipe Recipe { get; set; }
+        DateTime Date { get; set; }
+        IRecipe Recipe { get; set; }
 
         #endregion
     }

@@ -10,10 +10,10 @@ namespace DietyData.Interfaces
     {
         #region Properties
 
-        public string Name { get; set; }
-        public double Carbohydrates { get; set; }
-        public double Proteins { get; set; }
-        public double Calories { get; set; }
+        string Name { get; set; }
+        double Carbohydrates { get; set; }
+        double Proteins { get; set; }
+        double Calories { get; set; }
 
         #endregion
     }

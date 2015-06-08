@@ -12,8 +12,8 @@ namespace DietyData.Entities
 
         #region Properties
 
-        public DateTime Date;
-        public double Weight;
+        public DateTime Date{get; set;}
+        public double Weight{get; set;}
 
         #endregion
     }

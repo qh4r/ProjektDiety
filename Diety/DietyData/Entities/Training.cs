@@ -13,7 +13,7 @@ namespace DietyData.Entities
 
         public SportTypes Sport { get; set; }
         public TimeSpan Duration { get; set; }
-        double CaloriesBurned { get; set; }
+        public double CaloriesBurned { get; set; }
 
         #endregion
     }

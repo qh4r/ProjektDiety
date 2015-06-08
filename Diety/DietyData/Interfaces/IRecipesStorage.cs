@@ -10,7 +10,7 @@ namespace DietyData.Interfaces
     {
         #region Properties
 
-        public IEnumerable<IRecipe> Recipes { get; set; }
+        IEnumerable<IRecipe> Recipes { get; set; }
 
         #endregion
     }

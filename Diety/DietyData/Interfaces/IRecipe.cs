@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DietyData.Entities;
+
 namespace DietyData.Interfaces
 {
     public interface IRecipe
     {
         #region Properties
 
-        public string Name{get; set; }
-        public IEnumerable<IRecipeComponent> ComponentsList {get; set; }
-        public MealTypes  MealType{get; set; }
-        public string Description { get; set; }
-        public byte[] Image { get; set; }
+        string Name{get; set; }
+        IEnumerable<IRecipeComponent> ComponentsList {get; set; }
+        MealTypes  MealType{get; set; }
+        string Description { get; set; }
+        byte[] Image { get; set; }
 
         #endregion
     }

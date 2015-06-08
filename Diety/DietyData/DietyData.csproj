@@ -39,13 +39,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\RecipeStorage.cs" />
+    <Compile Include="Entities\SportTypes.cs" />
+    <Compile Include="Entities\MealTypes.cs" />
+    <Compile Include="Entities\TrainingHistoryRecord.cs" />
+    <Compile Include="Entities\UserProfile.cs" />
+    <Compile Include="Entities\Training.cs" />
+    <Compile Include="Entities\MealHistoryRecord.cs" />
     <Compile Include="Entities\Recipe.cs" />
     <Compile Include="Entities\RecipeComponent.cs" />
     <Compile Include="Entities\Ingredient.cs" />
     <Compile Include="Entities\Sample.cs" />
     <Compile Include="Entities\UnitTypes.cs" />
+    <Compile Include="Entities\WeightHistoryRecord.cs" />
     <Compile Include="Interfaces\IMealHistoryRecord.cs" />
     <Compile Include="Interfaces\IIngrdient.cs" />
+    <Compile Include="Interfaces\IRecipesStorage.cs" />
     <Compile Include="Interfaces\IWeightHistoryRecord.cs" />
     <Compile Include="Interfaces\ITrainingHistoryRecord.cs" />
     <Compile Include="Interfaces\IUserProfile.cs" />
