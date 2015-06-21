@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DietyData.Interfaces
 {
-    interface IRecipesStorage
+    public interface IRecipesStorage
     {
         #region Properties
 

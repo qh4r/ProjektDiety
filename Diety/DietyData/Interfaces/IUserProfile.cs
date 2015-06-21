@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DietyData.Interfaces
 {
-    interface IUserProfile
+    public interface IUserProfile
     {
         #region Properties
 

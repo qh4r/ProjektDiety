@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DietyData.Interfaces
 {
-    interface IWeightHistoryRecord
+    public interface IWeightHistoryRecord
     {
         #region Properties
 
