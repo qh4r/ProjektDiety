@@ -11,6 +11,7 @@ namespace DietyData.Interfaces
         #region Properties
 
         string Name { get; set; }
+        double Fats { get; set; }
         double Carbohydrates { get; set; }
         double Proteins { get; set; }
         double Calories { get; set; }
