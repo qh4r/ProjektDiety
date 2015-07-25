@@ -1,3 +1,6 @@
+using DietyCommonTypes.Enums;
+using DietyData.Entities;
+
 namespace DbAccess.Migrations
 {
     using System;
@@ -14,18 +17,36 @@ namespace DbAccess.Migrations
 
         protected override void Seed(DbAccess.DietyDb context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
-        }
+			////TUTAJ PRZYKLAD JAK DODAWAC POCZATKOWE DANE
+			////NIGDY NIE USTAWIAMY ID -> TYM ZAJMUJE SIE BAZA
+			//context.Ingredients.AddOrUpdate(i => i.Name, new Ingredient
+			//{
+			//	Calories = 100.0,
+			//	Carbohydrates = 4252.0,
+			//	Fats = 14124.23,
+			//	Name = "S³onina",
+			//	Proteins = 3523
+			//}, new Ingredient
+			//{
+			//	Calories = 32523,
+			//	Carbohydrates = 12421421,
+			//	Fats = 1242141,
+			//	Name = "Ciecie¿yca",
+			//	Proteins = 2215124.4124
+			//});
+			////JESLI ELEMENTA WYSTEPUJE JAKO WLASCIWOSC INNEJ KLASY TO DODAJEMY GO PODCZAS TWORZENIA KLASY MATKI
+			////ZOSTANIE DODANY DO BAZY IMPLICITLY 
+			//context.TrainingHistoryRecords.Add(new TrainingHistoryRecord
+			//{
+			//	Date = DateTime.Now.AddMonths(-1),
+			//	Training = new Training
+			//	{
+			//		CaloriesBurned = 432523,
+			//		Duration = TimeSpan.FromMinutes(45),
+			//		Sport = SportTypes.Cycling
+			//	}
+			//});
+			////BY DODAC WIELE NARAZ MOZNA UZYC AddRange() JESLI KTOS NIE CHCE UZYWAC AddOrUpdate
+            }
     }
 }

@@ -51,6 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DietyDb.cs" />
+    <Compile Include="Migrations\201507251819337_Implementacja początkowego schematu.cs" />
+    <Compile Include="Migrations\201507251819337_Implementacja początkowego schematu.Designer.cs">
+      <DependentUpon>201507251819337_Implementacja początkowego schematu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -67,6 +71,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201507251819337_Implementacja początkowego schematu.resx">
+      <DependentUpon>201507251819337_Implementacja początkowego schematu.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
