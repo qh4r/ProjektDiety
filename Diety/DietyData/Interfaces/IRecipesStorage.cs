@@ -10,6 +10,12 @@ namespace DietyData.Interfaces
     {
         #region Properties
 
+		/// <summary>
+		/// Gets or sets the recipes.
+		/// </summary>
+		/// <value>
+		/// The recipes.
+		/// </value>
         IEnumerable<IRecipe> Recipes { get; set; }
 
         #endregion

@@ -12,7 +12,20 @@ namespace DietyData.Entities
 
         #region Properties
 
+		/// <summary>
+		/// Gets or sets the date.
+		/// </summary>
+		/// <value>
+		/// The date.
+		/// </value>
         public DateTime Date{get; set;}
+
+		/// <summary>
+		/// Gets or sets the weight.
+		/// </summary>
+		/// <value>
+		/// The weight.
+		/// </value>
         public double Weight{get; set;}
 
         #endregion

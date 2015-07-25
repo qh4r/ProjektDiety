@@ -11,6 +11,12 @@ namespace DietyData.Entities
     {
         #region Properties
 
+		/// <summary>
+		/// Gets or sets the recipes.
+		/// </summary>
+		/// <value>
+		/// The recipes.
+		/// </value>
         public IEnumerable<IRecipe> Recipes { get; set; }
 
         #endregion

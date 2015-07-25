@@ -11,7 +11,20 @@ namespace DietyData.Entities
     {
         #region Properties
 
+		/// <summary>
+		/// Gets or sets the date.
+		/// </summary>
+		/// <value>
+		/// The date.
+		/// </value>
         public DateTime Date { get; set; }
+
+		/// <summary>
+		/// Gets or sets the training.
+		/// </summary>
+		/// <value>
+		/// The training.
+		/// </value>
         public ITraining Training { get; set; }
 
         #endregion
