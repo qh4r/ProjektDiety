@@ -1,7 +1,7 @@
-﻿using DietyData.Entities;
-using DietyData.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using DietyCommonTypes.Enums;
+using DietyCommonTypes.Interfaces;
 
 namespace DietyServices.Interfaces
 {

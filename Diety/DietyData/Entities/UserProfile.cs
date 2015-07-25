@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DietyData.Interfaces;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using DietyCommonTypes.Interfaces;
 
 namespace DietyData.Entities
 {
-    class UserProfile: IUserProfile
+    public class UserProfile: IUserProfile
     {
         #region Properties
+
+		/// <summary>
+		/// Gets or sets the identifier.
+		/// </summary>
+		/// <value>
+		/// The identifier.
+		/// </value>
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public long Id { get; set; } 
 
 		/// <summary>
 		/// Gets or sets the name of the user.
@@ -49,7 +57,7 @@ namespace DietyData.Entities
 		/// <value>
 		/// The planned meals.
 		/// </value>
-        public IEnumerable<IMealHistoryRecord> PlannedMeals { get; set; }
+		public ICollection<IMealHistoryRecord> PlannedMeals { get; set; }
 
 		/// <summary>
 		/// Gets or sets the weight history.
@@ -57,7 +65,7 @@ namespace DietyData.Entities
 		/// <value>
 		/// The weight history.
 		/// </value>
-        public IEnumerable<IWeightHistoryRecord> WeightHistory { get; set; }
+		public ICollection<IWeightHistoryRecord> WeightHistory { get; set; }
 
 		/// <summary>
 		/// Gets or sets the trainings history.
@@ -65,7 +73,7 @@ namespace DietyData.Entities
 		/// <value>
 		/// The trainings history.
 		/// </value>
-        public IEnumerable<ITrainingHistoryRecord> TrainingsHistory { get; set; }
+		public ICollection<ITrainingHistoryRecord> TrainingsHistory { get; set; }
 
 		/// <summary>
 		/// Gets or sets the meals history.
@@ -73,7 +81,7 @@ namespace DietyData.Entities
 		/// <value>
 		/// The meals history.
 		/// </value>
-        public IEnumerable<IMealHistoryRecord> MealsHistory { get; set; }
+		public ICollection<IMealHistoryRecord> MealsHistory { get; set; }
 
         #endregion
 

@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DietyData.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using DietyCommonTypes.Enums;
+using DietyCommonTypes.Interfaces;
 
 namespace DietyData.Entities
 {
-    class RecipeComponent: IRecipeComponent
+	public class RecipeComponent : IRecipeComponent
     {
         #region Properties
+
+		/// <summary>
+		/// Gets or sets the identifier.
+		/// </summary>
+		/// <value>
+		/// The identifier.
+		/// </value>
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public long Id { get; set; } 
 
 		/// <summary>
 		/// Gets or sets the ingredient.
@@ -17,7 +25,7 @@ namespace DietyData.Entities
 		/// <value>
 		/// The ingredient.
 		/// </value>
-        public IIngrdient Ingredient { get; set; }
+        public IIngredient Ingredient { get; set; }
 
 		/// <summary>
 		/// Gets or sets the unit.

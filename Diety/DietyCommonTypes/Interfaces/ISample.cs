@@ -1,4 +1,4 @@
-﻿namespace DietyData.Interfaces
+﻿namespace DietyCommonTypes.Interfaces
 {
 	public interface ISample
 	{

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DietyData.Entities;
+﻿using DietyCommonTypes.Enums;
 
-namespace DietyData.Interfaces
+namespace DietyCommonTypes.Interfaces
 {
     public interface IRecipeComponent
     {
@@ -17,7 +12,7 @@ namespace DietyData.Interfaces
 		/// <value>
 		/// The ingredient.
 		/// </value>
-        IIngrdient Ingredient { get; set; }
+        IIngredient Ingredient { get; set; }
 
 		/// <summary>
 		/// Gets or sets the unit.

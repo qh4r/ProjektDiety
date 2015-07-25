@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FAF29AA8-C0B3-426E-BD32-2A7EF8A8D1C2}</ProjectGuid>
+    <ProjectGuid>{981C9CFC-DA05-44B5-981E-5B9EA4BEF863}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DietyData</RootNamespace>
-    <AssemblyName>DietyData</AssemblyName>
+    <RootNamespace>DietyCommonTypes</RootNamespace>
+    <AssemblyName>DietyCommonTypes</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,29 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\RecipeStorage.cs" />
-    <Compile Include="Entities\SportTypes.cs" />
-    <Compile Include="Entities\MealTypes.cs" />
-    <Compile Include="Entities\TrainingHistoryRecord.cs" />
-    <Compile Include="Entities\UserProfile.cs" />
-    <Compile Include="Entities\Training.cs" />
-    <Compile Include="Entities\MealHistoryRecord.cs" />
-    <Compile Include="Entities\Recipe.cs" />
-    <Compile Include="Entities\RecipeComponent.cs" />
-    <Compile Include="Entities\Ingredient.cs" />
-    <Compile Include="Entities\Sample.cs" />
-    <Compile Include="Entities\UnitTypes.cs" />
-    <Compile Include="Entities\WeightHistoryRecord.cs" />
+    <Compile Include="Enums\MealTypes.cs" />
+    <Compile Include="Enums\SportTypes.cs" />
+    <Compile Include="Enums\UnitTypes.cs" />
+    <Compile Include="Interfaces\IIngredient.cs" />
     <Compile Include="Interfaces\IMealHistoryRecord.cs" />
-    <Compile Include="Interfaces\IIngrdient.cs" />
-    <Compile Include="Interfaces\IRecipesStorage.cs" />
-    <Compile Include="Interfaces\IWeightHistoryRecord.cs" />
-    <Compile Include="Interfaces\ITrainingHistoryRecord.cs" />
-    <Compile Include="Interfaces\IUserProfile.cs" />
-    <Compile Include="Interfaces\ITraining.cs" />
     <Compile Include="Interfaces\IRecipe.cs" />
     <Compile Include="Interfaces\IRecipeComponent.cs" />
     <Compile Include="Interfaces\ISample.cs" />
+    <Compile Include="Interfaces\ITraining.cs" />
+    <Compile Include="Interfaces\ITrainingHistoryRecord.cs" />
+    <Compile Include="Interfaces\IUserProfile.cs" />
+    <Compile Include="Interfaces\IWeightHistoryRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

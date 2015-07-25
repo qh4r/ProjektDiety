@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DietyData.Entities;
+﻿using System.Collections.Generic;
+using DietyCommonTypes.Enums;
 
-namespace DietyData.Interfaces
+namespace DietyCommonTypes.Interfaces
 {
     public interface IRecipe
     {
@@ -25,7 +21,7 @@ namespace DietyData.Interfaces
 		/// <value>
 		/// The components list.
 		/// </value>
-        IEnumerable<IRecipeComponent> ComponentsList {get; set; }
+        ICollection<IRecipeComponent> ComponentsList {get; set; }
 
 		/// <summary>
 		/// Gets or sets the type of the meal.

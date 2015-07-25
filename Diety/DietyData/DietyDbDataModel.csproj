@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CFD943C1-ABB7-426F-872E-890869BEB58A}</ProjectGuid>
+    <ProjectGuid>{FAF29AA8-C0B3-426E-BD32-2A7EF8A8D1C2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DietyServices</RootNamespace>
-    <AssemblyName>DietyServices</AssemblyName>
+    <RootNamespace>DietyData</RootNamespace>
+    <AssemblyName>DietyData</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,8 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IDataService.cs" />
-    <Compile Include="Interfaces\INavigationService.cs" />
+    <Compile Include="Entities\TrainingHistoryRecord.cs" />
+    <Compile Include="Entities\UserProfile.cs" />
+    <Compile Include="Entities\Training.cs" />
+    <Compile Include="Entities\MealHistoryRecord.cs" />
+    <Compile Include="Entities\Recipe.cs" />
+    <Compile Include="Entities\RecipeComponent.cs" />
+    <Compile Include="Entities\Ingredient.cs" />
+    <Compile Include="Entities\Sample.cs" />
+    <Compile Include="Entities\WeightHistoryRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

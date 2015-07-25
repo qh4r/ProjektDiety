@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DietyData.Entities;
+using DietyCommonTypes.Enums;
 
-
-namespace DietyData.Interfaces
+namespace DietyCommonTypes.Interfaces
 {
     public interface ITraining
     {

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace DietyData.Interfaces
+namespace DietyCommonTypes.Interfaces
 {
     public interface IUserProfile
     {
@@ -48,7 +44,7 @@ namespace DietyData.Interfaces
 		/// <value>
 		/// The planned meals.
 		/// </value>
-        IEnumerable<IMealHistoryRecord> PlannedMeals{get; set;}\
+        ICollection<IMealHistoryRecord> PlannedMeals{get; set;}
 
         /// <summary>
         /// Gets or sets the weight history.
@@ -56,7 +52,7 @@ namespace DietyData.Interfaces
         /// <value>
         /// The weight history.
         /// </value>
-        IEnumerable<IWeightHistoryRecord> WeightHistory{get; set;}
+        ICollection<IWeightHistoryRecord> WeightHistory{get; set;}
 
         /// <summary>
         /// Gets or sets the trainings history.
@@ -64,7 +60,7 @@ namespace DietyData.Interfaces
         /// <value>
         /// The trainings history.
         /// </value>
-        IEnumerable<ITrainingHistoryRecord> TrainingsHistory{get; set;}
+        ICollection<ITrainingHistoryRecord> TrainingsHistory{get; set;}
 
         /// <summary>
         /// Gets or sets the meals history.
@@ -72,7 +68,7 @@ namespace DietyData.Interfaces
         /// <value>
         /// The meals history.
         /// </value>
-        IEnumerable<IMealHistoryRecord> MealsHistory { get; set; }
+        ICollection<IMealHistoryRecord> MealsHistory { get; set; }
 
         #endregion
     }
