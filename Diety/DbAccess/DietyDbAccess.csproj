@@ -55,6 +55,14 @@
     <Compile Include="Migrations\201507251819337_Implementacja początkowego schematu.Designer.cs">
       <DependentUpon>201507251819337_Implementacja początkowego schematu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507261756488_Poprawki oraz zmiana mapowań z interfejsów na ich implementacje.cs" />
+    <Compile Include="Migrations\201507261756488_Poprawki oraz zmiana mapowań z interfejsów na ich implementacje.Designer.cs">
+      <DependentUpon>201507261756488_Poprawki oraz zmiana mapowań z interfejsów na ich implementacje.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507261819523_Poprawa nazewnictwa.cs" />
+    <Compile Include="Migrations\201507261819523_Poprawa nazewnictwa.Designer.cs">
+      <DependentUpon>201507261819523_Poprawa nazewnictwa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,6 +70,10 @@
     <ProjectReference Include="..\DietyCommonTypes\DietyCommonTypes.csproj">
       <Project>{981c9cfc-da05-44b5-981e-5b9ea4bef863}</Project>
       <Name>DietyCommonTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DietyDataTransportTypes\DietyDataTransportTypes.csproj">
+      <Project>{e57413f4-97b8-4b68-b0db-ba92dcb25a54}</Project>
+      <Name>DietyDataTransportTypes</Name>
     </ProjectReference>
     <ProjectReference Include="..\DietyData\DietyDbDataModel.csproj">
       <Project>{faf29aa8-c0b3-426e-bd32-2a7ef8a8d1c2}</Project>
@@ -75,6 +87,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201507251819337_Implementacja początkowego schematu.resx">
       <DependentUpon>201507251819337_Implementacja początkowego schematu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507261756488_Poprawki oraz zmiana mapowań z interfejsów na ich implementacje.resx">
+      <DependentUpon>201507261756488_Poprawki oraz zmiana mapowań z interfejsów na ich implementacje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507261819523_Poprawa nazewnictwa.resx">
+      <DependentUpon>201507261819523_Poprawa nazewnictwa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

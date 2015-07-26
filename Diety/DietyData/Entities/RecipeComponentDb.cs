@@ -2,12 +2,14 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using DietyCommonTypes.Enums;
 using DietyCommonTypes.Interfaces;
+using DietyDataTransportTypes.Interfaces;
 
 namespace DietyData.Entities
 {
-	public class RecipeComponent : IRecipeComponent
-    {
-        #region Properties
+	[Table("RecipeComponents")]
+	public class RecipeComponentDb : IRecipeComponentData
+	{
+		#region Properties
 
 		/// <summary>
 		/// Gets or sets the identifier.
@@ -17,7 +19,16 @@ namespace DietyData.Entities
 		/// </value>
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public long Id { get; set; } 
+		public long Id { get; set; }
+
+		/// <summary>
+		/// Gets or sets the ingredient data.
+		/// </summary>
+		/// <value>
+		/// The ingredient data.
+		/// </value>
+		[Column("Ingredient")]
+		public IngredientDb IngredientData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the ingredient.
@@ -25,7 +36,12 @@ namespace DietyData.Entities
 		/// <value>
 		/// The ingredient.
 		/// </value>
-        public IIngredient Ingredient { get; set; }
+		[NotMapped]
+		public IIngredient Ingredient
+		{
+			get { return IngredientData; }
+			set { IngredientData = value as IngredientDb; }
+		}
 
 		/// <summary>
 		/// Gets or sets the unit.
@@ -33,7 +49,7 @@ namespace DietyData.Entities
 		/// <value>
 		/// The unit.
 		/// </value>
-        public UnitTypes Unit { get; set; }
+		public UnitTypes Unit { get; set; }
 
 		/// <summary>
 		/// Gets or sets the amount.
@@ -41,8 +57,8 @@ namespace DietyData.Entities
 		/// <value>
 		/// The amount.
 		/// </value>
-        public double Amount { get; set; }
+		public double Amount { get; set; }
 
-        #endregion
-    }
+		#endregion
+	}
 }

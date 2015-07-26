@@ -19,14 +19,14 @@ namespace DbAccess.Migrations
         {
 			////TUTAJ PRZYKLAD JAK DODAWAC POCZATKOWE DANE
 			////NIGDY NIE USTAWIAMY ID -> TYM ZAJMUJE SIE BAZA
-			//context.Ingredients.AddOrUpdate(i => i.Name, new Ingredient
+			//context.Ingredients.AddOrUpdate(i => i.Name, new IngredientDb
 			//{
 			//	Calories = 100.0,
 			//	Carbohydrates = 4252.0,
 			//	Fats = 14124.23,
 			//	Name = "S³onina",
 			//	Proteins = 3523
-			//}, new Ingredient
+			//}, new IngredientDb
 			//{
 			//	Calories = 32523,
 			//	Carbohydrates = 12421421,
@@ -36,10 +36,10 @@ namespace DbAccess.Migrations
 			//});
 			////JESLI ELEMENTA WYSTEPUJE JAKO WLASCIWOSC INNEJ KLASY TO DODAJEMY GO PODCZAS TWORZENIA KLASY MATKI
 			////ZOSTANIE DODANY DO BAZY IMPLICITLY 
-			//context.TrainingHistoryRecords.Add(new TrainingHistoryRecord
+			//context.TrainingHistoryRecords.Add(new TrainingHistoryRecordDb
 			//{
 			//	Date = DateTime.Now.AddMonths(-1),
-			//	Training = new Training
+			//	TrainingDb = new TrainingDb
 			//	{
 			//		CaloriesBurned = 432523,
 			//		Duration = TimeSpan.FromMinutes(45),

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DietyCommonTypes.Interfaces;
+using DietyDataTransportTypes.Interfaces;
 
 namespace DietyData.Entities
 {
-    public class WeightHistoryRecord: IWeightHistoryRecord
+	[Table("WeightHistoryRecords")]
+    public class WeightHistoryRecordDb: IWeightHistoryRecordData
     {
 
         #region Properties

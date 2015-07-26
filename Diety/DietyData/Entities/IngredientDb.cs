@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DietyCommonTypes.Interfaces;
+using System.Security.Cryptography.X509Certificates;
+using DietyDataTransportTypes.Interfaces;
 
 namespace DietyData.Entities
 {
-    public class Ingredient : IIngredient
+	[Table("Ingredients")]
+    public class IngredientDb : IIngredientData
     {
         #region Properties
 

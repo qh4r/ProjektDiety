@@ -46,7 +46,6 @@
     <Compile Include="Interfaces\IMealHistoryRecord.cs" />
     <Compile Include="Interfaces\IRecipe.cs" />
     <Compile Include="Interfaces\IRecipeComponent.cs" />
-    <Compile Include="Interfaces\ISample.cs" />
     <Compile Include="Interfaces\ITraining.cs" />
     <Compile Include="Interfaces\ITrainingHistoryRecord.cs" />
     <Compile Include="Interfaces\IUserProfile.cs" />

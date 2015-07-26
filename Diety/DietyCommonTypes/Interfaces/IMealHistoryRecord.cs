@@ -7,6 +7,14 @@ namespace DietyCommonTypes.Interfaces
         #region Properties
 
 		/// <summary>
+		/// Gets the identifier.
+		/// </summary>
+		/// <value>
+		/// The identifier.
+		/// </value>
+		long Id { get; }
+
+		/// <summary>
 		/// Gets or sets the date.
 		/// </summary>
 		/// <value>
@@ -21,6 +29,14 @@ namespace DietyCommonTypes.Interfaces
 		/// The recipe.
 		/// </value>
         IRecipe Recipe { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance is past.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if this instance is past; otherwise, <c>false</c>.
+		/// </value>
+		bool IsPast { get; set; }
 
         #endregion
     }

@@ -23,7 +23,7 @@ namespace DbAccess
 		/// <value>
 		/// The ingredients.
 		/// </value>
-		public DbSet<Ingredient> Ingredients { get; set; }
+		public DbSet<IngredientDb> Ingredients { get; set; }
 
 		/// <summary>
 		/// Gets or sets the meal history records.
@@ -31,7 +31,7 @@ namespace DbAccess
 		/// <value>
 		/// The meal history records.
 		/// </value>
-		public DbSet<MealHistoryRecord> MealHistoryRecords { get; set; }
+		public DbSet<MealHistoryRecordDb> MealHistoryRecords { get; set; }
 
 		/// <summary>
 		/// Gets or sets the recipes.
@@ -39,7 +39,7 @@ namespace DbAccess
 		/// <value>
 		/// The recipes.
 		/// </value>
-		public DbSet<Recipe> Recipes { get; set; }
+		public DbSet<RecipeDb> Recipes { get; set; }
 
 		/// <summary>
 		/// Gets or sets the recipe components.
@@ -47,7 +47,7 @@ namespace DbAccess
 		/// <value>
 		/// The recipe components.
 		/// </value>
-		public DbSet<RecipeComponent> RecipeComponents { get; set; }
+		public DbSet<RecipeComponentDb> RecipeComponents { get; set; }
 
 		/// <summary>
 		/// Gets or sets the trainings.
@@ -55,7 +55,7 @@ namespace DbAccess
 		/// <value>
 		/// The trainings.
 		/// </value>
-		public DbSet<Training> Trainings { get; set; }
+		public DbSet<TrainingDb> Trainings { get; set; }
 
 		/// <summary>
 		/// Gets or sets the training history records.
@@ -63,7 +63,7 @@ namespace DbAccess
 		/// <value>
 		/// The training history records.
 		/// </value>
-		public DbSet<TrainingHistoryRecord> TrainingHistoryRecords { get; set; }
+		public DbSet<TrainingHistoryRecordDb> TrainingHistoryRecords { get; set; }
 
 		/// <summary>
 		/// Gets or sets the user profiles.
@@ -71,7 +71,7 @@ namespace DbAccess
 		/// <value>
 		/// The user profiles.
 		/// </value>
-		public DbSet<UserProfile> UserProfiles { get; set; }
+		public DbSet<UserProfileDb> UserProfiles { get; set; }
 
 		/// <summary>
 		/// Gets or sets the weight history records.
@@ -79,6 +79,6 @@ namespace DbAccess
 		/// <value>
 		/// The weight history records.
 		/// </value>
-		public DbSet<WeightHistoryRecord> WeightHistoryRecords { get; set; } 
+		public DbSet<WeightHistoryRecordDb> WeightHistoryRecords { get; set; } 
 	}
 }

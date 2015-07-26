@@ -8,6 +8,14 @@ namespace DietyCommonTypes.Interfaces
         #region Properties
 
 		/// <summary>
+		/// Gets the identifier.
+		/// </summary>
+		/// <value>
+		/// The identifier.
+		/// </value>
+		long Id { get; }
+
+		/// <summary>
 		/// Gets or sets the name.
 		/// </summary>
 		/// <value>
@@ -21,7 +29,7 @@ namespace DietyCommonTypes.Interfaces
 		/// <value>
 		/// The components list.
 		/// </value>
-        ICollection<IRecipeComponent> ComponentsList {get; set; }
+        IEnumerable<IRecipeComponent> ComponentsList {get; set; }
 
 		/// <summary>
 		/// Gets or sets the type of the meal.

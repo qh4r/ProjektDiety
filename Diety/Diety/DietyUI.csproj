@@ -146,6 +146,14 @@
       <Project>{981c9cfc-da05-44b5-981e-5b9ea4bef863}</Project>
       <Name>DietyCommonTypes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DietyDataAccess\DietyDataAccess.csproj">
+      <Project>{646bad81-ec83-4c37-a75c-0ed06c1434cf}</Project>
+      <Name>DietyDataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DietyServices\DietyServices.csproj">
+      <Project>{cfd943c1-abb7-426f-872e-890869beb58a}</Project>
+      <Name>DietyServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

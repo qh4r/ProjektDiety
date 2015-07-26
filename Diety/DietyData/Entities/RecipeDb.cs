@@ -3,22 +3,24 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DietyCommonTypes.Enums;
 using DietyCommonTypes.Interfaces;
+using DietyDataTransportTypes.Interfaces;
 
 namespace DietyData.Entities
 {
-    public class Recipe : IRecipe
-    {
-        #region Properties
+	[Table("Recipes")]
+	public class RecipeDb : IRecipeData
+	{
+		#region Properties
 
 		/// <summary>
 		/// Gets or sets the identifier.
 		/// </summary>
 		/// <value>
 		/// The identifier.
-		/// </value>
+		/// </value>		
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public long Id { get; set; } 
+		public long Id { get; set; }
 
 		/// <summary>
 		/// Gets or sets the name.
@@ -26,7 +28,9 @@ namespace DietyData.Entities
 		/// <value>
 		/// The name.
 		/// </value>
-        public string Name { get; set; }
+		public string Name { get; set; }
+		[Column("ComponentsList")]
+		public ICollection<RecipeComponentDb> ComponentsListData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the components list.
@@ -34,7 +38,15 @@ namespace DietyData.Entities
 		/// <value>
 		/// The components list.
 		/// </value>
-        public ICollection<IRecipeComponent> ComponentsList { get; set; }
+		[NotMapped]
+		public IEnumerable<IRecipeComponent> ComponentsList
+		{
+			get
+			{
+				return ComponentsListData;
+			}
+			set { ComponentsListData = value as ICollection<RecipeComponentDb>; }
+		}
 
 		/// <summary>
 		/// Gets or sets the type of the meal.
@@ -42,7 +54,7 @@ namespace DietyData.Entities
 		/// <value>
 		/// The type of the meal.
 		/// </value>
-        public MealTypes MealType { get; set; }
+		public MealTypes MealType { get; set; }
 
 		/// <summary>
 		/// Gets or sets the description.
@@ -50,7 +62,7 @@ namespace DietyData.Entities
 		/// <value>
 		/// The description.
 		/// </value>
-        public string Description { get; set; }
+		public string Description { get; set; }
 
 		/// <summary>
 		/// Gets or sets the image.
@@ -58,8 +70,8 @@ namespace DietyData.Entities
 		/// <value>
 		/// The image.
 		/// </value>
-        public byte[] Image {get; set;}
+		public byte[] Image { get; set; }
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -2,12 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DietyCommonTypes.Interfaces;
+using DietyDataTransportTypes.Interfaces;
 
 namespace DietyData.Entities
 {
-    public class MealHistoryRecord: IMealHistoryRecord
-    {
-        #region Properties
+	[Table("MealHistoryRecords")]
+	public class MealHistoryRecordDb : IMealHistoryRecordData
+	{
+		#region Properties
 
 		/// <summary>
 		/// Gets or sets the identifier.
@@ -17,7 +19,7 @@ namespace DietyData.Entities
 		/// </value>
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public long Id { get; set; } 
+		public long Id { get; set; }
 
 		/// <summary>
 		/// Gets or sets the date.
@@ -25,7 +27,17 @@ namespace DietyData.Entities
 		/// <value>
 		/// The date.
 		/// </value>
-        public DateTime Date { get; set; }
+		public DateTime Date { get; set; }
+
+
+		/// <summary>
+		/// Gets or sets the recipe data.
+		/// </summary>
+		/// <value>
+		/// The recipe data.
+		/// </value>
+		[Column("Recipe")]
+		public RecipeDb RecipeData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the recipe.
@@ -33,7 +45,15 @@ namespace DietyData.Entities
 		/// <value>
 		/// The recipe.
 		/// </value>
-        public IRecipe Recipe { get; set; }
+		[NotMapped]
+		public IRecipe Recipe
+		{
+			get
+			{
+				return RecipeData;
+			}
+			set { RecipeData = value as RecipeDb; }
+		}
 
 		/// <summary>
 		/// Gets or sets a value indicating whether this instance is past.
@@ -41,9 +61,9 @@ namespace DietyData.Entities
 		/// <value>
 		///   <c>true</c> if this instance is past; otherwise, <c>false</c>.
 		/// </value>
-        bool IsPast { get; set; }
+		public bool IsPast { get; set; }
 
 
-        #endregion
-    }
+		#endregion
+	}
 }

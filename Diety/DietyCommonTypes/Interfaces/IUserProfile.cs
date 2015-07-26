@@ -7,6 +7,14 @@ namespace DietyCommonTypes.Interfaces
         #region Properties
 
 		/// <summary>
+		/// Gets the identifier.
+		/// </summary>
+		/// <value>
+		/// The identifier.
+		/// </value>
+		long Id { get; }
+
+		/// <summary>
 		/// Gets or sets the name of the user.
 		/// </summary>
 		/// <value>
@@ -44,7 +52,7 @@ namespace DietyCommonTypes.Interfaces
 		/// <value>
 		/// The planned meals.
 		/// </value>
-        ICollection<IMealHistoryRecord> PlannedMeals{get; set;}
+        IEnumerable<IMealHistoryRecord> PlannedMeals{get; set;}
 
         /// <summary>
         /// Gets or sets the weight history.
@@ -52,7 +60,7 @@ namespace DietyCommonTypes.Interfaces
         /// <value>
         /// The weight history.
         /// </value>
-        ICollection<IWeightHistoryRecord> WeightHistory{get; set;}
+		IEnumerable<IWeightHistoryRecord> WeightHistory { get; set; }
 
         /// <summary>
         /// Gets or sets the trainings history.
@@ -60,7 +68,7 @@ namespace DietyCommonTypes.Interfaces
         /// <value>
         /// The trainings history.
         /// </value>
-        ICollection<ITrainingHistoryRecord> TrainingsHistory{get; set;}
+		IEnumerable<ITrainingHistoryRecord> TrainingsHistory { get; set; }
 
         /// <summary>
         /// Gets or sets the meals history.
@@ -68,7 +76,7 @@ namespace DietyCommonTypes.Interfaces
         /// <value>
         /// The meals history.
         /// </value>
-        ICollection<IMealHistoryRecord> MealsHistory { get; set; }
+		IEnumerable<IMealHistoryRecord> MealsHistory { get; set; }
 
         #endregion
     }

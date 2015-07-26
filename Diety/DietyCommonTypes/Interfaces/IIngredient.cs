@@ -5,6 +5,14 @@
         #region Properties
 
 		/// <summary>
+		/// Gets the identifier.
+		/// </summary>
+		/// <value>
+		/// The identifier.
+		/// </value>
+		long Id { get; }
+
+		/// <summary>
 		/// Gets or sets the name.
 		/// </summary>
 		/// <value>

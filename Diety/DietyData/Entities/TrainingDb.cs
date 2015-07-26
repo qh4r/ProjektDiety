@@ -2,11 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DietyCommonTypes.Enums;
-using DietyCommonTypes.Interfaces;
+using DietyDataTransportTypes.Interfaces;
 
 namespace DietyData.Entities
 {
-    public class Training : ITraining
+	[Table("Trainings")]
+    public class TrainingDb : ITrainingData
     {
         #region Properties
 
