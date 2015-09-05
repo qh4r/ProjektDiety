@@ -7,13 +7,13 @@ namespace DbAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Poprawkiorazzmianamapowańzinterfejsównaichimplementacje : IMigrationMetadata
+    public sealed partial class Dodanierelacjiorazzmianywnazewnictwie : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Poprawkiorazzmianamapowańzinterfejsównaichimplementacje));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Dodanierelacjiorazzmianywnazewnictwie));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507261756488_Poprawki oraz zmiana mapowań z interfejsów na ich implementacje"; }
+            get { return "201509052042318_Dodanie relacji oraz zmiany w nazewnictwie"; }
         }
         
         string IMigrationMetadata.Source

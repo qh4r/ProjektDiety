@@ -57,10 +57,4 @@ namespace Diety.Helpers
 
 		#endregion
 	}
-
-	public enum PageType
-	{
-		Start,
-		Second
-	}
 }

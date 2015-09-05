@@ -59,8 +59,8 @@ namespace DietyData.Entities
 		/// <value>
 		/// The planned meals data.
 		/// </value>
-		[Column("PlannedMeals")]
-		public ICollection<MealHistoryRecordDb> PlannedMealsData { get; set; }
+		[Column("MealRecords")]
+		public ICollection<MealHistoryRecordDb> MealRecordsData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the planned meals.
@@ -69,10 +69,10 @@ namespace DietyData.Entities
 		/// The planned meals.
 		/// </value>
 		[NotMapped]
-		public IEnumerable<IMealHistoryRecord> PlannedMeals
+		public IEnumerable<IMealHistoryRecord> MealRecords
 		{
-			get { return PlannedMealsData; }
-			set { PlannedMealsData = value as ICollection<MealHistoryRecordDb>; }
+			get { return MealRecordsData; }
+			set { MealRecordsData = value as ICollection<MealHistoryRecordDb>; }
 		}
 
 		/// <summary>
@@ -119,28 +119,28 @@ namespace DietyData.Entities
 			set { TrainingsHistoryData = value as ICollection<TrainingHistoryRecordDb>; }
 		}
 
-		/// <summary>
-		/// Gets or sets the meals history data.
-		/// </summary>
-		/// <value>
-		/// The meals history data.
-		/// </value>
-		[Column("MealsHistory")]
-		public ICollection<MealHistoryRecordDb> MealsHistoryData { get; set; }
+		///// <summary>
+		///// Gets or sets the meals history data.
+		///// </summary>
+		///// <value>
+		///// The meals history data.
+		///// </value>
+		//[Column("MealsHistory")]
+		//public ICollection<MealHistoryRecordDb> MealsHistoryData { get; set; }
 
-		/// <summary>
-		/// Gets or sets the meals history.
-		/// </summary>
-		/// <value>
-		/// The meals history.
-		/// </value>
-		[NotMapped]
-		public IEnumerable<IMealHistoryRecord> MealsHistory {
-			get
-			{
-				return MealsHistoryData;
-			}
-			set { MealsHistoryData = value as ICollection<MealHistoryRecordDb>; } }
+		///// <summary>
+		///// Gets or sets the meals history.
+		///// </summary>
+		///// <value>
+		///// The meals history.
+		///// </value>
+		//[NotMapped]
+		//public IEnumerable<IMealHistoryRecord> MealsHistory {
+		//	get
+		//	{
+		//		return MealsHistoryData;
+		//	}
+		//	set { MealsHistoryData = value as ICollection<MealHistoryRecordDb>; } }
 
 		#endregion
 

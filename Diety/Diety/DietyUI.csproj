@@ -82,6 +82,7 @@
     <Compile Include="Helpers\FrameNavigationService.cs" />
     <Compile Include="Helpers\IMealDataCalculator.cs" />
     <Compile Include="Helpers\MealDataCalculator.cs" />
+    <Compile Include="Helpers\PageType.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SecondViewModel.cs" />
     <Compile Include="ViewModel\StartViewModel.cs" />

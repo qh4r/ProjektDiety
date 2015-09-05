@@ -99,69 +99,53 @@ namespace DietyDataAccess.DataTypes
 			}
 		}
 
-		/// <summary>
-		/// Gets or sets the planned meals.
-		/// </summary>
-		/// <value>
-		/// The planned meals.
-		/// </value>
-		public IEnumerable<IMealHistoryRecord> PlannedMeals
-		{
-			get { return _userProfile.PlannedMeals; }
-			set
-			{
-				_userProfile.PlannedMeals = value;
-				RaisePropertyChanged();
-			}
-		}
+		///// <summary>
+		///// Gets or sets the planned meals.
+		///// </summary>
+		///// <value>
+		///// The planned meals.
+		///// </value>
+		//public IEnumerable<IMealHistoryRecord> MealRecords
+		//{
+		//	get { return _userProfile.MealRecords; }
+		//	set
+		//	{
+		//		_userProfile.MealRecords = value;
+		//		RaisePropertyChanged();
+		//	}
+		//}
 
-		/// <summary>
-		/// Gets or sets the weight history.
-		/// </summary>
-		/// <value>
-		/// The weight history.
-		/// </value>
-		public IEnumerable<IWeightHistoryRecord> WeightHistory
-		{
-			get { return _userProfile.WeightHistory; }
-			set
-			{
-				_userProfile.WeightHistory = value;
-				RaisePropertyChanged();
-			}
-		}
+		///// <summary>
+		///// Gets or sets the weight history.
+		///// </summary>
+		///// <value>
+		///// The weight history.
+		///// </value>
+		//public IEnumerable<IWeightHistoryRecord> WeightHistory
+		//{
+		//	get { return _userProfile.WeightHistory; }
+		//	set
+		//	{
+		//		_userProfile.WeightHistory = value;
+		//		RaisePropertyChanged();
+		//	}
+		//}
 
-		/// <summary>
-		/// Gets or sets the trainings history.
-		/// </summary>
-		/// <value>
-		/// The trainings history.
-		/// </value>
-		public IEnumerable<ITrainingHistoryRecord> TrainingsHistory
-		{
-			get { return _userProfile.TrainingsHistory; }
-			set
-			{
-				_userProfile.TrainingsHistory = value;
-				RaisePropertyChanged();
-			}
-		}
-
-		/// <summary>
-		/// Gets or sets the meals history.
-		/// </summary>
-		/// <value>
-		/// The meals history.
-		/// </value>
-		public IEnumerable<IMealHistoryRecord> MealsHistory
-		{
-			get { return _userProfile.MealsHistory; }
-			set
-			{
-				_userProfile.MealsHistory = value;
-				RaisePropertyChanged();
-			}
-		}
+		///// <summary>
+		///// Gets or sets the trainings history.
+		///// </summary>
+		///// <value>
+		///// The trainings history.
+		///// </value>
+		//public IEnumerable<ITrainingHistoryRecord> TrainingsHistory
+		//{
+		//	get { return _userProfile.TrainingsHistory; }
+		//	set
+		//	{
+		//		_userProfile.TrainingsHistory = value;
+		//		RaisePropertyChanged();
+		//	}
+		//}
 
 		#endregion
 

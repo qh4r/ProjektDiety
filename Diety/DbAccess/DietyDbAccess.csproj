@@ -55,13 +55,13 @@
     <Compile Include="Migrations\201507251819337_Implementacja początkowego schematu.Designer.cs">
       <DependentUpon>201507251819337_Implementacja początkowego schematu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507261756488_Poprawki oraz zmiana mapowań z interfejsów na ich implementacje.cs" />
-    <Compile Include="Migrations\201507261756488_Poprawki oraz zmiana mapowań z interfejsów na ich implementacje.Designer.cs">
-      <DependentUpon>201507261756488_Poprawki oraz zmiana mapowań z interfejsów na ich implementacje.cs</DependentUpon>
+    <Compile Include="Migrations\201509052042318_Dodanie relacji oraz zmiany w nazewnictwie.cs" />
+    <Compile Include="Migrations\201509052042318_Dodanie relacji oraz zmiany w nazewnictwie.Designer.cs">
+      <DependentUpon>201509052042318_Dodanie relacji oraz zmiany w nazewnictwie.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507261819523_Poprawa nazewnictwa.cs" />
-    <Compile Include="Migrations\201507261819523_Poprawa nazewnictwa.Designer.cs">
-      <DependentUpon>201507261819523_Poprawa nazewnictwa.cs</DependentUpon>
+    <Compile Include="Migrations\201509052045466_Ograniczenia posilkow uzytkownika do 1 kolumny.cs" />
+    <Compile Include="Migrations\201509052045466_Ograniczenia posilkow uzytkownika do 1 kolumny.Designer.cs">
+      <DependentUpon>201509052045466_Ograniczenia posilkow uzytkownika do 1 kolumny.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,11 +91,11 @@
     <EmbeddedResource Include="Migrations\201507251819337_Implementacja początkowego schematu.resx">
       <DependentUpon>201507251819337_Implementacja początkowego schematu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507261756488_Poprawki oraz zmiana mapowań z interfejsów na ich implementacje.resx">
-      <DependentUpon>201507261756488_Poprawki oraz zmiana mapowań z interfejsów na ich implementacje.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509052042318_Dodanie relacji oraz zmiany w nazewnictwie.resx">
+      <DependentUpon>201509052042318_Dodanie relacji oraz zmiany w nazewnictwie.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507261819523_Poprawa nazewnictwa.resx">
-      <DependentUpon>201507261819523_Poprawa nazewnictwa.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509052045466_Ograniczenia posilkow uzytkownika do 1 kolumny.resx">
+      <DependentUpon>201509052045466_Ograniczenia posilkow uzytkownika do 1 kolumny.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

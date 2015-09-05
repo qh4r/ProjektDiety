@@ -7,13 +7,13 @@ namespace DbAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Poprawanazewnictwa : IMigrationMetadata
+    public sealed partial class Ograniczeniaposilkowuzytkownikado1kolumny : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Poprawanazewnictwa));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Ograniczeniaposilkowuzytkownikado1kolumny));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507261819523_Poprawa nazewnictwa"; }
+            get { return "201509052045466_Ograniczenia posilkow uzytkownika do 1 kolumny"; }
         }
         
         string IMigrationMetadata.Source

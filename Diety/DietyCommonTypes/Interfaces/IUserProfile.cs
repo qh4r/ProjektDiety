@@ -46,37 +46,29 @@ namespace DietyCommonTypes.Interfaces
 		/// </value>
         double Bmi{get; set;}
 
-		/// <summary>
-		/// Gets or sets the planned meals.
-		/// </summary>
-		/// <value>
-		/// The planned meals.
-		/// </value>
-        IEnumerable<IMealHistoryRecord> PlannedMeals{get; set;}
+		///// <summary>
+		///// Gets or sets the planned meals.
+		///// </summary>
+		///// <value>
+		///// The planned meals.
+		///// </value>
+		//IEnumerable<IMealHistoryRecord> MealRecords{get; set;}
 
-        /// <summary>
-        /// Gets or sets the weight history.
-        /// </summary>
-        /// <value>
-        /// The weight history.
-        /// </value>
-		IEnumerable<IWeightHistoryRecord> WeightHistory { get; set; }
+		///// <summary>
+		///// Gets or sets the weight history.
+		///// </summary>
+		///// <value>
+		///// The weight history.
+		///// </value>
+		//IEnumerable<IWeightHistoryRecord> WeightHistory { get; set; }
 
-        /// <summary>
-        /// Gets or sets the trainings history.
-        /// </summary>
-        /// <value>
-        /// The trainings history.
-        /// </value>
-		IEnumerable<ITrainingHistoryRecord> TrainingsHistory { get; set; }
-
-        /// <summary>
-        /// Gets or sets the meals history.
-        /// </summary>
-        /// <value>
-        /// The meals history.
-        /// </value>
-		IEnumerable<IMealHistoryRecord> MealsHistory { get; set; }
+		///// <summary>
+		///// Gets or sets the trainings history.
+		///// </summary>
+		///// <value>
+		///// The trainings history.
+		///// </value>
+		//IEnumerable<ITrainingHistoryRecord> TrainingsHistory { get; set; }
 
         #endregion
     }
