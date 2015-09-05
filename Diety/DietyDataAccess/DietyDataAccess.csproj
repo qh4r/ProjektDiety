@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.1.1.35049, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
       <Private>True</Private>
@@ -59,6 +63,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accessors\Interfaces\IIngredientsAccess.cs" />
+    <Compile Include="Accessors\Interfaces\IMealHistoryRecordsAccess.cs" />
+    <Compile Include="Accessors\IngredientsAccess.cs" />
+    <Compile Include="Accessors\Interfaces\IRecipeComponentsAccess.cs" />
+    <Compile Include="Accessors\Interfaces\IRecipesAccess.cs" />
+    <Compile Include="Accessors\Interfaces\ITrainingHistoryRecordsAccess.cs" />
+    <Compile Include="Accessors\Interfaces\ITrainingsAccess.cs" />
+    <Compile Include="Accessors\Interfaces\IUserProfilesAccess.cs" />
+    <Compile Include="Accessors\Interfaces\IWeightHistoryRecordsAccess.cs" />
+    <Compile Include="Accessors\WeightHistoryRecordsAccess.cs" />
+    <Compile Include="Accessors\UserProfilesAccess.cs" />
+    <Compile Include="Accessors\TrainingHistoryRecordsAccess.cs" />
+    <Compile Include="Accessors\TrainingAccess.cs" />
+    <Compile Include="Accessors\RecipeComponentsAccess.cs" />
+    <Compile Include="Accessors\RecipesAccess.cs" />
+    <Compile Include="Accessors\MealHistoryRecordsAccess.cs" />
+    <Compile Include="DataAccessBase.cs" />
     <Compile Include="DataTypes\Ingredient.cs" />
     <Compile Include="DataTypes\MealHistoryRecord.cs" />
     <Compile Include="DataTypes\Recipe.cs" />

@@ -10,7 +10,7 @@ namespace Diety.ViewModel
         /// </summary>
         public MainViewModel(IFrameNavigationService navigationService)
         {
-			navigationService.NavigateTo("Start");
+			navigationService.NavigateTo(PageType.Start);
         }
     }
 }

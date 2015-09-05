@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Navigation;
 using Diety.Helpers;
 using GalaSoft.MvvmLight;
@@ -23,7 +24,7 @@ namespace Diety.ViewModel
 			{
 				return new RelayCommand(() =>
 				{
-					_navigationService.NavigateTo("Second", "Odbior halo!");
+					_navigationService.NavigateTo(PageType.Second, "Odbior halo!");
 				});
 			}
 		}

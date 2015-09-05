@@ -1,6 +1,8 @@
 using DietyCommonTypes.Enums;
 using DietyData.Entities;
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace DbAccess.Migrations
 {
@@ -50,7 +52,13 @@ namespace DbAccess.Migrations
             //});
             //BY DODAC WIELE NARAZ MOZNA UZYC AddRange() JESLI KTOS NIE CHCE UZYWAC AddOrUpdate
 
-            string[] ingredients = System.IO.File.ReadAllLines(@"C:\Users\PPH\Desktop\aga\semestr 6\ProjektDiety\Diety\kalorieITD.csv");
+	        var reader = new StreamReader(AppDomain.CurrentDomain.BaseDirectory+@"/kalorieITD.csv");			
+			List<string> lines = new List<string>();
+	        while (!reader.EndOfStream)
+	        {
+		        lines.Add(reader.ReadLine());
+	        }
+	        string[] ingredients = lines.ToArray();
             char[] delimiterChars = { ';'};
             int counter;
             counter = 0;
@@ -61,7 +69,7 @@ namespace DbAccess.Migrations
                 {
                     counter++;
                 }
-                else if (counter < (System.IO.File.ReadAllLines(@"C:\Users\PPH\Desktop\aga\semestr 6\ProjektDiety\Diety\kalorieITD.csv").Length-1))
+                else if (counter < (lines.Count-1))
                 {
 
 
