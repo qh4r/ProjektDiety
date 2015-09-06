@@ -67,6 +67,10 @@
     <Compile Include="Migrations\201509052320129_Dodano typy virtualne.Designer.cs">
       <DependentUpon>201509052320129_Dodano typy virtualne.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509060016261_Dodano mozliwosc dostepu do danych o uzytkowniku od strony list.cs" />
+    <Compile Include="Migrations\201509060016261_Dodano mozliwosc dostepu do danych o uzytkowniku od strony list.Designer.cs">
+      <DependentUpon>201509060016261_Dodano mozliwosc dostepu do danych o uzytkowniku od strony list.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -103,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509052320129_Dodano typy virtualne.resx">
       <DependentUpon>201509052320129_Dodano typy virtualne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509060016261_Dodano mozliwosc dostepu do danych o uzytkowniku od strony list.resx">
+      <DependentUpon>201509060016261_Dodano mozliwosc dostepu do danych o uzytkowniku od strony list.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
