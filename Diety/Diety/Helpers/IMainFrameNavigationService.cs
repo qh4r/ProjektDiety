@@ -7,7 +7,7 @@ using GalaSoft.MvvmLight.Views;
 
 namespace Diety.Helpers
 {
-	public interface IFrameNavigationService
+	public interface IMainFrameNavigationService
 	{
 		#region Events
 

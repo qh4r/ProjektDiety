@@ -93,7 +93,7 @@ namespace DietyData.Entities
 		[NotMapped]
 		public IEnumerable<IWeightHistoryRecord> WeightHistory
 		{
-			get{ return WeightHistoryData; }
+			get { return WeightHistoryData; }
 			set { WeightHistoryData = value as ICollection<WeightHistoryRecordDb>; }
 		}
 
@@ -118,6 +118,15 @@ namespace DietyData.Entities
 			get { return TrainingsHistoryData; }
 			set { TrainingsHistoryData = value as ICollection<TrainingHistoryRecordDb>; }
 		}
+
+		/// <summary>
+		/// Gets or sets the hashed password.
+		/// </summary>
+		/// <value>
+		/// The hashed password.
+		/// </value>
+		public string HashedPassword { get; set; }
+
 
 		///// <summary>
 		///// Gets or sets the meals history data.

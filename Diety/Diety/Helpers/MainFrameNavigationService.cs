@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight.Views;
 
 namespace Diety.Helpers
 {
-	class FrameNavigationService : ObservableObject, IFrameNavigationService
+	class MainFrameNavigationService : ObservableObject, IMainFrameNavigationService
 	{
 		#region Public Events
 
@@ -85,7 +85,7 @@ namespace Diety.Helpers
 		/// Initializes a new instance of the <see cref="FrameNavigation" /> class.
 		/// </summary>
 		/// <param name="breadCrumbsModule">The bread crumbs module.</param>
-		public FrameNavigationService()
+		public MainFrameNavigationService()
 		{
 			_pagesByKey = new Dictionary<PageType, Uri>();
 			_historic = new List<PageType>();

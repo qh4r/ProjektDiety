@@ -13,7 +13,7 @@ namespace Diety.ViewModel
 	public class SecondViewModel : ViewModelBase
 	{
 		private string _secondText;
-		private IFrameNavigationService _navigationService;
+		private IMainFrameNavigationService _navigationService;
 
 		public string SecondText
 		{
@@ -33,7 +33,7 @@ namespace Diety.ViewModel
 		}
 
 
-		public SecondViewModel(IFrameNavigationService navigationService)
+		public SecondViewModel(IMainFrameNavigationService navigationService)
 		{
 			_navigationService = navigationService;
 			SecondText = navigationService.Parameter as String;			

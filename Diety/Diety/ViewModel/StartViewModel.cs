@@ -10,7 +10,7 @@ namespace Diety.ViewModel
 	public class StartViewModel : ViewModelBase
 	{		
 		private string _test;
-		private IFrameNavigationService _navigationService;
+		private IMainFrameNavigationService _navigationService;
 
 		public string Test
 		{
@@ -29,7 +29,7 @@ namespace Diety.ViewModel
 			}
 		}
 
-		public StartViewModel(IFrameNavigationService navigationService)
+		public StartViewModel(IMainFrameNavigationService navigationService)
 		{
 			_navigationService = navigationService;
 			Test = "Hello";

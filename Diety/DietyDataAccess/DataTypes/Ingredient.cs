@@ -152,7 +152,8 @@ namespace DietyDataAccess.DataTypes
 			return _ingredient;
 		}
 
-		#endregion
+		#endregion	
 
 	}
 }
+

@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\KeySetDb.cs" />
     <Compile Include="Entities\TrainingHistoryRecordDb.cs" />
     <Compile Include="Entities\UserProfileDb.cs" />
     <Compile Include="Entities\TrainingDb.cs" />

@@ -60,7 +60,7 @@ namespace Diety.ViewModel
 		/// </summary>
 		private void SetupNavigation()
 		{
-			var navigationService = new FrameNavigationService();
+			var navigationService = new MainFrameNavigationService();
 			navigationService.Configure(PageType.Start, new Uri("/Views/Start.xaml", UriKind.Relative));
 			navigationService.Configure(PageType.Second, new Uri("/Views/Second.xaml", UriKind.Relative));
 			navigationService.Configure(PageType.Login, new Uri("/Views/Login.xaml", UriKind.Relative));
@@ -69,7 +69,7 @@ namespace Diety.ViewModel
 
 
 
-			SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
+			SimpleIoc.Default.Register<IMainFrameNavigationService>(() => navigationService);
 
 		}
 

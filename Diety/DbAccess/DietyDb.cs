@@ -79,6 +79,14 @@ namespace DbAccess
 		/// <value>
 		/// The weight history records.
 		/// </value>
-		public DbSet<WeightHistoryRecordDb> WeightHistoryRecords { get; set; } 
+		public DbSet<WeightHistoryRecordDb> WeightHistoryRecords { get; set; }
+
+		/// <summary>
+		/// Gets or sets the key sets.
+		/// </summary>
+		/// <value>
+		/// The key sets.
+		/// </value>
+		public DbSet<KeySetDb> KeySets { get; set; } 
 	}
 }

@@ -8,9 +8,9 @@ namespace Diety.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(IFrameNavigationService navigationService)
+        public MainViewModel(IMainFrameNavigationService navigationService)
         {
-			navigationService.NavigateTo(PageType.Start);
+			navigationService.NavigateTo(PageType.Login);
         }
     }
 }
