@@ -56,6 +56,27 @@ namespace DietyData.Entities
 		}
 
 		/// <summary>
+		/// Gets or sets the user data.
+		/// </summary>
+		/// <value>
+		/// The user data.
+		/// </value>
+		[InverseProperty("MealRecordsData")]
+		public virtual UserProfileDb UserData { get; set; }
+
+		/// <summary>
+		/// Gets the creator identifier.
+		/// </summary>
+		/// <value>
+		/// The creator identifier.
+		/// </value>
+		[NotMapped]
+		public long CreatorId
+		{
+			get { return UserData.Id; }
+		}
+
+		/// <summary>
 		/// Gets or sets a value indicating whether this instance is past.
 		/// </summary>
 		/// <value>

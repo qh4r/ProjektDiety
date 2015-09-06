@@ -30,7 +30,7 @@ namespace DietyData.Entities
 		/// </value>
 		public string Name { get; set; }
 		[Column("ComponentsList")]
-		public ICollection<RecipeComponentDb> ComponentsListData { get; set; }
+		public virtual ICollection<RecipeComponentDb> ComponentsListData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the components list.

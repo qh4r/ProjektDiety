@@ -31,6 +31,14 @@ namespace DietyCommonTypes.Interfaces
         IRecipe Recipe { get; set; }
 
 		/// <summary>
+		/// Gets the creator identifier.
+		/// </summary>
+		/// <value>
+		/// The creator identifier.
+		/// </value>
+		long CreatorId { get; }
+
+		/// <summary>
 		/// Gets or sets a value indicating whether this instance is past.
 		/// </summary>
 		/// <value>

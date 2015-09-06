@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight;
 
 namespace DietyDataAccess.DataTypes
 {
-	class TrainingHistoryRecord : ViewModelBase , ITrainingHistoryRecord
+	class TrainingHistoryRecord : ViewModelBase, ITrainingHistoryRecord
 	{
 		#region Private Fields
 
@@ -65,6 +65,17 @@ namespace DietyDataAccess.DataTypes
 				_trainingHistoryRecord.Training = value;
 				RaisePropertyChanged();
 			}
+		}
+
+		/// <summary>
+		/// Gets the creator identifier.
+		/// </summary>
+		/// <value>
+		/// The creator identifier.
+		/// </value>
+		public long CreatorId
+		{
+			get { return _trainingHistoryRecord.CreatorId; }
 		}
 
 		#endregion

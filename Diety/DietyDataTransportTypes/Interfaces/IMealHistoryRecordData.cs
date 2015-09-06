@@ -13,7 +13,7 @@ namespace DietyDataTransportTypes.Interfaces
 		/// The identifier.
 		/// </value>
 		new long Id { get; set; }
-
+		
 		#endregion
 	}
 }

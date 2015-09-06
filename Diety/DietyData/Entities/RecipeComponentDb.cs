@@ -28,7 +28,7 @@ namespace DietyData.Entities
 		/// The ingredient data.
 		/// </value>
 		[Column("Ingredient")]
-		public IngredientDb IngredientData { get; set; }
+		public virtual IngredientDb IngredientData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the ingredient.

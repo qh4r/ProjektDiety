@@ -36,7 +36,7 @@ namespace DietyData.Entities
 		/// The training data.
 		/// </value>
 		[Column("Training")]
-		public TrainingDb TrainingData { get; set; }
+		public virtual TrainingDb TrainingData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the training.
@@ -49,6 +49,27 @@ namespace DietyData.Entities
 		{
 			get { return TrainingData; }
 			set { TrainingData = value as TrainingDb; }
+		}
+
+		/// <summary>
+		/// Gets or sets the user data.
+		/// </summary>
+		/// <value>
+		/// The user data.
+		/// </value>
+		[InverseProperty("TrainingsHistoryData")]
+		public virtual UserProfileDb UserData { get; set; }
+
+		/// <summary>
+		/// Gets the creator identifier.
+		/// </summary>
+		/// <value>
+		/// The creator identifier.
+		/// </value>
+		[NotMapped]
+		public long CreatorId
+		{
+			get { return UserData.Id; }
 		}
 
 		#endregion

@@ -30,6 +30,13 @@ namespace DietyCommonTypes.Interfaces
 		/// </value>
         ITraining Training { get; set; }
 
+		/// <summary>
+		/// Gets the creator identifier.
+		/// </summary>
+		/// <value>
+		/// The creator identifier.
+		/// </value>
+		long CreatorId { get; }
         #endregion
     }
 }

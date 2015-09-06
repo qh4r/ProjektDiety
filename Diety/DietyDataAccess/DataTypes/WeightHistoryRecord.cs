@@ -67,6 +67,20 @@ namespace DietyDataAccess.DataTypes
 			}
 		}
 
+		/// <summary>
+		/// Gets the creator identifier.
+		/// </summary>
+		/// <value>
+		/// The creator identifier.
+		/// </value>
+		public long CreatorId
+		{
+			get
+			{
+				return _weightHistoryRecord.Id;
+			}
+		}
+
 		#endregion
 
 		#region C-tors

@@ -30,6 +30,14 @@ namespace DietyCommonTypes.Interfaces
 		/// </value>
         double Weight{get; set;}
 
+		/// <summary>
+		/// Gets the creator identifier.
+		/// </summary>
+		/// <value>
+		/// The creator identifier.
+		/// </value>
+		long CreatorId { get; }
+
         #endregion
     }
 }

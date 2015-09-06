@@ -67,6 +67,18 @@ namespace DietyDataAccess.DataTypes
 		}
 
 		/// <summary>
+		/// Gets the creator identifier.
+		/// </summary>
+		/// <value>
+		/// The creator identifier.
+		/// </value>
+		public long CreatorId
+		{
+			get { return _mealHistoryRecord.CreatorId; }
+		}
+
+
+		/// <summary>
 		/// Gets or sets a value indicating whether this instance is past.
 		/// </summary>
 		/// <value>

@@ -60,7 +60,7 @@ namespace DietyData.Entities
 		/// The planned meals data.
 		/// </value>
 		[Column("MealRecords")]
-		public ICollection<MealHistoryRecordDb> MealRecordsData { get; set; }
+		public virtual ICollection<MealHistoryRecordDb> MealRecordsData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the planned meals.
@@ -82,7 +82,7 @@ namespace DietyData.Entities
 		/// The weight history data.
 		/// </value>
 		[Column("WeightHistory")]
-		public ICollection<WeightHistoryRecordDb> WeightHistoryData { get; set; }
+		public virtual ICollection<WeightHistoryRecordDb> WeightHistoryData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the weight history.
@@ -104,7 +104,7 @@ namespace DietyData.Entities
 		/// The training history data.
 		/// </value>
 		[Column("TrainingsHistory")]
-		public ICollection<TrainingHistoryRecordDb> TrainingsHistoryData { get; set; }
+		public virtual ICollection<TrainingHistoryRecordDb> TrainingsHistoryData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the trainings history.

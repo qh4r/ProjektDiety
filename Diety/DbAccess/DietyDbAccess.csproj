@@ -63,6 +63,10 @@
     <Compile Include="Migrations\201509052045466_Ograniczenia posilkow uzytkownika do 1 kolumny.Designer.cs">
       <DependentUpon>201509052045466_Ograniczenia posilkow uzytkownika do 1 kolumny.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509052320129_Dodano typy virtualne.cs" />
+    <Compile Include="Migrations\201509052320129_Dodano typy virtualne.Designer.cs">
+      <DependentUpon>201509052320129_Dodano typy virtualne.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -96,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509052045466_Ograniczenia posilkow uzytkownika do 1 kolumny.resx">
       <DependentUpon>201509052045466_Ograniczenia posilkow uzytkownika do 1 kolumny.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509052320129_Dodano typy virtualne.resx">
+      <DependentUpon>201509052320129_Dodano typy virtualne.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
