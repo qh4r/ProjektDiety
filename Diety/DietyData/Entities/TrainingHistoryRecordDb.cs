@@ -67,9 +67,10 @@ namespace DietyData.Entities
 		/// The creator identifier.
 		/// </value>
 		[NotMapped]
-		public long CreatorId
+		public IUserProfile Owner
 		{
-			get { return UserData.Id; }
+			get { return UserData; }
+			set { UserData = value as UserProfileDb; }
 		}
 
 		#endregion

@@ -66,15 +66,21 @@ namespace DietyDataAccess.DataTypes
 			}
 		}
 
+
 		/// <summary>
 		/// Gets the creator identifier.
 		/// </summary>
 		/// <value>
 		/// The creator identifier.
 		/// </value>
-		public long CreatorId
+		public IUserProfile Owner
 		{
-			get { return _mealHistoryRecord.CreatorId; }
+			get { return _mealHistoryRecord.Owner; }
+			set
+			{
+				_mealHistoryRecord.Owner = value;
+				RaisePropertyChanged();
+			}
 		}
 
 

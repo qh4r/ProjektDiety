@@ -64,6 +64,7 @@ namespace DietyData.Entities
 		[InverseProperty("MealRecordsData")]
 		public virtual UserProfileDb UserData { get; set; }
 
+
 		/// <summary>
 		/// Gets the creator identifier.
 		/// </summary>
@@ -71,9 +72,10 @@ namespace DietyData.Entities
 		/// The creator identifier.
 		/// </value>
 		[NotMapped]
-		public long CreatorId
+		public IUserProfile Owner
 		{
-			get { return UserData.Id; }
+			get { return UserData; }
+			set { UserData = value as UserProfileDb; }
 		}
 
 		/// <summary>

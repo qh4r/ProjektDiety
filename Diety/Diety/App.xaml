@@ -5,6 +5,14 @@
              xmlns:viewModel="clr-namespace:Diety.ViewModel"
 			>
 	<Application.Resources>
-		<viewModel:ViewModelLocator  x:Key="Locator" d:IsDataSource="True" />
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary>
+					<viewModel:ViewModelLocator  x:Key="Locator" d:IsDataSource="True" />
+				</ResourceDictionary>
+				<ResourceDictionary Source="Styles/CommonStyles.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+		
 	</Application.Resources>
 </Application>

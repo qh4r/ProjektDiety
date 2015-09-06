@@ -73,9 +73,14 @@ namespace DietyDataAccess.DataTypes
 		/// <value>
 		/// The creator identifier.
 		/// </value>
-		public long CreatorId
+		public IUserProfile Owner
 		{
-			get { return _trainingHistoryRecord.CreatorId; }
+			get { return _trainingHistoryRecord.Owner; }
+			set
+			{
+				_trainingHistoryRecord.Owner = value;
+				RaisePropertyChanged();
+			}
 		}
 
 		#endregion

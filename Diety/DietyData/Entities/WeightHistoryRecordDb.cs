@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DietyCommonTypes.Interfaces;
 using DietyDataTransportTypes.Interfaces;
 
 namespace DietyData.Entities
@@ -52,9 +53,10 @@ namespace DietyData.Entities
 		/// The creator identifier.
 		/// </value>
 		[NotMapped]
-		public long CreatorId
+		public IUserProfile Owner
 		{
-			get { return UserData.Id; }
+			get { return UserData; }
+			set { UserData = value as UserProfileDb; }
 		}
 
 

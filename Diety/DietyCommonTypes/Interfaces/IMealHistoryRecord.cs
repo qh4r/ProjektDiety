@@ -36,7 +36,7 @@ namespace DietyCommonTypes.Interfaces
 		/// <value>
 		/// The creator identifier.
 		/// </value>
-		long CreatorId { get; }
+		IUserProfile Owner { get; set; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether this instance is past.

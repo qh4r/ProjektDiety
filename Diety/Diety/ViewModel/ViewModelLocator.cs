@@ -11,16 +11,19 @@ using Microsoft.Practices.ServiceLocation;
 namespace Diety.ViewModel
 {
 
-    public class ViewModelLocator
-    {
+	public class ViewModelLocator
+	{
 
-	    #region C-tors
+		#region C-tors
 
-	    public ViewModelLocator()
-	    {
-		    ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ViewModelLocator" /> class.
+		/// </summary>
+		public ViewModelLocator()
+		{
+			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-		    SetupNavigation();
+			SetupNavigation();
 
 			SimpleIoc.Default.Register<IngredientsAccess>();
 			SimpleIoc.Default.Register<MealHistoryRecordsAccess>();
@@ -40,51 +43,115 @@ namespace Diety.ViewModel
 			SimpleIoc.Default.Register<IUserProfilesAccess>(() => SimpleIoc.Default.GetInstance<UserProfilesAccess>());
 			SimpleIoc.Default.Register<IWeightHistoryRecordsAccess>(() => SimpleIoc.Default.GetInstance<WeightHistoryRecordsAccess>());
 
-		    SimpleIoc.Default.Register<MainViewModel>();
-		    SimpleIoc.Default.Register<StartViewModel>();
-		    SimpleIoc.Default.Register<SecondViewModel>();
-	    }
+			SimpleIoc.Default.Register<MainViewModel>();
+			SimpleIoc.Default.Register<StartViewModel>();
+			SimpleIoc.Default.Register<SecondViewModel>();
+			SimpleIoc.Default.Register<LoginViewModel>();
+			SimpleIoc.Default.Register<RegisterUserViewModel>();
+			SimpleIoc.Default.Register<HomeViewModel>();
+		}
 
-	    #endregion
+		#endregion
 
+		#region Private Methods
+
+		/// <summary>
+		/// Setups the navigation.
+		/// </summary>
 		private void SetupNavigation()
 		{
 			var navigationService = new FrameNavigationService();
 			navigationService.Configure(PageType.Start, new Uri("/Views/Start.xaml", UriKind.Relative));
 			navigationService.Configure(PageType.Second, new Uri("/Views/Second.xaml", UriKind.Relative));
+			navigationService.Configure(PageType.Login, new Uri("/Views/Login.xaml", UriKind.Relative));
+			navigationService.Configure(PageType.RegisterUser, new Uri("/Views/RegisterUser.xaml", UriKind.Relative));
+			navigationService.Configure(PageType.Home, new Uri("/Views/Home.xaml", UriKind.Relative));
+
 
 
 			SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
 
 		}
 
+		#endregion
 
+
+		#region Public Methods
+
+		/// <summary>
+		/// Gets the main.
+		/// </summary>
+		/// <value>
+		/// The main.
+		/// </value>
 		public MainViewModel Main
 		{
-			get
-			{
-				return ServiceLocator.Current.GetInstance<MainViewModel>();
-			}
+			get { return ServiceLocator.Current.GetInstance<MainViewModel>(); }
 		}
 
+		/// <summary>
+		/// Gets the second.
+		/// </summary>
+		/// <value>
+		/// The second.
+		/// </value>
 		public SecondViewModel Second
 		{
-			get
-			{
-				return ServiceLocator.Current.GetInstance<SecondViewModel>();
-			}
+			get { return ServiceLocator.Current.GetInstance<SecondViewModel>(); }
 		}
 
+		/// <summary>
+		/// Gets the start.
+		/// </summary>
+		/// <value>
+		/// The start.
+		/// </value>
 		public StartViewModel Start
 		{
-			get
-			{
-				return ServiceLocator.Current.GetInstance<StartViewModel>();
-			}
+			get { return ServiceLocator.Current.GetInstance<StartViewModel>(); }
 		}
-        
-        public static void Cleanup()
-        {
-        }
-    }
+
+		/// <summary>
+		/// Gets the login.
+		/// </summary>
+		/// <value>
+		/// The login.
+		/// </value>
+		public LoginViewModel Login
+		{
+			get { return ServiceLocator.Current.GetInstance<LoginViewModel>(); }
+		}
+
+		/// <summary>
+		/// Gets the register user.
+		/// </summary>
+		/// <value>
+		/// The register user.
+		/// </value>
+		public RegisterUserViewModel RegisterUser
+		{
+			get { return ServiceLocator.Current.GetInstance<RegisterUserViewModel>(); }
+		}
+
+		/// <summary>
+		/// Gets the home.
+		/// </summary>
+		/// <value>
+		/// The home.
+		/// </value>
+		public HomeViewModel Home
+		{
+			get { return ServiceLocator.Current.GetInstance<HomeViewModel>(); }
+		}
+
+		/// <summary>
+		/// Cleanups this instance.
+		/// </summary>
+		public static void Cleanup()
+		{
+		}
+
+		#endregion
+
+	}
 }
