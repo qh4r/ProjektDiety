@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:extensions="clr-namespace:Diety.Helpers.Extensions"
       mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Login}"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="Login">
@@ -40,9 +41,13 @@
 								    Style="{StaticResource BaseTextBoxStyle}"/>
 			</Border>
 			<Border Style="{StaticResource RoundBorderStyle}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" >
-				<xctk:WatermarkTextBox Watermark="Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+				<Grid>
+					<xctk:WatermarkTextBox  Opacity="{Binding IsPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
 								   Style="{StaticResource BaseTextBoxStyle}"/>
-				</Border>
+
+					<PasswordBox VerticalContentAlignment="Center" extensions:PasswordBoxExtensions.BindablePassword="{Binding Password, Mode=TwoWay}" extensions:PasswordBoxExtensions.TrackPassword="True" Background="{StaticResource BrushAlmostTransparentBacground}" Name="PasswordBox" Style="{StaticResource BaseInputStyle}" Margin="10,0"/>
+				</Grid>
+			</Border>
 			<Button Grid.Row="2" Grid.Column="0" Margin="10" 
 					Style="{StaticResource BaseNormalButtonStyle}">Zaloguj</Button>
 			<Button Grid.Row="2" Grid.Column="1" Margin="10"

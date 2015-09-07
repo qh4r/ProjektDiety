@@ -63,7 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Accessors\Interfaces\IKeySetsAccess.cs" />
     <Compile Include="Accessors\Interfaces\IIngredientsAccess.cs" />
     <Compile Include="Accessors\Interfaces\IMealHistoryRecordsAccess.cs" />
     <Compile Include="Accessors\IngredientsAccess.cs" />
@@ -73,7 +72,6 @@
     <Compile Include="Accessors\Interfaces\ITrainingsAccess.cs" />
     <Compile Include="Accessors\Interfaces\IUserProfilesAccess.cs" />
     <Compile Include="Accessors\Interfaces\IWeightHistoryRecordsAccess.cs" />
-    <Compile Include="Accessors\KeySetsAccess.cs" />
     <Compile Include="Accessors\WeightHistoryRecordsAccess.cs" />
     <Compile Include="Accessors\UserProfilesAccess.cs" />
     <Compile Include="Accessors\TrainingHistoryRecordsAccess.cs" />
@@ -83,7 +81,6 @@
     <Compile Include="Accessors\MealHistoryRecordsAccess.cs" />
     <Compile Include="DataAccessBase.cs" />
     <Compile Include="DataTypes\Ingredient.cs" />
-    <Compile Include="DataTypes\KeySet.cs" />
     <Compile Include="DataTypes\MealHistoryRecord.cs" />
     <Compile Include="DataTypes\Recipe.cs" />
     <Compile Include="DataTypes\RecipeComponent.cs" />

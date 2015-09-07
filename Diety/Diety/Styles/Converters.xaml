@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:Diety.Helpers.Converters">
+	
+	<converters:NullOrEmptyToVisibilityConverter x:Key="NullOrEmptyToVisibilityConverter"/>
+	<converters:NullOrEmptyToInverseVisibilityConverter x:Key="NullOrEmptyToInverseVisibilityConverter"/>
+	<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>	
+	<converters:BoolToZeroOpacityConverter x:Key="BoolToZeroOpacityConverter"></converters:BoolToZeroOpacityConverter>
+</ResourceDictionary>

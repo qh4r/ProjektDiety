@@ -22,7 +22,7 @@ namespace Diety
 	{
 		public MainWindow()
 		{
-			InitializeComponent();	
+			InitializeComponent();			
 		}
 	}
 }

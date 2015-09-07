@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IIngredientData.cs" />
-    <Compile Include="Interfaces\IKeySetData.cs" />
     <Compile Include="Interfaces\IMealHistoryRecordData.cs" />
     <Compile Include="Interfaces\IRecipeComponentData.cs" />
     <Compile Include="Interfaces\IRecipeData.cs" />

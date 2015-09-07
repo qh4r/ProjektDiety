@@ -17,11 +17,61 @@ namespace Diety.ViewModel
 		/// <summary>
 		/// The _main frame navigation service
 		/// </summary>
-		private IMainFrameNavigationService _mainFrameNavigationService;
+		private readonly IMainFrameNavigationService _mainFrameNavigationService;
+
+		/// <summary>
+		/// The _password
+		/// </summary>
+		private string _password;
 
 		#endregion
 
 		#region Public Properties
+
+		/// <summary>
+		/// Gets or sets the password.
+		/// </summary>
+		/// <value>
+		/// The password.
+		/// </value>
+		public string Password
+		{
+			get { return _password; }
+			set
+			{
+				Set(ref _password, value);
+				RaisePropertyChanged("IsPasswordEmpty");
+			}
+		}
+
+
+		/// <summary>
+		/// Gets the register command.
+		/// </summary>
+		/// <value>
+		/// The register command.
+		/// </value>
+		public RelayCommand RegisterCommand
+		{
+			get
+			{
+				return new RelayCommand(() =>
+				{
+					_mainFrameNavigationService.NavigateTo(PageType.RegisterUser);
+				});
+			}
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this instance is password empty.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if this instance is password empty; otherwise, <c>false</c>.
+		/// </value>
+		public bool IsPasswordEmpty
+		{
+			get { return String.IsNullOrEmpty(Password); }
+		}
 
 		#endregion
 
@@ -38,15 +88,5 @@ namespace Diety.ViewModel
 
 		#endregion
 
-		public RelayCommand RegisterCommand
-		{
-			get
-			{
-				return new RelayCommand(() =>
-					{
-						_mainFrameNavigationService.NavigateTo(PageType.RegisterUser);
-					});
-			}
-		}
 	}
 }

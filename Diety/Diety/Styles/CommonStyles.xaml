@@ -99,6 +99,21 @@
 
 			<!-- BUTTONS -->
 
+			<Style TargetType="Button" x:Key="AppBarButtonStyle" >
+				<Setter Property="BorderBrush" Value="Transparent"/>
+				<Setter Property="Background" Value="{StaticResource BrushAlmostTransparentBacground}"/>
+				<Setter Property="FontSize" Value="30"/>
+				<Setter Property="HorizontalAlignment" Value="Center"/>
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="Button">
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"/>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
 			<Style x:Key="BaseNormalButtonStyle" TargetType="Button">
 				<Setter Property="Background" Value="{StaticResource BrushButtonBackgroundColor}"/>
 				<Setter Property="Foreground" Value="{StaticResource BrushButtonFontColor}" />

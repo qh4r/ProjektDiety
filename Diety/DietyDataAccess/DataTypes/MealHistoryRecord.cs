@@ -131,6 +131,16 @@ namespace DietyDataAccess.DataTypes
 		/// <returns></returns>
 		internal IMealHistoryRecordData UnwrapDataObject()
 		{
+			var owner = _mealHistoryRecord.Owner as UserProfile;
+			if (owner != null)
+			{
+				_mealHistoryRecord.Owner = owner.UnwrapDataObject();
+			}
+			var recipe = _mealHistoryRecord.Recipe as Recipe;
+			if (recipe != null)
+			{
+				_mealHistoryRecord.Recipe = recipe.UnwrapDataObject();
+			}
 			return _mealHistoryRecord;
 		}
 
