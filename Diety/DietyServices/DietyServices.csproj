@@ -30,8 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Effortless.Net.Encryption, Version=2.0.1.37, Culture=neutral, PublicKeyToken=603f9a8e5bb15e51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Effortless.Net.Encryption.2.0.1.37\lib\net40\Effortless.Net.Encryption.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Interfaces\IDataService.cs" />
     <Compile Include="Interfaces\INavigationService.cs" />
+    <Compile Include="Interfaces\IPasswordProcessingService.cs" />
+    <Compile Include="PasswordProcessingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +59,9 @@
       <Project>{646bad81-ec83-4c37-a75c-0ed06c1434cf}</Project>
       <Name>DietyDataAccess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

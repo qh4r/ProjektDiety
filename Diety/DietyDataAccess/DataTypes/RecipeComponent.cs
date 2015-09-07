@@ -115,6 +115,11 @@ namespace DietyDataAccess.DataTypes
 		/// <returns></returns>
 		internal IRecipeComponentData UnwrapDataObject()
 		{
+			var ingredient = _recipeComponent.Ingredient as Ingredient;
+			if (ingredient != null)
+			{
+				_recipeComponent.Ingredient = ingredient.UnwrapDataObject();
+			}
 			return _recipeComponent;
 		}
 

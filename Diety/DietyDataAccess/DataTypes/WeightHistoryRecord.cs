@@ -115,6 +115,11 @@ namespace DietyDataAccess.DataTypes
 		/// <returns></returns>
 		internal IWeightHistoryRecordData UnwrapDataObject()
 		{
+			var owner = _weightHistoryRecord.Owner as UserProfile;
+			if (owner != null)
+			{
+				_weightHistoryRecord.Owner = owner;
+			}
 			return _weightHistoryRecord;
 		}
 

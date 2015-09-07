@@ -148,6 +148,20 @@ namespace DietyDataAccess.DataTypes
 		/// <returns></returns>
 		internal IRecipeData UnwrapDataObject()
 		{
+			ICollection<IRecipeComponent> newList = new List<IRecipeComponent>();
+			foreach (var recipeComponent in _recipe.ComponentsList)
+			{
+				if (recipeComponent is RecipeComponent)
+				{
+					var component = recipeComponent as RecipeComponent;
+					newList.Add(component.UnwrapDataObject());
+				}
+				else
+				{
+					newList.Add(recipeComponent);
+				}
+			}
+			_recipe.ComponentsList = newList;
 			return _recipe;
 		}
 

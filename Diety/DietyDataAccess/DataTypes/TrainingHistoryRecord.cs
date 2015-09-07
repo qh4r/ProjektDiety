@@ -101,6 +101,16 @@ namespace DietyDataAccess.DataTypes
 		/// </summary>
 		public TrainingHistoryRecord()
 		{
+			var training = _trainingHistoryRecord.Training as Training;
+			if (training != null)
+			{
+				_trainingHistoryRecord.Training = training.UnwrapDataObject();
+			}
+			var owner = _trainingHistoryRecord.Owner as UserProfile;
+			if (owner != null)
+			{
+				_trainingHistoryRecord.Owner = owner;
+			}
 			_trainingHistoryRecord = new TrainingHistoryRecordDb();
 		}
 
