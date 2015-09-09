@@ -14,7 +14,7 @@ using DietyDataTransportTypes.Interfaces;
 namespace DietyDataAccess.Accessors
 {
 	public class UserProfilesAccess : DataAccessBase, IUserProfilesAccess
-	{		
+	{
 		#region Public Methods
 
 		/// <summary>
@@ -31,23 +31,8 @@ namespace DietyDataAccess.Accessors
 			{
 				using (var dietyContext = DietyDbContext)
 				{
-					DietyDbContext.Database.Log = s => Debug.WriteLine(s);
-					var user = newMealRecord as UserProfileDb;					
-					DietyDbContext.UserProfiles.AddOrUpdate(new UserProfileDb
-					{
-						UserName = user.UserName,
-						Height = user.Height,
-						HashedPassword = user.HashedPassword,
-						Weight = user.Weight
-					});					
-					try
-					{
-						var liczba = DietyDbContext.SaveChanges();
-					}
-					catch (Exception e)
-					{
-						Debug.WriteLine(e.Message);
-					}
+					dietyContext.UserProfiles.Add(newMealRecord as UserProfileDb);
+					dietyContext.SaveChanges();
 				}
 				await Task.Yield();
 			}
@@ -80,7 +65,7 @@ namespace DietyDataAccess.Accessors
 				else
 				{
 					outputList =
-						DietyDbContext.UserProfiles.Where(searchCondition ?? (x => true))							
+						DietyDbContext.UserProfiles.Where(searchCondition ?? (x => true))
 							.Skip(skipCount)
 							.Take(takeCount);
 				}
