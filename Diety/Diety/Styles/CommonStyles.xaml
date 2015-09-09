@@ -17,6 +17,7 @@
 			<SolidColorBrush x:Key="BrushInputBorderColor" Color="#FFB0B0B0"/>
 			<SolidColorBrush x:Key="BrushErrorBorderColor" Color="#E82121"/>
 			<SolidColorBrush x:Key="BrushAlmostTransparentBacground" Color="#01FFFFFF"/>
+			<SolidColorBrush x:Key="HeaderBackgroundBrush" Color="#51F842"/>
 
 
 			<SolidColorBrush Color="#00878787" x:Key="TextBoxDisabledForegroundThemeBrush" />
@@ -64,7 +65,24 @@
 				<Setter Property="TextWrapping" Value="Wrap"/>
 				<Setter Property="Foreground" Value="{StaticResource BrushFontColor}"/>
 			</Style>
+			
+			<Style x:Key="WhiteLabelStyle" BasedOn="{StaticResource BaseLabelStyle}" TargetType="TextBlock">
+				<Setter Property="Foreground" Value="White"/>
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="HorizontalAlignment" Value="Left"/>
+			</Style>
 
+			<Style x:Key="HeaderLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource WhiteLabelStyle}">				
+				<Setter Property="FontWeight" Value="Bold"/>
+				<Setter Property="FontSize" Value="24"/>			
+				<Setter Property="Margin" Value="20,5"/>
+			</Style>
+
+			<Style x:Key="SubHeaderLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource HeaderLabelStyle}">				
+				<Setter Property="FontSize" Value="20"/>
+				<Setter Property="Margin" Value="5"/>
+			</Style>
+			
 			<Style x:Key="ErrorMessageLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseLabelStyle}">
 				<Setter Property="VerticalAlignment" Value="Center"/>
 				<Setter Property="Margin" Value="20,0"/>

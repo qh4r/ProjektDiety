@@ -29,11 +29,6 @@ namespace Diety.ViewModel.PropertyGroups
 		/// </summary>
 		private string _heightErrorMessage;
 
-		/// <summary>
-		/// The _no errors
-		/// </summary>
-		private bool _noErrors;
-
 		#endregion
 
 		#region Public Properties
@@ -171,6 +166,20 @@ namespace Diety.ViewModel.PropertyGroups
 				RaisePropertyChanged(() => WeightError);
 				RaisePropertyChanged(() => NoErrors);
 			}
+		}
+
+		#endregion
+		#region C-tors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RehabilitationErrorStatus"/> class.
+		/// </summary>
+		public RehabilitationErrorStatus()
+		{
+			HeightErrorMessage = null;
+			PasswordErrorMessage = null;
+			UsernameErrorMessage = null;
+			WeightErrorMessage = null;
 		}
 
 		#endregion

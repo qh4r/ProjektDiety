@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Diety.Helpers;
 using Diety.Helpers.Constatnts;
+using Diety.ViewModel.Modules.Interfaces;
 using DietyCommonTypes.Interfaces;
 using DietyDataAccess.Accessors.Interfaces;
 using DietyServices.Interfaces;
@@ -47,9 +48,9 @@ namespace Diety.ViewModel
 		private string _errorMessage;
 
 		/// <summary>
-		/// The _password processing service
+		/// The _current user module
 		/// </summary>
-		private IPasswordProcessingService _passwordProcessingService;
+		private ICurrentUserModule _currentUserModule;
 
 		#endregion
 
@@ -114,34 +115,22 @@ namespace Diety.ViewModel
 				{
 					DispatcherHelper.RunAsync(async () =>
 					{
-						DispatcherHelper.RunAsync(async () =>
+						try
 						{
-							try
+							if (await _currentUserModule.AttemptLogin(Login, Password))
 							{
-								var user = await _userProfilesAccess.GetUserProfileByName(Login);
-								if (user != null)
-								{
-									var realPass = _passwordProcessingService.DecryptPassword(Login, user.HashedPassword);
-									if (String.Equals(Password, realPass))
-									{
-										_mainFrameNavigationService.NavigateTo(PageType.Home);
-									}
-									else
-									{
-										ErrorMessage = Messages.WrongUsernameOrPassword;
-									}
-								}
-								else
-								{
-									ErrorMessage = Messages.WrongUsernameOrPassword;
-								}
+								_mainFrameNavigationService.NavigateTo(PageType.Home);
 							}
-							catch (Exception e)
+							else
 							{
-								//TODO ERROR POPUP
-								ErrorMessage = "Dupa zbita";
+								ErrorMessage = Messages.WrongUsernameOrPassword;
 							}
-						});
+						}
+						catch (Exception e)
+						{
+							//TODO ERROR POPUP
+							ErrorMessage = "Dupa zbita";
+						}
 					});
 				});
 			}
@@ -179,10 +168,13 @@ namespace Diety.ViewModel
 		/// </value>
 		public RelayCommand GotFocusCommand
 		{
-			get { return new RelayCommand(() =>
+			get
 			{
-				ErrorMessage = null;
-			}); }
+				return new RelayCommand(() =>
+					{
+						ErrorMessage = null;
+					});
+			}
 		}
 
 		#endregion
@@ -190,16 +182,16 @@ namespace Diety.ViewModel
 		#region C-tors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LoginViewModel" /> class.
+		/// Initializes a new instance of the <see cref="LoginViewModel"/> class.
 		/// </summary>
 		/// <param name="mainFrameNavigationService">The main frame navigation service.</param>
 		/// <param name="userProfilesAccess">The user profiles access.</param>
-		/// <param name="passwordProcessingService">The password processing service.</param>
-		public LoginViewModel(IMainFrameNavigationService mainFrameNavigationService, IUserProfilesAccess userProfilesAccess, IPasswordProcessingService passwordProcessingService)
+		/// <param name="currentUserModule">The current user module.</param>
+		public LoginViewModel(IMainFrameNavigationService mainFrameNavigationService, IUserProfilesAccess userProfilesAccess, ICurrentUserModule currentUserModule)
 		{
 			_mainFrameNavigationService = mainFrameNavigationService;
 			_userProfilesAccess = userProfilesAccess;
-			_passwordProcessingService = passwordProcessingService;
+			_currentUserModule = currentUserModule;
 		}
 
 		#endregion

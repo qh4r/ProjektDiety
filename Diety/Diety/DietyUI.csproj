@@ -118,11 +118,11 @@
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\Modules\CurrentUserModule.cs" />
+    <Compile Include="ViewModel\Modules\Interfaces\ICurrentUserModule.cs" />
     <Compile Include="ViewModel\PropertyGroups\Interfaces\IRehabilitationErrorStatus.cs" />
     <Compile Include="ViewModel\PropertyGroups\RehabilitationErrorStatus.cs" />
     <Compile Include="ViewModel\RegisterUserViewModel.cs" />
-    <Compile Include="ViewModel\SecondViewModel.cs" />
-    <Compile Include="ViewModel\StartViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
@@ -132,12 +132,6 @@
     </Compile>
     <Compile Include="Views\RegisterUser.xaml.cs">
       <DependentUpon>RegisterUser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Second.xaml.cs">
-      <DependentUpon>Second.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Start.xaml.cs">
-      <DependentUpon>Start.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -151,6 +145,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\icons\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\CommonStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,14 +166,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RegisterUser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Second.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Start.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -222,7 +212,17 @@
       <Name>DietyServices</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\icons\user_icon64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\AppControl\close.png" />
+    <Resource Include="Resources\icons\AppControl\maximize.png" />
+    <Resource Include="Resources\icons\AppControl\minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\user_icon32.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

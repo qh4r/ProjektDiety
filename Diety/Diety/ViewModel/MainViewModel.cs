@@ -11,7 +11,6 @@ namespace Diety.ViewModel
         /// </summary>
         public MainViewModel(IMainFrameNavigationService navigationService)
         {
-			DispatcherHelper.Initialize();
 			navigationService.NavigateTo(PageType.Login);
         }
     }

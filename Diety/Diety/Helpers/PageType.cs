@@ -1,17 +1,7 @@
 ﻿namespace Diety.Helpers
 {
 	public enum PageType
-	{
-		/// <summary>
-		/// The start
-		/// </summary>
-		Start,
-
-		/// <summary>
-		/// The second
-		/// </summary>
-		Second,
-
+	{	
 		/// <summary>
 		/// The login
 		/// </summary>

@@ -10,62 +10,114 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="Login">
 	<Page.Resources>
-		
+
 	</Page.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="*"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="*"/>
-		</Grid.ColumnDefinitions>
-		<Grid Grid.Row="1" Grid.Column="1">
+		<Grid Grid.Row="0" Background="{StaticResource HeaderBackgroundBrush}">
+			<Grid Margin="3" HorizontalAlignment="Right" VerticalAlignment="Top">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<Button Grid.Column="1" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+					extensions:WinodowStateControlButtonExtensions.IsMinimize="True">
+					<Button.Template>
+						<ControlTemplate>
+							<Grid>
+								<Viewbox>
+									<Image Source="{StaticResource MinimizeIcon}"/>
+								</Viewbox>
+							</Grid>
+						</ControlTemplate>
+					</Button.Template>
+				</Button>
+				<Button Grid.Column="2" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+					extensions:WinodowStateControlButtonExtensions.IsMaximize="True">
+					<Button.Template>
+						<ControlTemplate>
+							<Grid>
+								<Viewbox>
+									<Image Source="{StaticResource MaximizeIcon}"/>
+								</Viewbox>
+							</Grid>
+						</ControlTemplate>
+					</Button.Template>
+				</Button>
+				<Button Grid.Column="3" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+					extensions:WinodowStateControlButtonExtensions.IsClose="True">
+					<Button.Template>
+						<ControlTemplate>
+							<Grid>
+								<Viewbox>
+									<Image Source="{StaticResource CloseIcon}"/>
+								</Viewbox>
+							</Grid>
+						</ControlTemplate>
+					</Button.Template>
+				</Button>
+			</Grid>
+		</Grid>
+		<Grid Grid.Row="1">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
-			<Border Style="{StaticResource RoundBorderStyle}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >
-				<xctk:WatermarkTextBox Foreground="Black" Watermark="Login" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+			<Grid Grid.Row="1" Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Border Style="{StaticResource RoundBorderStyle}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >
+					<xctk:WatermarkTextBox Foreground="Black" Watermark="Login" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
 								    Style="{StaticResource BaseTextBoxStyle}" Text="{Binding Login}">
-					<i:Interaction.Triggers>
-						<i:EventTrigger EventName="GotFocus">
-							<i:InvokeCommandAction Command="{Binding GotFocusCommand}"/>
-						</i:EventTrigger>
-					</i:Interaction.Triggers>
-				</xctk:WatermarkTextBox>
-			</Border>
-			<Border Style="{StaticResource RoundBorderStyle}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" >
-				<Grid>
-					<xctk:WatermarkTextBox IsEnabled="False"  Opacity="{Binding IsPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
-								   Style="{StaticResource BaseTextBoxStyle}"/>
-
-					<PasswordBox VerticalContentAlignment="Center" extensions:PasswordBoxExtensions.BindablePassword="{Binding Password, Mode=TwoWay}" extensions:PasswordBoxExtensions.TrackPassword="True" Background="{StaticResource BrushAlmostTransparentBacground}" Name="PasswordBox" Style="{StaticResource BaseInputStyle}" Margin="10,0">
 						<i:Interaction.Triggers>
 							<i:EventTrigger EventName="GotFocus">
 								<i:InvokeCommandAction Command="{Binding GotFocusCommand}"/>
-							</i:EventTrigger>							
+							</i:EventTrigger>
 						</i:Interaction.Triggers>
-					</PasswordBox>
-				</Grid>
-			</Border>
-			<TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ErrorMessage}"
+					</xctk:WatermarkTextBox>
+				</Border>
+				<Border Style="{StaticResource RoundBorderStyle}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" >
+					<Grid>
+						<xctk:WatermarkTextBox IsEnabled="False"  Opacity="{Binding IsPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+								   Style="{StaticResource BaseTextBoxStyle}"/>
+
+						<PasswordBox VerticalContentAlignment="Center" extensions:PasswordBoxExtensions.BindablePassword="{Binding Password, Mode=TwoWay}" extensions:PasswordBoxExtensions.TrackPassword="True" Background="{StaticResource BrushAlmostTransparentBacground}" Name="PasswordBox" Style="{StaticResource BaseInputStyle}" Margin="10,0">
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="GotFocus">
+									<i:InvokeCommandAction Command="{Binding GotFocusCommand}"/>
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+						</PasswordBox>
+					</Grid>
+				</Border>
+				<TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ErrorMessage}"
 					   Visibility="{Binding ErrorMessage}"
 					   Style="{StaticResource ErrorMessageLabelStyle}"/>
-			<Button Grid.Row="3" Grid.Column="0" Margin="10" 
+				<Button Grid.Row="3" Grid.Column="0" Margin="10" 
 					Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding LoginCommand}">Zaloguj</Button>
-			<Button Grid.Row="3" Grid.Column="1" Margin="10"
+				<Button Grid.Row="3" Grid.Column="1" Margin="10"
 					Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding RegisterCommand}">Zarejestruj</Button>
+			</Grid>
 		</Grid>
 	</Grid>
 </Page>

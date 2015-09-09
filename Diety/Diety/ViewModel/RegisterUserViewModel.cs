@@ -432,17 +432,16 @@ namespace Diety.ViewModel
 		#region C-tors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="RegisterUserViewModel"/> class.
+		/// Initializes a new instance of the <see cref="RegisterUserViewModel" /> class.
 		/// </summary>
 		/// <param name="frameNavigation">The frame navigation.</param>
-		/// <param name="rehabilitationErrorStatus">The rehabilitation error status.</param>
 		/// <param name="userProfilesAccess">The user profiles access.</param>
 		/// <param name="passwordProcessingService">The password processing service.</param>
-		public RegisterUserViewModel(IMainFrameNavigationService frameNavigation, IRehabilitationErrorStatus rehabilitationErrorStatus, 
+		public RegisterUserViewModel(IMainFrameNavigationService frameNavigation, 
 			IUserProfilesAccess userProfilesAccess, IPasswordProcessingService passwordProcessingService)
 		{
 			_frameNavigation = frameNavigation;
-			ErrorStatus = rehabilitationErrorStatus;
+			ErrorStatus = new RehabilitationErrorStatus();
 			_userProfilesAccess = userProfilesAccess;
 			_passwordProcessingService = passwordProcessingService;
 		}
