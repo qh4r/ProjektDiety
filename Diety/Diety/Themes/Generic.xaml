@@ -1,0 +1,195 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Diety"
+    xmlns:templateControlls="clr-namespace:Diety.TemplateControlls"
+    xmlns:extensions="clr-namespace:Diety.Helpers.Extensions">
+    <!--<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/Diety;component/TemplateControlls/PageBase.xaml"/>
+		<ResourceDictionary>-->
+			<Style TargetType="{x:Type templateControlls:PageBase}">
+				<Setter Property="Template">
+					<Setter.Value>
+				<ControlTemplate TargetType="{x:Type templateControlls:PageBase}">
+					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+						<Grid.Resources>
+							<ResourceDictionary>
+								<ResourceDictionary.MergedDictionaries>
+									<ResourceDictionary Source="/Diety;component/Styles/Converters.xaml"/>
+									<ResourceDictionary Source="/Diety;component/Styles/CommonStyles.xaml"/>
+									<ResourceDictionary Source="/Diety;component/Resources/icons/Icons.xaml"/>
+								</ResourceDictionary.MergedDictionaries>
+							</ResourceDictionary>
+						</Grid.Resources>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="*"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<!-- HEADER -->
+								<Grid Grid.Row="0" Background="{StaticResource HeaderBackgroundBrush}">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+									<Button Grid.Column="0" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Center"
+						Command="{Binding GoHomeCommand}">
+										<Button.Template>
+											<ControlTemplate>
+												<Grid>
+													<Viewbox>
+														<Image Source="{StaticResource UserWhiteIcon32}"/>
+													</Viewbox>
+												</Grid>
+											</ControlTemplate>
+										</Button.Template>
+									</Button>
+									<TextBlock Grid.Column="1" Style="{StaticResource HeaderLabelStyle}" Text="{Binding UserModule.CurrentUser.UserName}"/>
+									<!--Logout-->
+									<Button Grid.Column="2" Margin="10,0" Command="{Binding LogOutCommand}">
+										<Button.Template>
+											<ControlTemplate>
+												<TextBlock Margin="0" HorizontalAlignment="Right" Style="{StaticResource SubHeaderLabelStyle}" Text="Wyloguj"/>
+											</ControlTemplate>
+										</Button.Template>
+									</Button>
+									<!-- App Control -->
+									<Grid Grid.Column="3" Margin="3" HorizontalAlignment="Right" VerticalAlignment="Center">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="Auto"/>
+											<ColumnDefinition Width="Auto"/>
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
+										<Button Grid.Column="1" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+					extensions:WinodowStateControlButtonExtensions.IsMinimize="True">
+											<Button.Template>
+												<ControlTemplate>
+													<Grid>
+														<Viewbox>
+															<Image Source="{StaticResource MinimizeIcon}"/>
+														</Viewbox>
+													</Grid>
+												</ControlTemplate>
+											</Button.Template>
+										</Button>
+										<Button Grid.Column="2" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+					extensions:WinodowStateControlButtonExtensions.IsMaximize="True">
+											<Button.Template>
+												<ControlTemplate>
+													<Grid>
+														<Viewbox>
+															<Image Source="{StaticResource MaximizeIcon}"/>
+														</Viewbox>
+													</Grid>
+												</ControlTemplate>
+											</Button.Template>
+										</Button>
+										<Button Grid.Column="3" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+					extensions:WinodowStateControlButtonExtensions.IsClose="True">
+											<Button.Template>
+												<ControlTemplate>
+													<Grid>
+														<Viewbox>
+															<Image Source="{StaticResource CloseIcon}"/>
+														</Viewbox>
+													</Grid>
+												</ControlTemplate>
+											</Button.Template>
+										</Button>
+									</Grid>
+									<!-- //App Control -->
+
+								</Grid>
+								<!-- //HEADER -->
+								<!-- Body -->
+								<Grid Grid.Row="1">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<!-- NavTab -->
+									<Grid Grid.Column="0" Background="{StaticResource HeaderBackgroundBrush}">
+										<Grid>
+											<Grid.RowDefinitions>
+												<RowDefinition Height="Auto"/>
+												<RowDefinition Height="Auto"/>
+												<RowDefinition Height="Auto"/>
+												<RowDefinition Height="Auto"/>
+												<RowDefinition Height="*"/>
+											</Grid.RowDefinitions>
+											<Button Grid.Row="0" Style="{StaticResource NavBarButtonStyle}">
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="*"/>
+														<RowDefinition Height="Auto"/>
+													</Grid.RowDefinitions>
+													<Viewbox Grid.Row="0">
+														<Image Source="{StaticResource HomeIcon}"/>
+													</Viewbox>
+													<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
+											Start
+													</TextBlock>
+												</Grid>
+											</Button>
+											<Button Grid.Row="1" Style="{StaticResource NavBarButtonStyle}">
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="*"/>
+														<RowDefinition Height="Auto"/>
+													</Grid.RowDefinitions>
+													<Viewbox Grid.Row="0">
+														<Image Source="{StaticResource CalendarIcon}"/>
+													</Viewbox>
+													<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
+											Kalendarz
+													</TextBlock>
+												</Grid>
+											</Button>
+											<Button Grid.Row="2" Style="{StaticResource NavBarButtonStyle}">
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="*"/>
+														<RowDefinition Height="Auto"/>
+													</Grid.RowDefinitions>
+													<Viewbox Grid.Row="0">
+														<Image Source="{StaticResource RecipesIcon}"/>
+													</Viewbox>
+													<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
+											Przepisy
+													</TextBlock>
+												</Grid>
+											</Button>
+											<Button Grid.Row="3" Style="{StaticResource NavBarButtonStyle}">
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="*"/>
+														<RowDefinition Height="Auto"/>
+													</Grid.RowDefinitions>
+													<Viewbox Grid.Row="0">
+														<Image Source="{StaticResource DiagramIcon}"/>
+													</Viewbox>
+													<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
+											Statystyki
+													</TextBlock>
+												</Grid>
+											</Button>
+										</Grid>
+									</Grid>
+									<!-- //NavTab -->
+									<Grid Grid.Column="1">
+										<!--PAGE CONTENT -->
+										<ContentControl Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+									</Grid>
+								</Grid>
+								<!-- //Body -->
+							</Grid>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		<!--</ResourceDictionary>
+	</ResourceDictionary.MergedDictionaries>-->
+</ResourceDictionary>

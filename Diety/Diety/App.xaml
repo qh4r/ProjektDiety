@@ -10,9 +10,9 @@
 				<ResourceDictionary>					
 					<viewModel:ViewModelLocator  x:Key="Locator" d:IsDataSource="True" />
 				</ResourceDictionary>
-				<ResourceDictionary Source="Styles/Converters.xaml"/>
-				<ResourceDictionary Source="Styles/CommonStyles.xaml"/>
-				<ResourceDictionary Source="/Resources/icons/Icons.xaml"/>
+				<ResourceDictionary Source="/Diety;component/Styles/Converters.xaml"/>
+				<ResourceDictionary Source="/Diety;component/Styles/CommonStyles.xaml"/>
+				<ResourceDictionary Source="/Diety;component/Resources/icons/Icons.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 		

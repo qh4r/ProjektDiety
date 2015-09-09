@@ -58,6 +58,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -103,6 +105,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\Constatnts\Messages.cs" />
+    <Compile Include="Helpers\Converters\ActivePageTypeToBoolConverter.cs" />
     <Compile Include="Helpers\Converters\BoolToSolidColorBrushConverter.cs" />
     <Compile Include="Helpers\Converters\BoolToZeroOpacityConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToInverseVisibilityConverter.cs" />
@@ -115,6 +118,7 @@
     <Compile Include="Helpers\IMealDataCalculator.cs" />
     <Compile Include="Helpers\MealDataCalculator.cs" />
     <Compile Include="Helpers\PageType.cs" />
+    <Compile Include="TemplateControlls\PageBase.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -145,7 +149,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\icons\Icons.xaml">
+    <Page Include="Resources\Icons\Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -156,6 +160,10 @@
     <Page Include="Styles\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Home.xaml">
       <SubType>Designer</SubType>
@@ -213,15 +221,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icons\user_icon64.png" />
+    <Resource Include="Resources\Icons\user_icon64.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icons\AppControl\close.png" />
-    <Resource Include="Resources\icons\AppControl\maximize.png" />
-    <Resource Include="Resources\icons\AppControl\minimize.png" />
+    <Resource Include="Resources\Icons\AppControl\close.png" />
+    <Resource Include="Resources\Icons\AppControl\maximize.png" />
+    <Resource Include="Resources\Icons\AppControl\minimize.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icons\user_icon32.png" />
+    <Resource Include="Resources\Icons\user_icon32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Navigation\calendar64.png" />
+    <Resource Include="Resources\Icons\Navigation\diagram64.png" />
+    <Resource Include="Resources\Icons\Navigation\home64.png" />
+    <Resource Include="Resources\Icons\Navigation\recipes64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

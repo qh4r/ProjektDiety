@@ -1,7 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<BitmapImage UriSource="/Resources/icons/user_icon32.png" x:Key="UserWhiteIcon32"/>
-	<BitmapImage UriSource="/Resources/icons/AppControl/minimize.png" x:Key="MinimizeIcon"/>
-	<BitmapImage UriSource="/Resources/icons/AppControl/maximize.png" x:Key="MaximizeIcon"/>
-	<BitmapImage UriSource="/Resources/icons/AppControl/close.png" x:Key="CloseIcon"/>
+
+	<BitmapImage UriSource="/Resources/Icons/user_icon32.png" x:Key="UserWhiteIcon32"/>
+	<BitmapImage UriSource="/Resources/Icons/AppControl/minimize.png" x:Key="MinimizeIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/AppControl/maximize.png" x:Key="MaximizeIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/AppControl/close.png" x:Key="CloseIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/Navigation/home64.png" x:Key="HomeIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/Navigation/diagram64.png" x:Key="DiagramIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/Navigation/calendar64.png" x:Key="CalendarIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/Navigation/recipes64.png" x:Key="RecipesIcon"/>
+
 </ResourceDictionary>

@@ -7,4 +7,5 @@
 	<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>	
 	<converters:BoolToZeroOpacityConverter x:Key="BoolToZeroOpacityConverter"/>
 	<converters:NullOrEmptyToZeroOpacityConverter x:Key="NullOrEmptyToZeroOpacityConverter"/>
+	<converters:ActivePageTypeToBoolConverter x:Key="ActivePageTypeToBoolConverter"/>
 </ResourceDictionary>

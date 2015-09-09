@@ -33,13 +33,19 @@
 				<GradientStop Offset="0" Color="#2FFE1D"/>
 				<GradientStop Offset="0.5" Color="#1EA712"/>
 				<GradientStop Offset="1" Color="#147E0A"/>
-			</LinearGradientBrush>
+			</LinearGradientBrush>		
 
 			<LinearGradientBrush x:Key="BrushButtonPressedBackgroundColor" StartPoint="0,1" EndPoint="0,0">
 				<GradientStop Offset="0" Color="#25C917"/>
 				<GradientStop Offset="0.8" Color="#167E0D"/>
 				<GradientStop Offset="1" Color="#0C4A06"/>
 			</LinearGradientBrush>
+
+			<SolidColorBrush x:Key="NavButtonBackgroundColor" Color="#F49D14"/>
+			<SolidColorBrush x:Key="NavButtonPointerOverColor" Color="#F28F1A"/>
+			<SolidColorBrush x:Key="NavButtonPressedBackgroundColor" Color="#EB8519"/>
+			<SolidColorBrush x:Key="NavButtonDisabledBackgroundColor" Color="#BB36FF"/>
+
 			<!-- //COLORS -->
 
 			<!-- BORDERS -->
@@ -70,6 +76,12 @@
 				<Setter Property="Foreground" Value="White"/>
 				<Setter Property="VerticalAlignment" Value="Center"/>
 				<Setter Property="HorizontalAlignment" Value="Left"/>
+			</Style>
+
+			<Style x:Key="NavbarLabelStyle" BasedOn="{StaticResource WhiteLabelStyle}" TargetType="TextBlock">
+				<Setter Property="FontSize" Value="12"/>
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="HorizontalAlignment" Value="Center"/>
 			</Style>
 
 			<Style x:Key="HeaderLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource WhiteLabelStyle}">				
@@ -219,6 +231,88 @@
 					</Setter.Value>
 				</Setter>
 			</Style>
+
+			<Style x:Key="NavBarButtonStyle" TargetType="Button">
+				<Setter Property="Background" Value="{StaticResource NavButtonBackgroundColor}"/>
+				<Setter Property="Foreground" Value="{StaticResource BrushButtonFontColor}" />
+				<Setter Property="BorderBrush" Value="{StaticResource BrushButtonBorderColor}" />
+				<Setter Property="BorderThickness" Value="0" />
+				<Setter Property="Padding" Value="20,10" />
+				<Setter Property="Margin" Value="0"></Setter>
+				<Setter Property="HorizontalAlignment" Value="Center" />
+				<Setter Property="VerticalAlignment" Value="Center" />
+				<Setter Property="FontFamily" Value="Calibri" />
+				<Setter Property="FontWeight" Value="Normal"/>
+				<Setter Property="FontSize" Value="15" />
+				<Setter Property="VerticalContentAlignment" Value="Center"/>
+				<Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="Button">
+							<Grid Margin="0">
+								<Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Margin="0"
+                                Padding="0">
+									<ContentPresenter x:Name="ContentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+								</Border>
+
+								<VisualStateManager.VisualStateGroups>
+									<VisualStateGroup x:Name="CommonStates">
+										<VisualState x:Name="Normal" />
+
+										<VisualState x:Name="PointerOver">
+											<Storyboard>
+												<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                       Storyboard.TargetProperty="Background">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource NavButtonPointerOverColor}" />
+												</ObjectAnimationUsingKeyFrames>
+											</Storyboard>
+										</VisualState>
+
+										<VisualState x:Name="Pressed">
+											<Storyboard>
+												<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                       Storyboard.TargetProperty="Background">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource NavButtonPressedBackgroundColor}" />
+												</ObjectAnimationUsingKeyFrames>
+
+												<!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                                       Storyboard.TargetProperty="Foreground">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BrushButtonPressedFontColor}" />
+												</ObjectAnimationUsingKeyFrames>-->
+											</Storyboard>
+										</VisualState>
+
+										<VisualState x:Name="Disabled">
+											<Storyboard>
+												<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                       Storyboard.TargetProperty="Background">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource NavButtonDisabledBackgroundColor}" />
+												</ObjectAnimationUsingKeyFrames>
+											</Storyboard>
+										</VisualState>
+									</VisualStateGroup>
+
+									<VisualStateGroup x:Name="FocusStates">
+										<VisualState x:Name="Focused"/>
+										<VisualState x:Name="Unfocused" />
+										<VisualState x:Name="PointerFocused" />
+									</VisualStateGroup>
+								</VisualStateManager.VisualStateGroups>
+							</Grid>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
 
 			<!-- //BUTTONS -->
 
