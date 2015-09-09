@@ -27,10 +27,10 @@ namespace DietyDataAccess.Accessors
 
 			if (newMealRecord != null)
 			{
-				using (var dietyContext = DataAccessBase.DietyDbContext)
+				using (var dietyContext = DietyDbContext)
 				{
-					dietyContext.Ingredients.Add(newMealRecord as IngredientDb);
-					await dietyContext.SaveChangesAsync();
+					DietyDbContext.Ingredients.Add(newMealRecord as IngredientDb);
+					await DietyDbContext.SaveChangesAsync();
 				}
 			}
 			return item;
@@ -45,24 +45,24 @@ namespace DietyDataAccess.Accessors
 		/// <param name="takeCount">The take count.</param>
 		/// <returns></returns>
 		public async Task<IEnumerable<IIngredient>> GetIngredientsList(
-			Func<IngredientDb, bool> searchCondition = null,
-			Func<IngredientDb, object> orderRule = null,
+			Func<IIngredient, bool> searchCondition = null,
+			Func<IIngredient, object> orderRule = null,
 			int skipCount = 0, int takeCount = Int32.MaxValue)
 		{
-			using (var dietyContext = DataAccessBase.DietyDbContext)
+			using (var dietyContext = DietyDbContext)
 			{
-				IEnumerable<IIngredientData> outputList;
+				IEnumerable<IIngredient> outputList;
 				if (orderRule != null)
 				{
 					outputList =
-						dietyContext.Ingredients.Where(searchCondition ?? (x => true))
+						DietyDbContext.Ingredients.Where(searchCondition ?? (x => true))
 							.OrderBy(orderRule)
 							.Skip(skipCount);
 				}
 				else
 				{
 					outputList =
-						dietyContext.Ingredients.Where(searchCondition ?? (x => true))							
+						DietyDbContext.Ingredients.Where(searchCondition ?? (x => true))							
 							.Skip(skipCount)
 							.Take(takeCount);
 				}
@@ -78,9 +78,9 @@ namespace DietyDataAccess.Accessors
 		/// <returns></returns>
 		public async Task<IIngredient> GetIngredient(long id)
 		{
-			using (var dietyContext = DataAccessBase.DietyDbContext)
+			using (var dietyContext = DietyDbContext)
 			{
-				var record = await dietyContext.Ingredients.FirstOrDefaultAsync(x => x.Id == id);
+				var record = await DietyDbContext.Ingredients.FirstOrDefaultAsync(x => x.Id == id);
 				return record != null ? new Ingredient(record) : null;
 			}
 		}

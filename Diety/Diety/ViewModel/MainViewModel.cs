@@ -1,5 +1,6 @@
 using Diety.Helpers;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Diety.ViewModel
 {
@@ -10,6 +11,7 @@ namespace Diety.ViewModel
         /// </summary>
         public MainViewModel(IMainFrameNavigationService navigationService)
         {
+			DispatcherHelper.Initialize();
 			navigationService.NavigateTo(PageType.Login);
         }
     }

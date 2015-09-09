@@ -9,10 +9,7 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="Login">
 	<Page.Resources>
-		<DataTemplate x:Key="WatermarkTemplate" >
-			<TextBlock Text="{Binding}" Foreground="{StaticResource BrushInputBorderColor}"
-					   Style="{StaticResource RightCenterLabelStyle}"/>
-		</DataTemplate>
+		
 	</Page.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
@@ -49,7 +46,7 @@
 				</Grid>
 			</Border>
 			<Button Grid.Row="2" Grid.Column="0" Margin="10" 
-					Style="{StaticResource BaseNormalButtonStyle}">Zaloguj</Button>
+					Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding LoginCommand}">Zaloguj</Button>
 			<Button Grid.Row="2" Grid.Column="1" Margin="10"
 					Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding RegisterCommand}">Zarejestruj</Button>
 		</Grid>

@@ -1,10 +1,12 @@
-
-
 using System;
 using Diety.Helpers;
+using Diety.ViewModel.PropertyGroups;
+using Diety.ViewModel.PropertyGroups.Interfaces;
 using Diety.Views;
+using DietyServices;
 using DietyDataAccess.Accessors;
 using DietyDataAccess.Accessors.Interfaces;
+using DietyServices.Interfaces;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 
@@ -42,6 +44,12 @@ namespace Diety.ViewModel
 			SimpleIoc.Default.Register<ITrainingsAccess>(() => SimpleIoc.Default.GetInstance<TrainingsAccess>());
 			SimpleIoc.Default.Register<IUserProfilesAccess>(() => SimpleIoc.Default.GetInstance<UserProfilesAccess>());
 			SimpleIoc.Default.Register<IWeightHistoryRecordsAccess>(() => SimpleIoc.Default.GetInstance<WeightHistoryRecordsAccess>());
+
+			SimpleIoc.Default.Register<RehabilitationErrorStatus>();
+			SimpleIoc.Default.Register<PasswordProcessingService>();
+
+			SimpleIoc.Default.Register<IPasswordProcessingService>(() => SimpleIoc.Default.GetInstance<PasswordProcessingService>());
+			SimpleIoc.Default.Register<IRehabilitationErrorStatus>(() => SimpleIoc.Default.GetInstanceWithoutCaching<RehabilitationErrorStatus>());
 
 			SimpleIoc.Default.Register<MainViewModel>();
 			SimpleIoc.Default.Register<StartViewModel>();

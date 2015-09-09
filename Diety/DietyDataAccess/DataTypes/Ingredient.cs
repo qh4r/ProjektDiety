@@ -126,9 +126,9 @@ namespace DietyDataAccess.DataTypes
 		/// Initializes a new instance of the <see cref="Ingredient"/> class.
 		/// </summary>
 		/// <param name="ingredient">The ingredient.</param>
-		internal Ingredient(IIngredientData ingredient)
+		internal Ingredient(IIngredient ingredient)
 		{
-			_ingredient = ingredient;
+			_ingredient = ingredient as IIngredientData;
 		}
 
 		/// <summary>

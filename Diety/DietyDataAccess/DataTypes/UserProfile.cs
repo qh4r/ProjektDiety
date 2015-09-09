@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight;
 
 namespace DietyDataAccess.DataTypes
 {
-	class UserProfile : ViewModelBase, IUserProfile
+	public class UserProfile : ViewModelBase, IUserProfile
 	{
 		#region Private Fields
 
@@ -99,6 +99,22 @@ namespace DietyDataAccess.DataTypes
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the hashed password.
+		/// </summary>
+		/// <value>
+		/// The hashed password.
+		/// </value>
+		public string HashedPassword
+		{
+			get { return _userProfile.HashedPassword; }
+			set
+			{
+				_userProfile.HashedPassword= value;
+				RaisePropertyChanged();
+			}
+		}
+
 		///// <summary>
 		///// Gets or sets the planned meals.
 		///// </summary>
@@ -155,9 +171,9 @@ namespace DietyDataAccess.DataTypes
 		/// Initializes a new instance of the <see cref="UserProfile"/> class.
 		/// </summary>
 		/// <param name="userProfile">The user profile.</param>
-		internal UserProfile(IUserProfileData userProfile)
+		internal UserProfile(IUserProfile userProfile)
 		{
-			_userProfile = userProfile;
+			_userProfile = userProfile as IUserProfileData;
 		}
 
 		/// <summary>

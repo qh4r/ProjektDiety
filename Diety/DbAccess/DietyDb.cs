@@ -22,7 +22,7 @@ namespace DbAccess
 		/// </summary>
 		/// <value>
 		/// The ingredients.
-		/// </value>
+		/// </value>		]
 		public DbSet<IngredientDb> Ingredients { get; set; }
 
 		/// <summary>

@@ -25,11 +25,12 @@ namespace DietyDataAccess
 		{
 			get
 			{
-				if (_dietyDbContext == null)
-				{
-					_dietyDbContext = new DietyDb();
-				}
-				return _dietyDbContext;
+				//if (_dietyDbContext == null)
+				//{
+				//	_dietyDbContext = new DietyDb();
+				//}
+				//return _dietyDbContext;
+				return new DietyDb();
 			}
 		}
 

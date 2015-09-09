@@ -46,6 +46,14 @@ namespace DietyCommonTypes.Interfaces
 		/// </value>
         double Bmi{get; set;}
 
+		/// <summary>
+		/// Gets or sets the hashed password.
+		/// </summary>
+		/// <value>
+		/// The hashed password.
+		/// </value>
+		string HashedPassword { get; set; }
+
 		///// <summary>
 		///// Gets or sets the planned meals.
 		///// </summary>

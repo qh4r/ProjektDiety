@@ -15,6 +15,7 @@
 			<SolidColorBrush x:Key="BrushButtonPressedFontColor" Color="#FFCCCCCC"/>
 			<SolidColorBrush x:Key="BrushInputBackgroundColor" Color="#FFFFFFFF"/>
 			<SolidColorBrush x:Key="BrushInputBorderColor" Color="#FFB0B0B0"/>
+			<SolidColorBrush x:Key="BrushErrorBorderColor" Color="#E82121"/>
 			<SolidColorBrush x:Key="BrushAlmostTransparentBacground" Color="#01FFFFFF"/>
 
 
@@ -39,7 +40,7 @@
 				<GradientStop Offset="1" Color="#0C4A06"/>
 			</LinearGradientBrush>
 			<!-- //COLORS -->
-			
+
 			<!-- BORDERS -->
 
 			<Style x:Key="RoundBorderStyle" TargetType="Border">
@@ -50,18 +51,24 @@
 				<!--<Setter Property="Padding" Value="10"/>-->
 				<Setter Property="Margin" Value="0,5"/>
 				<Setter Property="HorizontalAlignment" Value="Stretch"/>
-				<Setter Property="VerticalAlignment" Value="Center"/>				
+				<Setter Property="VerticalAlignment" Value="Center"/>
 			</Style>
 			<!-- //BORDER -->
-			
+
 			<!-- TEXT BLOCKS -->
 
 			<Style x:Key="BaseLabelStyle" TargetType="TextBlock">
 				<Setter Property="FontFamily" Value="Calibri"/>
 				<Setter Property="FontWeight" Value="Normal"/>
 				<Setter Property="FontSize" Value="18"/>
-				<Setter Property="TextTrimming" Value="CharacterEllipsis" />
+				<Setter Property="TextWrapping" Value="Wrap"/>
 				<Setter Property="Foreground" Value="{StaticResource BrushFontColor}"/>
+			</Style>
+
+			<Style x:Key="ErrorMessageLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseLabelStyle}">
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="Margin" Value="20,0"/>
+				<Setter Property="Foreground" Value="{StaticResource BrushErrorBorderColor}"/>
 			</Style>
 
 			<Style x:Key="LeftCenterLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseLabelStyle}">
@@ -71,28 +78,28 @@
 				<Setter Property="Margin" Value="10,0"/>
 			</Style>
 
-			<Style x:Key="RightCenterLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource LeftCenterLabelStyle}">				
-				<Setter Property="HorizontalAlignment" Value="Right"/>				
+			<Style x:Key="RightCenterLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource LeftCenterLabelStyle}">
+				<Setter Property="HorizontalAlignment" Value="Right"/>
 			</Style>
 
 			<!-- TEXT BLOCKS -->
-			
+
 			<!-- TEXT BOXES -->
 
 			<Style x:Key="BaseInputStyle" TargetType="Control">
 				<Setter Property="Foreground" Value="{StaticResource BrushInputFontColor}" />
 				<Setter Property="BorderBrush" Value="{StaticResource BrushAlmostTransparentBacground}" />
-				<Setter Property="BorderThickness" Value="0"/>				
+				<Setter Property="BorderThickness" Value="0"/>
 				<Setter Property="FontSize" Value="18" />
 				<Setter Property="FontFamily" Value="Calibri" />
 			</Style>
 
-			
+
 			<Style x:Key="BaseTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource BaseInputStyle}">
 				<!--<Setter Property="MinHeight" Value="40" />-->
 				<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
 				<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
-				<Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />				
+				<Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
 			</Style>
 
 			<!-- //TEXT BOXES -->
@@ -196,6 +203,15 @@
 			</Style>
 
 			<!-- //BUTTONS -->
+
+			<!-- TEMPLATES -->
+
+			<DataTemplate x:Key="WatermarkTemplate" >
+				<TextBlock Text="{Binding}" Foreground="{StaticResource BrushInputBorderColor}"
+					   Style="{StaticResource RightCenterLabelStyle}"/>
+			</DataTemplate>
+
+			<!-- //TEMPLATES -->
 		</ResourceDictionary>
 
 	</ResourceDictionary.MergedDictionaries>

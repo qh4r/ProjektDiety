@@ -27,10 +27,10 @@ namespace DietyDataAccess.Accessors
 
 			if (newMealRecord != null)
 			{
-				using (var dietyContext = DataAccessBase.DietyDbContext)
+				using (var dietyContext = DietyDbContext)
 				{
-					dietyContext.Recipes.Add(newMealRecord as RecipeDb);
-					await dietyContext.SaveChangesAsync();
+					DietyDbContext.Recipes.Add(newMealRecord as RecipeDb);
+					await DietyDbContext.SaveChangesAsync();
 				}
 			}
 			return item;
@@ -49,20 +49,20 @@ namespace DietyDataAccess.Accessors
 			Func<RecipeDb, object> orderRule = null,
 			int skipCount = 0, int takeCount = Int32.MaxValue)
 		{
-			using (var dietyContext = DataAccessBase.DietyDbContext)
+			using (var dietyContext = DietyDbContext)
 			{
 				IEnumerable<IRecipeData> outputList;
 				if (orderRule != null)
 				{
 					outputList =
-						dietyContext.Recipes.Where(searchCondition ?? (x => true))
+						DietyDbContext.Recipes.Where(searchCondition ?? (x => true))
 							.OrderBy(orderRule)
 							.Skip(skipCount);
 				}
 				else
 				{
 					outputList =
-						dietyContext.Recipes.Where(searchCondition ?? (x => true))							
+						DietyDbContext.Recipes.Where(searchCondition ?? (x => true))							
 							.Skip(skipCount)
 							.Take(takeCount);
 				}
@@ -78,9 +78,9 @@ namespace DietyDataAccess.Accessors
 		/// <returns></returns>
 		public async Task<IRecipe> GetRecipe(long id)
 		{
-			using (var dietyContext = DataAccessBase.DietyDbContext)
+			using (var dietyContext = DietyDbContext)
 			{
-				var record = await dietyContext.Recipes.FirstOrDefaultAsync(x => x.Id == id);
+				var record = await DietyDbContext.Recipes.FirstOrDefaultAsync(x => x.Id == id);
 				return record != null ? new Recipe(record) : null;
 			}
 		}

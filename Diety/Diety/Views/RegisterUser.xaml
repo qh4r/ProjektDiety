@@ -2,12 +2,152 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:extensions="clr-namespace:Diety.Helpers.Extensions"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:converters="clr-namespace:Diety.Helpers.Converters"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=RegisterUser}"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="RegisterUser">
+	<Page.Resources>
+		<converters:BoolToSolidColorBrushConverter ActiveColor="{StaticResource BrushErrorBorderColor}"
+												   NormalColor="{StaticResource BrushInputBorderColor}"
+												   x:Key="BoolToSolidColorBrushBorderConverter"/>
+		<converters:BoolToSolidColorBrushConverter ActiveColor="{StaticResource BrushErrorBorderColor}"
+												   NormalColor="{StaticResource BrushInputFontColor}"
+												   x:Key="BoolToSolidColorBrushInputConverter"/>
+	</Page.Resources>
 
-    <Grid>
-        
-    </Grid>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="2*"/>			
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Row="1" Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<!-- LOGIN -->
+			<Border BorderBrush="{Binding ErrorStatus.UsernameError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
+					Style="{StaticResource RoundBorderStyle}" Grid.Row="0" Grid.Column="0">
+				<xctk:WatermarkTextBox Foreground ="{Binding ErrorStatus.UsernameError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
+									   Watermark="Login" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+								    Style="{StaticResource BaseTextBoxStyle}" Text="{Binding UserName, Mode=TwoWay}">
+					<i:Interaction.Triggers>
+						<i:EventTrigger EventName="GotFocus">
+							<i:InvokeCommandAction Command="{Binding UsernameGotFocus}"/>
+						</i:EventTrigger>
+						<i:EventTrigger EventName="LostFocus">
+							<i:InvokeCommandAction Command="{Binding UsernameLostFocus}"/>
+						</i:EventTrigger>
+					</i:Interaction.Triggers>
+				</xctk:WatermarkTextBox>				
+			</Border>
+			<TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.UsernameErrorMessage}"/>
+			<!-- PASS -->
+			<Border BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
+					Style="{StaticResource RoundBorderStyle}" Grid.Row="1" Grid.Column="0">
+				<Grid>
+					<xctk:WatermarkTextBox IsReadOnly="True" Opacity="{Binding IsPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+								   Style="{StaticResource BaseTextBoxStyle}"/>
+
+					<PasswordBox  BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
+								  VerticalContentAlignment="Center" extensions:PasswordBoxExtensions.BindablePassword="{Binding Password, Mode=TwoWay}" extensions:PasswordBoxExtensions.TrackPassword="True"
+								  Background="{StaticResource BrushAlmostTransparentBacground}" Style="{StaticResource BaseInputStyle}" Margin="10,0">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="GotFocus">
+								<i:InvokeCommandAction Command="{Binding PasswordGotFocus}"/>
+							</i:EventTrigger>
+							<i:EventTrigger EventName="LostFocus">
+								<i:InvokeCommandAction Command="{Binding PasswordLostFocus}"/>
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</PasswordBox>
+				</Grid>
+			</Border>
+			<TextBlock Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.PasswordErrorMessage}"/>
+			<!-- PASS REPEAT -->
+			<Border  BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
+					 Style="{StaticResource RoundBorderStyle}" Grid.Row="2" Grid.Column="0">
+				<Grid>
+					<xctk:WatermarkTextBox IsReadOnly="True"  Opacity="{Binding IsRepeatPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Powtórz Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+								   Style="{StaticResource BaseTextBoxStyle}"/>
+
+					<PasswordBox BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
+								 VerticalContentAlignment="Center" extensions:PasswordBoxExtensions.BindablePassword="{Binding RepeatPassword, Mode=TwoWay}" extensions:PasswordBoxExtensions.TrackPassword="True"
+								 Background="{StaticResource BrushAlmostTransparentBacground}" Style="{StaticResource BaseInputStyle}" Margin="10,0">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="GotFocus">
+								<i:InvokeCommandAction Command="{Binding PasswordGotFocus}"/>
+							</i:EventTrigger>
+							<i:EventTrigger EventName="LostFocus">
+								<i:InvokeCommandAction Command="{Binding PasswordLostFocus}"/>
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</PasswordBox>
+				</Grid>
+			</Border>			
+			<!-- WEIGHT -->
+			<Border BorderBrush="{Binding ErrorStatus.WeightError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
+					Style="{StaticResource RoundBorderStyle}" Grid.Row="3" Grid.Column="0">
+				<xctk:WatermarkTextBox Foreground ="{Binding ErrorStatus.WeightError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
+									   Watermark="Waga" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+								    Style="{StaticResource BaseTextBoxStyle}" Text="{Binding Weight, Mode=TwoWay}">
+					<i:Interaction.Triggers>
+						<i:EventTrigger EventName="GotFocus">
+							<i:InvokeCommandAction Command="{Binding WeightGotFocus}"/>
+						</i:EventTrigger>
+						<i:EventTrigger EventName="LostFocus">
+							<i:InvokeCommandAction Command="{Binding WeightLostFocus}"/>
+						</i:EventTrigger>
+					</i:Interaction.Triggers>
+				</xctk:WatermarkTextBox>
+			</Border>
+			<TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.WeightErrorMessage}"/>
+			<!-- HEIGHT -->
+			<Border BorderBrush="{Binding ErrorStatus.HeightError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
+					Style="{StaticResource RoundBorderStyle}" Grid.Row="4" Grid.Column="0">
+				<xctk:WatermarkTextBox Foreground ="{Binding ErrorStatus.HeightError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
+									   Watermark="Wzrost" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+								    Style="{StaticResource BaseTextBoxStyle}" Text="{Binding Height, Mode=TwoWay}">
+					<i:Interaction.Triggers>
+						<i:EventTrigger EventName="GotFocus">
+							<i:InvokeCommandAction Command="{Binding HeigthGotFocus}"/>
+						</i:EventTrigger>
+						<i:EventTrigger EventName="LostFocus">
+							<i:InvokeCommandAction Command="{Binding HeightLostFocus}"/>
+						</i:EventTrigger>
+					</i:Interaction.Triggers>
+				</xctk:WatermarkTextBox>
+			</Border>
+			<TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.HeightErrorMessage}"/>
+		</Grid>
+		<Grid Grid.Row="3" Grid.Column="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<Button Grid.Column="0" IsEnabled="{Binding IsRegistrationPossible}" Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding RegisterCommand}">Zatwierdź</Button>
+			<Button Grid.Column="2" Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding GoBackCommand}">Wróć</Button>
+		</Grid>
+	</Grid>
 </Page>

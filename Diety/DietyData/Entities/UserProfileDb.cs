@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using System.Security.Policy;
 using DietyCommonTypes.Interfaces;
 using DietyDataTransportTypes.Interfaces;
 
@@ -27,6 +30,8 @@ namespace DietyData.Entities
 		/// <value>
 		/// The name of the user.
 		/// </value>
+		[MaxLength(20)]
+		[Index("UserUnique", IsClustered = false, IsUnique = true)]
 		public string UserName { get; set; }
 
 		/// <summary>

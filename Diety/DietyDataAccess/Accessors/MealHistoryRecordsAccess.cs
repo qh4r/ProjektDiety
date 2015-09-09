@@ -27,10 +27,10 @@ namespace DietyDataAccess.Accessors
 
 			if (newMealRecord != null)
 			{
-				using (var dietyContext = DataAccessBase.DietyDbContext)
+				using (var dietyContext = DietyDbContext)
 				{
-					dietyContext.MealHistoryRecords.Add(newMealRecord as MealHistoryRecordDb);
-					await dietyContext.SaveChangesAsync();
+					DietyDbContext.MealHistoryRecords.Add(newMealRecord as MealHistoryRecordDb);
+					await DietyDbContext.SaveChangesAsync();
 				}
 			}
 			return item;
@@ -49,20 +49,20 @@ namespace DietyDataAccess.Accessors
 			Func<MealHistoryRecordDb, object> orderRule = null,
 			int skipCount = 0, int takeCount = Int32.MaxValue)
 		{
-			using (var dietyContext = DataAccessBase.DietyDbContext)
+			using (var dietyContext = DietyDbContext)
 			{
 				IEnumerable<IMealHistoryRecordData> outputList;
 				if (orderRule != null)
 				{
 					outputList =
-						dietyContext.MealHistoryRecords.Where(searchCondition ?? (x => true))
+						DietyDbContext.MealHistoryRecords.Where(searchCondition ?? (x => true))
 							.OrderBy(orderRule)
 							.Skip(skipCount);
 				}
 				else
 				{
 					outputList =
-						dietyContext.MealHistoryRecords.Where(searchCondition ?? (x => true))							
+						DietyDbContext.MealHistoryRecords.Where(searchCondition ?? (x => true))							
 							.Skip(skipCount)
 							.Take(takeCount);
 				}
@@ -78,9 +78,9 @@ namespace DietyDataAccess.Accessors
 		/// <returns></returns>
 		public async Task<IMealHistoryRecord> GetMealHistoryRecord(long id)
 		{
-			using (var dietyContext = DataAccessBase.DietyDbContext)
+			using (var dietyContext = DietyDbContext)
 			{
-				var record = await dietyContext.MealHistoryRecords.FirstOrDefaultAsync(x => x.Id == id);
+				var record = await DietyDbContext.MealHistoryRecords.FirstOrDefaultAsync(x => x.Id == id);
 				return record != null ? new MealHistoryRecord(record) : null;
 			}
 		}

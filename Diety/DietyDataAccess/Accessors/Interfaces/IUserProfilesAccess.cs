@@ -15,7 +15,7 @@ namespace DietyDataAccess.Accessors.Interfaces
 		/// </summary>
 		/// <param name="item">The meal history record.</param>
 		/// <returns></returns>
-		Task<IUserProfile> AddMealRecord(IUserProfile item);
+		Task<IUserProfile> AddUser(IUserProfile item);
 
 		/// <summary>
 		/// Gets the meal history records list.
@@ -26,8 +26,8 @@ namespace DietyDataAccess.Accessors.Interfaces
 		/// <param name="takeCount">The take count.</param>
 		/// <returns></returns>
 		Task<IEnumerable<IUserProfile>> GetUserProfilesList(
-			Func<UserProfileDb, bool> searchCondition = null,
-			Func<UserProfileDb, object> orderRule = null,
+			Func<IUserProfile, bool> searchCondition = null,
+			Func<IUserProfile, object> orderRule = null,
 			int skipCount = 0, int takeCount = Int32.MaxValue);
 
 		/// <summary>
@@ -36,6 +36,13 @@ namespace DietyDataAccess.Accessors.Interfaces
 		/// <param name="id">The identifier.</param>
 		/// <returns></returns>
 		Task<IUserProfile> GetUserProfile(long id);
+
+		/// <summary>
+		/// Gets the name of the user profile by.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns></returns>
+		Task<IUserProfile> GetUserProfileByName(string name);
 
 		#endregion
 

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Diety.Helpers;
+using DietyCommonTypes.Interfaces;
+using DietyDataAccess.Accessors.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Diety.ViewModel
 {
@@ -23,6 +27,11 @@ namespace Diety.ViewModel
 		/// The _password
 		/// </summary>
 		private string _password;
+
+		/// <summary>
+		/// The _ingredients access
+		/// </summary>
+		private IIngredientsAccess _ingredientsAccess;
 
 		#endregion
 
@@ -73,6 +82,22 @@ namespace Diety.ViewModel
 			get { return String.IsNullOrEmpty(Password); }
 		}
 
+		public RelayCommand LoginCommand
+		{
+			get
+			{
+				return new RelayCommand(() =>
+				{
+					DispatcherHelper.RunAsync(async () =>
+					{
+						var ingredients = await _ingredientsAccess.GetIngredientsList();
+						var test = ingredients.Count();
+						Debug.WriteLine(test);
+					});
+				});
+			}
+		}
+
 		#endregion
 
 		#region C-tors
@@ -81,9 +106,10 @@ namespace Diety.ViewModel
 		/// Initializes a new instance of the <see cref="LoginViewModel"/> class.
 		/// </summary>
 		/// <param name="mainFrameNavigationService">The main frame navigation service.</param>
-		public LoginViewModel(IMainFrameNavigationService mainFrameNavigationService)
+		public LoginViewModel(IMainFrameNavigationService mainFrameNavigationService, IIngredientsAccess ingredientsAccess)
 		{
 			_mainFrameNavigationService = mainFrameNavigationService;
+			_ingredientsAccess = ingredientsAccess;
 		}
 
 		#endregion

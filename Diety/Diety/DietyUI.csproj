@@ -102,6 +102,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\Converters\BoolToSolidColorBrushConverter.cs" />
     <Compile Include="Helpers\Converters\BoolToZeroOpacityConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToInverseVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToVisibilityConverter.cs" />
@@ -115,6 +116,8 @@
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\PropertyGroups\Interfaces\IRehabilitationErrorStatus.cs" />
+    <Compile Include="ViewModel\PropertyGroups\RehabilitationErrorStatus.cs" />
     <Compile Include="ViewModel\RegisterUserViewModel.cs" />
     <Compile Include="ViewModel\SecondViewModel.cs" />
     <Compile Include="ViewModel\StartViewModel.cs" />
@@ -217,6 +220,7 @@
       <Name>DietyServices</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
