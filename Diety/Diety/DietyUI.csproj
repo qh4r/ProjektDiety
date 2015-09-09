@@ -102,10 +102,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\Constatnts\Messages.cs" />
     <Compile Include="Helpers\Converters\BoolToSolidColorBrushConverter.cs" />
     <Compile Include="Helpers\Converters\BoolToZeroOpacityConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToInverseVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\NullOrEmptyToZeroOpacityConverter.cs" />
     <Compile Include="Helpers\Extensions\PasswordBoxExtensions.cs" />
     <Compile Include="Helpers\Extensions\WinodowStateControlButtonExtensions.cs" />
     <Compile Include="Helpers\IMainFrameNavigationService.cs" />

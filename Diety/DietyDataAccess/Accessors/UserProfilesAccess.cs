@@ -32,7 +32,7 @@ namespace DietyDataAccess.Accessors
 				using (var dietyContext = DietyDbContext)
 				{
 					dietyContext.UserProfiles.Add(newMealRecord as UserProfileDb);
-					dietyContext.SaveChanges();
+					await dietyContext.SaveChangesAsync();
 				}
 				await Task.Yield();
 			}

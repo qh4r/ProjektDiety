@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Diety.Helpers;
+using Diety.Helpers.Constatnts;
 using DietyCommonTypes.Interfaces;
 using DietyDataAccess.Accessors.Interfaces;
+using DietyServices.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
@@ -28,10 +30,26 @@ namespace Diety.ViewModel
 		/// </summary>
 		private string _password;
 
+
 		/// <summary>
-		/// The _ingredients access
+		/// The _login
 		/// </summary>
-		private IIngredientsAccess _ingredientsAccess;
+		private string _login;
+
+		/// <summary>
+		/// The _user profiles access
+		/// </summary>
+		private readonly IUserProfilesAccess _userProfilesAccess;
+
+		/// <summary>
+		/// The _error message
+		/// </summary>
+		private string _errorMessage;
+
+		/// <summary>
+		/// The _password processing service
+		/// </summary>
+		private IPasswordProcessingService _passwordProcessingService;
 
 		#endregion
 
@@ -49,7 +67,7 @@ namespace Diety.ViewModel
 			set
 			{
 				Set(ref _password, value);
-				RaisePropertyChanged("IsPasswordEmpty");
+				RaisePropertyChanged(() => IsPasswordEmpty);
 			}
 		}
 
@@ -82,6 +100,12 @@ namespace Diety.ViewModel
 			get { return String.IsNullOrEmpty(Password); }
 		}
 
+		/// <summary>
+		/// Gets the login command.
+		/// </summary>
+		/// <value>
+		/// The login command.
+		/// </value>
 		public RelayCommand LoginCommand
 		{
 			get
@@ -90,12 +114,75 @@ namespace Diety.ViewModel
 				{
 					DispatcherHelper.RunAsync(async () =>
 					{
-						var ingredients = await _ingredientsAccess.GetIngredientsList();
-						var test = ingredients.Count();
-						Debug.WriteLine(test);
+						DispatcherHelper.RunAsync(async () =>
+						{
+							try
+							{
+								var user = await _userProfilesAccess.GetUserProfileByName(Login);
+								if (user != null)
+								{
+									var realPass = _passwordProcessingService.DecryptPassword(Login, user.HashedPassword);
+									if (String.Equals(Password, realPass))
+									{
+										_mainFrameNavigationService.NavigateTo(PageType.Home);
+									}
+									else
+									{
+										ErrorMessage = Messages.WrongUsernameOrPassword;
+									}
+								}
+								else
+								{
+									ErrorMessage = Messages.WrongUsernameOrPassword;
+								}
+							}
+							catch (Exception e)
+							{
+								//TODO ERROR POPUP
+								ErrorMessage = "Dupa zbita";
+							}
+						});
 					});
 				});
 			}
+		}
+
+		/// <summary>
+		/// Gets or sets the error message.
+		/// </summary>
+		/// <value>
+		/// The error message.
+		/// </value>
+		public string ErrorMessage
+		{
+			get { return _errorMessage; }
+			set { Set(ref _errorMessage, value); }
+		}
+
+		/// <summary>
+		/// Gets or sets the login.
+		/// </summary>
+		/// <value>
+		/// The login.
+		/// </value>
+		public string Login
+		{
+			get { return _login; }
+			set { Set(ref _login, value); }
+		}
+
+		/// <summary>
+		/// Gets the got focus command.
+		/// </summary>
+		/// <value>
+		/// The got focus command.
+		/// </value>
+		public RelayCommand GotFocusCommand
+		{
+			get { return new RelayCommand(() =>
+			{
+				ErrorMessage = null;
+			}); }
 		}
 
 		#endregion
@@ -103,13 +190,16 @@ namespace Diety.ViewModel
 		#region C-tors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LoginViewModel"/> class.
+		/// Initializes a new instance of the <see cref="LoginViewModel" /> class.
 		/// </summary>
 		/// <param name="mainFrameNavigationService">The main frame navigation service.</param>
-		public LoginViewModel(IMainFrameNavigationService mainFrameNavigationService, IIngredientsAccess ingredientsAccess)
+		/// <param name="userProfilesAccess">The user profiles access.</param>
+		/// <param name="passwordProcessingService">The password processing service.</param>
+		public LoginViewModel(IMainFrameNavigationService mainFrameNavigationService, IUserProfilesAccess userProfilesAccess, IPasswordProcessingService passwordProcessingService)
 		{
 			_mainFrameNavigationService = mainFrameNavigationService;
-			_ingredientsAccess = ingredientsAccess;
+			_userProfilesAccess = userProfilesAccess;
+			_passwordProcessingService = passwordProcessingService;
 		}
 
 		#endregion

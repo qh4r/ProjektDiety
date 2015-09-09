@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
 
 namespace Diety.Helpers.Converters
 {
-	class NullOrEmptyToVisibilityConverter : IValueConverter
+	public class NullOrEmptyToZeroOpacityConverter : IValueConverter
 	{
 		#region Public Methods
 
@@ -28,10 +23,10 @@ namespace Diety.Helpers.Converters
 			if (value is string)
 			{
 				string val = value as string;
-				return String.IsNullOrWhiteSpace(val.Trim()) ? Visibility.Collapsed : Visibility.Visible;
+				return String.IsNullOrWhiteSpace(val.Trim()) ? 0 : 1;
 			}
 
-			return value == null ? Visibility.Collapsed : Visibility.Visible;
+			return value == null ? 0 : 1;
 		}
 
 		/// <summary>
@@ -51,6 +46,6 @@ namespace Diety.Helpers.Converters
 		}
 
 		#endregion
-		
+
 	}
 }

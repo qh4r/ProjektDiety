@@ -5,5 +5,6 @@
 	<converters:NullOrEmptyToVisibilityConverter x:Key="NullOrEmptyToVisibilityConverter"/>
 	<converters:NullOrEmptyToInverseVisibilityConverter x:Key="NullOrEmptyToInverseVisibilityConverter"/>
 	<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>	
-	<converters:BoolToZeroOpacityConverter x:Key="BoolToZeroOpacityConverter"></converters:BoolToZeroOpacityConverter>
+	<converters:BoolToZeroOpacityConverter x:Key="BoolToZeroOpacityConverter"/>
+	<converters:NullOrEmptyToZeroOpacityConverter x:Key="NullOrEmptyToZeroOpacityConverter"/>
 </ResourceDictionary>

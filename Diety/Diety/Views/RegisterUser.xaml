@@ -66,7 +66,7 @@
 			<Border BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
 					Style="{StaticResource RoundBorderStyle}" Grid.Row="1" Grid.Column="0">
 				<Grid>
-					<xctk:WatermarkTextBox IsReadOnly="True" Opacity="{Binding IsPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+					<xctk:WatermarkTextBox IsEnabled="False" IsReadOnly="True" Opacity="{Binding IsPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
 								   Style="{StaticResource BaseTextBoxStyle}"/>
 
 					<PasswordBox  BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
@@ -88,7 +88,7 @@
 			<Border  BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
 					 Style="{StaticResource RoundBorderStyle}" Grid.Row="2" Grid.Column="0">
 				<Grid>
-					<xctk:WatermarkTextBox IsReadOnly="True"  Opacity="{Binding IsRepeatPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Powtórz Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+					<xctk:WatermarkTextBox IsEnabled="False"  Opacity="{Binding IsRepeatPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Powtórz Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
 								   Style="{StaticResource BaseTextBoxStyle}"/>
 
 					<PasswordBox BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
