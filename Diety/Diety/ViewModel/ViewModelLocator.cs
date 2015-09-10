@@ -47,9 +47,11 @@ namespace Diety.ViewModel
 			SimpleIoc.Default.Register<IUserProfilesAccess>(() => SimpleIoc.Default.GetInstance<UserProfilesAccess>());
 			SimpleIoc.Default.Register<IWeightHistoryRecordsAccess>(() => SimpleIoc.Default.GetInstance<WeightHistoryRecordsAccess>());
 
+			SimpleIoc.Default.Register<PageBaseViewModel>();
 			SimpleIoc.Default.Register<PasswordProcessingService>();
 			SimpleIoc.Default.Register<CurrentUserModule>();
 
+			SimpleIoc.Default.Register<IPageBaseViewModel>(() => SimpleIoc.Default.GetInstance<PageBaseViewModel>());
 			SimpleIoc.Default.Register<IPasswordProcessingService>(() => SimpleIoc.Default.GetInstance<PasswordProcessingService>());
 			SimpleIoc.Default.Register<ICurrentUserModule>(() => SimpleIoc.Default.GetInstance<CurrentUserModule>());
 
@@ -57,6 +59,9 @@ namespace Diety.ViewModel
 			SimpleIoc.Default.Register<LoginViewModel>();
 			SimpleIoc.Default.Register<RegisterUserViewModel>();
 			SimpleIoc.Default.Register<HomeViewModel>();
+			SimpleIoc.Default.Register<RecipesViewModel>();
+			SimpleIoc.Default.Register<StatisticsViewModel>();
+			SimpleIoc.Default.Register<CalendarViewModel>();
 		}
 
 		#endregion
@@ -72,6 +77,10 @@ namespace Diety.ViewModel
 			navigationService.Configure(PageType.Login, new Uri("/Views/Login.xaml", UriKind.Relative));
 			navigationService.Configure(PageType.RegisterUser, new Uri("/Views/RegisterUser.xaml", UriKind.Relative));
 			navigationService.Configure(PageType.Home, new Uri("/Views/Home.xaml", UriKind.Relative));
+			navigationService.Configure(PageType.Calendar, new Uri("/Views/Calendar.xaml", UriKind.Relative));
+			navigationService.Configure(PageType.Statistics, new Uri("/Views/Statistics.xaml", UriKind.Relative));
+			navigationService.Configure(PageType.Recipes, new Uri("/Views/Recipes.xaml", UriKind.Relative));
+
 
 
 
@@ -127,6 +136,40 @@ namespace Diety.ViewModel
 		{
 			get { return SimpleIoc.Default.GetInstance<HomeViewModel>(); }
 		}
+
+		/// <summary>
+		/// Gets the calendar.
+		/// </summary>
+		/// <value>
+		/// The calendar.
+		/// </value>
+		public CalendarViewModel Calendar
+		{
+			get { return SimpleIoc.Default.GetInstance<CalendarViewModel>(); }
+		}
+
+		/// <summary>
+		/// Gets the recipes.
+		/// </summary>
+		/// <value>
+		/// The recipes.
+		/// </value>
+		public RecipesViewModel Recipes
+		{
+			get { return SimpleIoc.Default.GetInstance<RecipesViewModel>(); }
+		}
+
+		/// <summary>
+		/// Gets the statistics.
+		/// </summary>
+		/// <value>
+		/// The statistics.
+		/// </value>
+		public StatisticsViewModel Statistics
+		{
+			get { return SimpleIoc.Default.GetInstance<StatisticsViewModel>(); }
+		}
+
 
 		/// <summary>
 		/// Cleanups this instance.

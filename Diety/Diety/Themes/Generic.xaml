@@ -3,24 +3,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Diety"
     xmlns:templateControlls="clr-namespace:Diety.TemplateControlls"
-    xmlns:extensions="clr-namespace:Diety.Helpers.Extensions">
-    <!--<ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="/Diety;component/TemplateControlls/PageBase.xaml"/>
+    xmlns:extensions="clr-namespace:Diety.Helpers.Extensions"
+    xmlns:helpers="clr-namespace:Diety.Helpers">
+	<!--<ResourceDictionary.MergedDictionaries>
+
 		<ResourceDictionary>-->
 			<Style TargetType="{x:Type templateControlls:PageBase}">
 				<Setter Property="Template">
 					<Setter.Value>
-				<ControlTemplate TargetType="{x:Type templateControlls:PageBase}">
-					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-						<Grid.Resources>
-							<ResourceDictionary>
-								<ResourceDictionary.MergedDictionaries>
-									<ResourceDictionary Source="/Diety;component/Styles/Converters.xaml"/>
-									<ResourceDictionary Source="/Diety;component/Styles/CommonStyles.xaml"/>
-									<ResourceDictionary Source="/Diety;component/Resources/icons/Icons.xaml"/>
-								</ResourceDictionary.MergedDictionaries>
-							</ResourceDictionary>
-						</Grid.Resources>
+						<ControlTemplate TargetType="{x:Type templateControlls:PageBase}">
+							<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+								<Grid.Resources>
+									<ResourceDictionary>
+										<ResourceDictionary.MergedDictionaries>
+											<ResourceDictionary Source="/Diety;component/Styles/Converters.xaml"/>
+											<ResourceDictionary Source="/Diety;component/Styles/CommonStyles.xaml"/>
+											<ResourceDictionary Source="/Diety;component/Resources/icons/Icons.xaml"/>
+										</ResourceDictionary.MergedDictionaries>
+									</ResourceDictionary>
+								</Grid.Resources>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
 									<RowDefinition Height="*"/>
@@ -35,7 +36,7 @@
 										<ColumnDefinition Width="Auto"/>
 									</Grid.ColumnDefinitions>
 									<Button Grid.Column="0" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Center"
-						Command="{Binding GoHomeCommand}">
+						Command="{Binding PageBaseModel.GoHomeCommand}">
 										<Button.Template>
 											<ControlTemplate>
 												<Grid>
@@ -46,9 +47,9 @@
 											</ControlTemplate>
 										</Button.Template>
 									</Button>
-									<TextBlock Grid.Column="1" Style="{StaticResource HeaderLabelStyle}" Text="{Binding UserModule.CurrentUser.UserName}"/>
+									<TextBlock Grid.Column="1" Style="{StaticResource HeaderLabelStyle}" Text="{Binding PageBaseModel.UserModule.CurrentUser.UserName}"/>
 									<!--Logout-->
-									<Button Grid.Column="2" Margin="10,0" Command="{Binding LogOutCommand}">
+									<Button Grid.Column="2" Margin="10,0" Command="{Binding PageBaseModel.LogOutCommand}">
 										<Button.Template>
 											<ControlTemplate>
 												<TextBlock Margin="0" HorizontalAlignment="Right" Style="{StaticResource SubHeaderLabelStyle}" Text="Wyloguj"/>
@@ -111,7 +112,7 @@
 										<ColumnDefinition Width="*"/>
 									</Grid.ColumnDefinitions>
 									<!-- NavTab -->
-									<Grid Grid.Column="0" Background="{StaticResource HeaderBackgroundBrush}">
+									<Grid Grid.Column="0" Background="{StaticResource NavigationBarBacgkroundBursh}">
 										<Grid>
 											<Grid.RowDefinitions>
 												<RowDefinition Height="Auto"/>
@@ -120,7 +121,17 @@
 												<RowDefinition Height="Auto"/>
 												<RowDefinition Height="*"/>
 											</Grid.RowDefinitions>
-											<Button Grid.Row="0" Style="{StaticResource NavBarButtonStyle}">
+											<Button Margin="0,20,0,10" Grid.Row="0" Command="{Binding PageBaseModel.NavigateToTabCommand}" Style="{StaticResource NavBarButtonStyle}">
+												<Button.CommandParameter>
+													<helpers:PageType>Home</helpers:PageType>
+												</Button.CommandParameter>
+												<Button.IsEnabled>
+													<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
+														<Binding.ConverterParameter>
+															<helpers:PageType>Home</helpers:PageType>
+														</Binding.ConverterParameter>
+													</Binding>
+												</Button.IsEnabled>
 												<Grid>
 													<Grid.RowDefinitions>
 														<RowDefinition Height="*"/>
@@ -134,7 +145,17 @@
 													</TextBlock>
 												</Grid>
 											</Button>
-											<Button Grid.Row="1" Style="{StaticResource NavBarButtonStyle}">
+											<Button Grid.Row="1" Command="{Binding PageBaseModel.NavigateToTabCommand}"  Style="{StaticResource NavBarButtonStyle}">
+												<Button.CommandParameter>
+													<helpers:PageType>Calendar</helpers:PageType>
+												</Button.CommandParameter>
+												<Button.IsEnabled>
+													<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
+														<Binding.ConverterParameter>
+															<helpers:PageType>Calendar</helpers:PageType>
+														</Binding.ConverterParameter>
+													</Binding>
+												</Button.IsEnabled>
 												<Grid>
 													<Grid.RowDefinitions>
 														<RowDefinition Height="*"/>
@@ -148,7 +169,17 @@
 													</TextBlock>
 												</Grid>
 											</Button>
-											<Button Grid.Row="2" Style="{StaticResource NavBarButtonStyle}">
+											<Button Grid.Row="2" Command="{Binding PageBaseModel.NavigateToTabCommand}"  Style="{StaticResource NavBarButtonStyle}">
+												<Button.CommandParameter>
+													<helpers:PageType>Recipes</helpers:PageType>
+												</Button.CommandParameter>
+												<Button.IsEnabled>
+													<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
+														<Binding.ConverterParameter>
+															<helpers:PageType>Recipes</helpers:PageType>
+														</Binding.ConverterParameter>
+													</Binding>
+												</Button.IsEnabled>
 												<Grid>
 													<Grid.RowDefinitions>
 														<RowDefinition Height="*"/>
@@ -162,7 +193,17 @@
 													</TextBlock>
 												</Grid>
 											</Button>
-											<Button Grid.Row="3" Style="{StaticResource NavBarButtonStyle}">
+											<Button Grid.Row="3" Command="{Binding PageBaseModel.NavigateToTabCommand}"  Style="{StaticResource NavBarButtonStyle}">
+												<Button.CommandParameter>
+													<helpers:PageType>Statistics</helpers:PageType>
+												</Button.CommandParameter>
+												<Button.IsEnabled>
+													<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
+														<Binding.ConverterParameter>
+															<helpers:PageType>Statistics</helpers:PageType>
+														</Binding.ConverterParameter>
+													</Binding>
+												</Button.IsEnabled>
 												<Grid>
 													<Grid.RowDefinitions>
 														<RowDefinition Height="*"/>

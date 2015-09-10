@@ -13,7 +13,7 @@ namespace Diety.ViewModel.Modules.Interfaces
 		/// <value>
 		/// The current user.
 		/// </value>
-		IUserProfile CurrentUser { get; set; }
+		IUserProfile CurrentUser { get; }
 
 		#endregion
 

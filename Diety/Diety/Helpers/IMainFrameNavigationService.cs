@@ -21,6 +21,14 @@ namespace Diety.Helpers
 		#region Properties
 
 		/// <summary>
+		/// Gets the current page.
+		/// </summary>
+		/// <value>
+		/// The current page.
+		/// </value>
+		PageType CurrentPageKey { get; }
+
+		/// <summary>
 		/// Gets the parameter.
 		/// </summary>
 		/// <value>

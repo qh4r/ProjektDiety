@@ -18,6 +18,7 @@
 			<SolidColorBrush x:Key="BrushErrorBorderColor" Color="#E82121"/>
 			<SolidColorBrush x:Key="BrushAlmostTransparentBacground" Color="#01FFFFFF"/>
 			<SolidColorBrush x:Key="HeaderBackgroundBrush" Color="#51F842"/>
+			<SolidColorBrush x:Key="NavigationBarBacgkroundBursh" Color="#BB36FF"/>
 
 
 			<SolidColorBrush Color="#00878787" x:Key="TextBoxDisabledForegroundThemeBrush" />
@@ -41,10 +42,10 @@
 				<GradientStop Offset="1" Color="#0C4A06"/>
 			</LinearGradientBrush>
 
-			<SolidColorBrush x:Key="NavButtonBackgroundColor" Color="#F49D14"/>
-			<SolidColorBrush x:Key="NavButtonPointerOverColor" Color="#F28F1A"/>
-			<SolidColorBrush x:Key="NavButtonPressedBackgroundColor" Color="#EB8519"/>
-			<SolidColorBrush x:Key="NavButtonDisabledBackgroundColor" Color="#BB36FF"/>
+			<SolidColorBrush x:Key="NavButtonBackgroundColor" Color="#51F842"/>
+			<SolidColorBrush x:Key="NavButtonPointerOverColor" Color="#1EA712"/>
+			<SolidColorBrush x:Key="NavButtonPressedBackgroundColor" Color="#167E0D"/>
+			<SolidColorBrush x:Key="NavButtonDisabledBackgroundColor" Color="#F49D14"/>
 
 			<!-- //COLORS -->
 
@@ -238,7 +239,7 @@
 				<Setter Property="BorderBrush" Value="{StaticResource BrushButtonBorderColor}" />
 				<Setter Property="BorderThickness" Value="0" />
 				<Setter Property="Padding" Value="20,10" />
-				<Setter Property="Margin" Value="0"></Setter>
+				<Setter Property="Margin" Value="0,10"></Setter>
 				<Setter Property="HorizontalAlignment" Value="Center" />
 				<Setter Property="VerticalAlignment" Value="Center" />
 				<Setter Property="FontFamily" Value="Calibri" />

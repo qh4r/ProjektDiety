@@ -22,7 +22,7 @@ namespace Diety.ViewModel.Modules
 		/// <summary>
 		/// The _password processing service
 		/// </summary>
-		private IPasswordProcessingService _passwordProcessingService;
+		private readonly IPasswordProcessingService _passwordProcessingService;
 
 		/// <summary>
 		/// The _current user
@@ -37,7 +37,7 @@ namespace Diety.ViewModel.Modules
 		/// <summary>
 		/// The _main frame navigation service
 		/// </summary>
-		private IMainFrameNavigationService _mainFrameNavigationService;
+		private readonly IMainFrameNavigationService _mainFrameNavigationService;
 
 		#endregion
 
@@ -52,7 +52,7 @@ namespace Diety.ViewModel.Modules
 		public IUserProfile CurrentUser
 		{
 			get { return _currentUser; }
-			set { Set(ref _currentUser, value); }
+			private set { Set(ref _currentUser, value); }
 		}
 
 		#endregion

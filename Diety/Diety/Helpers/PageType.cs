@@ -15,6 +15,21 @@
 		/// <summary>
 		/// The home
 		/// </summary>
-		Home
+		Home,
+
+		/// <summary>
+		/// The calendar
+		/// </summary>
+		Calendar,
+
+		/// <summary>
+		/// The recipes
+		/// </summary>
+		Recipes,
+
+		/// <summary>
+		/// The statistics
+		/// </summary>
+		Statistics
 	}
 }

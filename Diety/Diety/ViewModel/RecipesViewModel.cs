@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight;
 
 namespace Diety.ViewModel
 {
-	public class HomeViewModel : ViewModelBase
+	public class RecipesViewModel : ViewModelBase
 	{
 		
 		#region Private Fields
@@ -52,7 +52,7 @@ namespace Diety.ViewModel
 		/// </summary>
 		/// <param name="mainFrameNavigationService">The main frame navigation service.</param>
 		/// <param name="pageBaseViewModel">The page base view model.</param>
-		public HomeViewModel(IMainFrameNavigationService mainFrameNavigationService, IPageBaseViewModel pageBaseViewModel)
+		public RecipesViewModel(IMainFrameNavigationService mainFrameNavigationService, IPageBaseViewModel pageBaseViewModel)
 		{
 			_mainFrameNavigation = mainFrameNavigationService;
 			PageBaseModel = pageBaseViewModel;

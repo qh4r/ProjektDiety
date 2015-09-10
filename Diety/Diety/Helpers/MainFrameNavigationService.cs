@@ -84,7 +84,6 @@ namespace Diety.Helpers
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FrameNavigation" /> class.
 		/// </summary>
-		/// <param name="breadCrumbsModule">The bread crumbs module.</param>
 		public MainFrameNavigationService()
 		{
 			_pagesByKey = new Dictionary<PageType, Uri>();
