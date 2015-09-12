@@ -7,6 +7,7 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:converters="clr-namespace:Diety.Helpers.Converters"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
       mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=RegisterUser}"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="RegisterUser">
@@ -18,188 +19,392 @@
 												   NormalColor="{StaticResource BrushInputFontColor}"
 												   x:Key="BoolToSolidColorBrushInputConverter"/>
 	</Page.Resources>
-
 	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
-		<Grid Grid.Row="0" Background="{StaticResource HeaderBackgroundBrush}">
-			<Grid Margin="3" HorizontalAlignment="Right" VerticalAlignment="Top">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<Button Grid.Column="1" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
-					extensions:WinodowStateControlButtonExtensions.IsMinimize="True">
-					<Button.Template>
-						<ControlTemplate>
-							<Grid>
-								<Viewbox>
-									<Image Source="{StaticResource MinimizeIcon}"/>
-								</Viewbox>
-							</Grid>
-						</ControlTemplate>
-					</Button.Template>
-				</Button>
-				<Button Grid.Column="2" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
-					extensions:WinodowStateControlButtonExtensions.IsMaximize="True">
-					<Button.Template>
-						<ControlTemplate>
-							<Grid>
-								<Viewbox>
-									<Image Source="{StaticResource MaximizeIcon}"/>
-								</Viewbox>
-							</Grid>
-						</ControlTemplate>
-					</Button.Template>
-				</Button>
-				<Button Grid.Column="3" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
-					extensions:WinodowStateControlButtonExtensions.IsClose="True">
-					<Button.Template>
-						<ControlTemplate>
-							<Grid>
-								<Viewbox>
-									<Image Source="{StaticResource CloseIcon}"/>
-								</Viewbox>
-							</Grid>
-						</ControlTemplate>
-					</Button.Template>
-				</Button>
-			</Grid>
-		</Grid>
-		<Grid Grid.Row="1">
+		<Grid>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="*"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="*"/>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="2*"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
-			<Grid Grid.Row="1" Grid.Column="1">
+			<Grid Grid.Row="0" Background="{StaticResource HeaderBackgroundBrush}">
+				<Grid Margin="3" HorizontalAlignment="Right" VerticalAlignment="Top">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<Button Grid.Column="1" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+					extensions:WinodowStateControlButtonExtensions.IsMinimize="True">
+						<Button.Template>
+							<ControlTemplate>
+								<Grid>
+									<Viewbox>
+										<Image Source="{StaticResource MinimizeIcon}"/>
+									</Viewbox>
+								</Grid>
+							</ControlTemplate>
+						</Button.Template>
+					</Button>
+					<Button Grid.Column="2" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+					extensions:WinodowStateControlButtonExtensions.IsMaximize="True">
+						<Button.Template>
+							<ControlTemplate>
+								<Grid>
+									<Viewbox>
+										<Image Source="{StaticResource MaximizeIcon}"/>
+									</Viewbox>
+								</Grid>
+							</ControlTemplate>
+						</Button.Template>
+					</Button>
+					<Button Grid.Column="3" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+					extensions:WinodowStateControlButtonExtensions.IsClose="True">
+						<Button.Template>
+							<ControlTemplate>
+								<Grid>
+									<Viewbox>
+										<Image Source="{StaticResource CloseIcon}"/>
+									</Viewbox>
+								</Grid>
+							</ControlTemplate>
+						</Button.Template>
+					</Button>
+				</Grid>
+			</Grid>
+			<Grid Grid.Row="1">
 				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
 					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="2*"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<!-- LOGIN -->
-				<Border BorderBrush="{Binding ErrorStatus.UsernameError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
+				<Grid Grid.Row="1" Grid.Column="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<!-- LOGIN -->
+					<Border BorderBrush="{Binding ErrorStatus.UsernameError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
 					Style="{StaticResource RoundBorderStyle}" Grid.Row="0" Grid.Column="0">
-					<xctk:WatermarkTextBox Foreground ="{Binding ErrorStatus.UsernameError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
+						<xctk:WatermarkTextBox Foreground ="{Binding ErrorStatus.UsernameError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
 									   Watermark="Login" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
 								    Style="{StaticResource BaseTextBoxStyle}" Text="{Binding UserName, Mode=TwoWay}">
-						<i:Interaction.Triggers>
-							<i:EventTrigger EventName="GotFocus">
-								<i:InvokeCommandAction Command="{Binding UsernameGotFocus}"/>
-							</i:EventTrigger>
-							<i:EventTrigger EventName="LostFocus">
-								<i:InvokeCommandAction Command="{Binding UsernameLostFocus}"/>
-							</i:EventTrigger>
-						</i:Interaction.Triggers>
-					</xctk:WatermarkTextBox>
-				</Border>
-				<TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.UsernameErrorMessage}"/>
-				<!-- PASS -->
-				<Border BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="GotFocus">
+									<i:InvokeCommandAction Command="{Binding UsernameGotFocus}"/>
+								</i:EventTrigger>
+								<i:EventTrigger EventName="LostFocus">
+									<i:InvokeCommandAction Command="{Binding UsernameLostFocus}"/>
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+						</xctk:WatermarkTextBox>
+					</Border>
+					<TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.UsernameErrorMessage}"/>
+					<!-- PASS -->
+					<Border BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
 					Style="{StaticResource RoundBorderStyle}" Grid.Row="1" Grid.Column="0">
-					<Grid>
-						<xctk:WatermarkTextBox IsEnabled="False" IsReadOnly="True" Opacity="{Binding IsPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+						<Grid>
+							<xctk:WatermarkTextBox IsEnabled="False" IsReadOnly="True" Opacity="{Binding IsPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
 								   Style="{StaticResource BaseTextBoxStyle}"/>
 
-						<PasswordBox  BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
+							<PasswordBox  BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
 								  VerticalContentAlignment="Center" extensions:PasswordBoxExtensions.BindablePassword="{Binding Password, Mode=TwoWay}" extensions:PasswordBoxExtensions.TrackPassword="True"
 								  Background="{StaticResource BrushAlmostTransparentBacground}" Style="{StaticResource BaseInputStyle}" Margin="10,0">
-							<i:Interaction.Triggers>
-								<i:EventTrigger EventName="GotFocus">
-									<i:InvokeCommandAction Command="{Binding PasswordGotFocus}"/>
-								</i:EventTrigger>
-								<i:EventTrigger EventName="LostFocus">
-									<i:InvokeCommandAction Command="{Binding PasswordLostFocus}"/>
-								</i:EventTrigger>
-							</i:Interaction.Triggers>
-						</PasswordBox>
-					</Grid>
-				</Border>
-				<TextBlock Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.PasswordErrorMessage}"/>
-				<!-- PASS REPEAT -->
-				<Border  BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
+								<i:Interaction.Triggers>
+									<i:EventTrigger EventName="GotFocus">
+										<i:InvokeCommandAction Command="{Binding PasswordGotFocus}"/>
+									</i:EventTrigger>
+									<i:EventTrigger EventName="LostFocus">
+										<i:InvokeCommandAction Command="{Binding PasswordLostFocus}"/>
+									</i:EventTrigger>
+								</i:Interaction.Triggers>
+							</PasswordBox>
+						</Grid>
+					</Border>
+					<TextBlock Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.PasswordErrorMessage}"/>
+					<!-- PASS REPEAT -->
+					<Border  BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
 					 Style="{StaticResource RoundBorderStyle}" Grid.Row="2" Grid.Column="0">
-					<Grid>
-						<xctk:WatermarkTextBox IsEnabled="False"  Opacity="{Binding IsRepeatPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Powtórz Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+						<Grid>
+							<xctk:WatermarkTextBox IsEnabled="False"  Opacity="{Binding IsRepeatPasswordEmpty, Converter={StaticResource BoolToZeroOpacityConverter}}"  Watermark="Powtórz Hasło" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
 								   Style="{StaticResource BaseTextBoxStyle}"/>
 
-						<PasswordBox BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
+							<PasswordBox BorderBrush="{Binding ErrorStatus.PasswordError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
 								 VerticalContentAlignment="Center" extensions:PasswordBoxExtensions.BindablePassword="{Binding RepeatPassword, Mode=TwoWay}" extensions:PasswordBoxExtensions.TrackPassword="True"
 								 Background="{StaticResource BrushAlmostTransparentBacground}" Style="{StaticResource BaseInputStyle}" Margin="10,0">
-							<i:Interaction.Triggers>
-								<i:EventTrigger EventName="GotFocus">
-									<i:InvokeCommandAction Command="{Binding PasswordGotFocus}"/>
-								</i:EventTrigger>
-								<i:EventTrigger EventName="LostFocus">
-									<i:InvokeCommandAction Command="{Binding PasswordLostFocus}"/>
-								</i:EventTrigger>
-							</i:Interaction.Triggers>
-						</PasswordBox>
-					</Grid>
-				</Border>
-				<!-- WEIGHT -->
-				<Border BorderBrush="{Binding ErrorStatus.WeightError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
+								<i:Interaction.Triggers>
+									<i:EventTrigger EventName="GotFocus">
+										<i:InvokeCommandAction Command="{Binding PasswordGotFocus}"/>
+									</i:EventTrigger>
+									<i:EventTrigger EventName="LostFocus">
+										<i:InvokeCommandAction Command="{Binding PasswordLostFocus}"/>
+									</i:EventTrigger>
+								</i:Interaction.Triggers>
+							</PasswordBox>
+						</Grid>
+					</Border>
+					<!-- WEIGHT -->
+					<Border BorderBrush="{Binding ErrorStatus.WeightError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
 					Style="{StaticResource RoundBorderStyle}" Grid.Row="3" Grid.Column="0">
-					<xctk:WatermarkTextBox Foreground ="{Binding ErrorStatus.WeightError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
+						<xctk:WatermarkTextBox Foreground ="{Binding ErrorStatus.WeightError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
 									   Watermark="Waga" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
 								    Style="{StaticResource BaseTextBoxStyle}" Text="{Binding Weight, Mode=TwoWay}">
-						<i:Interaction.Triggers>
-							<i:EventTrigger EventName="GotFocus">
-								<i:InvokeCommandAction Command="{Binding WeightGotFocus}"/>
-							</i:EventTrigger>
-							<i:EventTrigger EventName="LostFocus">
-								<i:InvokeCommandAction Command="{Binding WeightLostFocus}"/>
-							</i:EventTrigger>
-						</i:Interaction.Triggers>
-					</xctk:WatermarkTextBox>
-				</Border>
-				<TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.WeightErrorMessage}"/>
-				<!-- HEIGHT -->
-				<Border BorderBrush="{Binding ErrorStatus.HeightError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="GotFocus">
+									<i:InvokeCommandAction Command="{Binding WeightGotFocus}"/>
+								</i:EventTrigger>
+								<i:EventTrigger EventName="LostFocus">
+									<i:InvokeCommandAction Command="{Binding WeightLostFocus}"/>
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+						</xctk:WatermarkTextBox>
+					</Border>
+					<TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.WeightErrorMessage}"/>
+					<!-- HEIGHT -->
+					<Border BorderBrush="{Binding ErrorStatus.HeightError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
 					Style="{StaticResource RoundBorderStyle}" Grid.Row="4" Grid.Column="0">
-					<xctk:WatermarkTextBox Foreground ="{Binding ErrorStatus.HeightError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
+						<xctk:WatermarkTextBox Foreground ="{Binding ErrorStatus.HeightError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
 									   Watermark="Wzrost" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
 								    Style="{StaticResource BaseTextBoxStyle}" Text="{Binding Height, Mode=TwoWay}">
-						<i:Interaction.Triggers>
-							<i:EventTrigger EventName="GotFocus">
-								<i:InvokeCommandAction Command="{Binding HeigthGotFocus}"/>
-							</i:EventTrigger>
-							<i:EventTrigger EventName="LostFocus">
-								<i:InvokeCommandAction Command="{Binding HeightLostFocus}"/>
-							</i:EventTrigger>
-						</i:Interaction.Triggers>
-					</xctk:WatermarkTextBox>
-				</Border>
-				<TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.HeightErrorMessage}"/>
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="GotFocus">
+									<i:InvokeCommandAction Command="{Binding HeigthGotFocus}"/>
+								</i:EventTrigger>
+								<i:EventTrigger EventName="LostFocus">
+									<i:InvokeCommandAction Command="{Binding HeightLostFocus}"/>
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+						</xctk:WatermarkTextBox>
+					</Border>
+					<TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.HeightErrorMessage}"/>
+				</Grid>
+				<Grid Grid.Row="3" Grid.Column="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<Button Grid.Column="0" IsEnabled="{Binding IsRegistrationPossible}" Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding RegisterCommand}">Zatwierdź</Button>
+					<Button Grid.Column="2" Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding GoBackCommand}">Wróć</Button>
+				</Grid>
 			</Grid>
-			<Grid Grid.Row="3" Grid.Column="1">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<Button Grid.Column="0" IsEnabled="{Binding IsRegistrationPossible}" Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding RegisterCommand}">Zatwierdź</Button>
-				<Button Grid.Column="2" Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding GoBackCommand}">Wróć</Button>
-			</Grid>
+		</Grid>
+		<!-- LOADER -->
+		<Grid Visibility="{Binding LoadingModule.IsLoadingVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+			<Border Background="White" Opacity="0.5"/>
+			<ed:Arc x:Name="arc" ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="20" StartAngle="0"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+				<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+				<ed:Arc.Style>
+					<Style TargetType="ed:Arc">
+						<Style.Triggers>
+							<EventTrigger RoutedEvent="Loaded">
+								<BeginStoryboard>
+									<Storyboard RepeatBehavior="Forever">
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="380"/>
+										</DoubleAnimationUsingKeyFrames>
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="360"/>
+										</DoubleAnimationUsingKeyFrames>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Style.Triggers>
+					</Style>
+				</ed:Arc.Style>
+			</ed:Arc>
+			<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="60" StartAngle="40"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+				<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+				<ed:Arc.Style>
+					<Style TargetType="ed:Arc">
+						<Style.Triggers>
+							<EventTrigger RoutedEvent="Loaded">
+								<BeginStoryboard>
+									<Storyboard RepeatBehavior="Forever">
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="420"/>
+										</DoubleAnimationUsingKeyFrames>
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="400"/>
+										</DoubleAnimationUsingKeyFrames>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Style.Triggers>
+					</Style>
+				</ed:Arc.Style>
+			</ed:Arc>
+			<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="100" StartAngle="80"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+				<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+				<ed:Arc.Style>
+					<Style TargetType="ed:Arc">
+						<Style.Triggers>
+							<EventTrigger RoutedEvent="Loaded">
+								<BeginStoryboard>
+									<Storyboard RepeatBehavior="Forever">
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="460"/>
+										</DoubleAnimationUsingKeyFrames>
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="440"/>
+										</DoubleAnimationUsingKeyFrames>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Style.Triggers>
+					</Style>
+				</ed:Arc.Style>
+			</ed:Arc>
+			<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="140" StartAngle="120"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+				<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+				<ed:Arc.Style>
+					<Style TargetType="ed:Arc">
+						<Style.Triggers>
+							<EventTrigger RoutedEvent="Loaded">
+								<BeginStoryboard>
+									<Storyboard RepeatBehavior="Forever">
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="500"/>
+										</DoubleAnimationUsingKeyFrames>
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="480"/>
+										</DoubleAnimationUsingKeyFrames>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Style.Triggers>
+					</Style>
+				</ed:Arc.Style>
+			</ed:Arc>
+			<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="180" StartAngle="160"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+				<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+				<ed:Arc.Style>
+					<Style TargetType="ed:Arc">
+						<Style.Triggers>
+							<EventTrigger RoutedEvent="Loaded">
+								<BeginStoryboard>
+									<Storyboard RepeatBehavior="Forever">
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="540"/>
+										</DoubleAnimationUsingKeyFrames>
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="520"/>
+										</DoubleAnimationUsingKeyFrames>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Style.Triggers>
+					</Style>
+				</ed:Arc.Style>
+			</ed:Arc>
+			<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="220" StartAngle="200"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+				<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+				<ed:Arc.Style>
+					<Style TargetType="ed:Arc">
+						<Style.Triggers>
+							<EventTrigger RoutedEvent="Loaded">
+								<BeginStoryboard>
+									<Storyboard RepeatBehavior="Forever">
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="580"/>
+										</DoubleAnimationUsingKeyFrames>
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="560"/>
+										</DoubleAnimationUsingKeyFrames>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Style.Triggers>
+					</Style>
+				</ed:Arc.Style>
+			</ed:Arc>
+			<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="260" StartAngle="240"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+				<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+				<ed:Arc.Style>
+					<Style TargetType="ed:Arc">
+						<Style.Triggers>
+							<EventTrigger RoutedEvent="Loaded">
+								<BeginStoryboard>
+									<Storyboard RepeatBehavior="Forever">
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="620"/>
+										</DoubleAnimationUsingKeyFrames>
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="600"/>
+										</DoubleAnimationUsingKeyFrames>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Style.Triggers>
+					</Style>
+				</ed:Arc.Style>
+			</ed:Arc>
+			<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="300" StartAngle="280"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+				<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+				<ed:Arc.Style>
+					<Style TargetType="ed:Arc">
+						<Style.Triggers>
+							<EventTrigger RoutedEvent="Loaded">
+								<BeginStoryboard>
+									<Storyboard RepeatBehavior="Forever">
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="660"/>
+										</DoubleAnimationUsingKeyFrames>
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="640"/>
+										</DoubleAnimationUsingKeyFrames>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Style.Triggers>
+					</Style>
+				</ed:Arc.Style>
+			</ed:Arc>
+			<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="340" StartAngle="320"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+				<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+				<ed:Arc.Style>
+					<Style TargetType="ed:Arc">
+						<Style.Triggers>
+							<EventTrigger RoutedEvent="Loaded">
+								<BeginStoryboard>
+									<Storyboard RepeatBehavior="Forever">
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="700"/>
+										</DoubleAnimationUsingKeyFrames>
+										<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+											<EasingDoubleKeyFrame KeyTime="0:0:2" Value="680"/>
+										</DoubleAnimationUsingKeyFrames>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Style.Triggers>
+					</Style>
+				</ed:Arc.Style>
+			</ed:Arc>
+			<!--<Ellipse Height="190" Width="190" Fill="White"/>-->
 		</Grid>
 	</Grid>
 </Page>

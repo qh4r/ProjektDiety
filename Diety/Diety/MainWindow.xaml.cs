@@ -22,11 +22,7 @@ namespace Diety
 	public partial class MainWindow : Window
 	{
 		public MainWindow()
-		{
-			Loaded+= (sender, args) =>
-			{
-				DispatcherHelper.Initialize();
-			};
+		{			
 			InitializeComponent();			
 		}
 	}

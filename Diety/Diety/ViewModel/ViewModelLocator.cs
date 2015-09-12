@@ -50,10 +50,12 @@ namespace Diety.ViewModel
 			SimpleIoc.Default.Register<PageBaseViewModel>();
 			SimpleIoc.Default.Register<PasswordProcessingService>();
 			SimpleIoc.Default.Register<CurrentUserModule>();
+			SimpleIoc.Default.Register<LoadingIndicatiorModule>();
 
 			SimpleIoc.Default.Register<IPageBaseViewModel>(() => SimpleIoc.Default.GetInstance<PageBaseViewModel>());
 			SimpleIoc.Default.Register<IPasswordProcessingService>(() => SimpleIoc.Default.GetInstance<PasswordProcessingService>());
 			SimpleIoc.Default.Register<ICurrentUserModule>(() => SimpleIoc.Default.GetInstance<CurrentUserModule>());
+			SimpleIoc.Default.Register<ILoadingIndicatiorModule>(() => SimpleIoc.Default.GetInstance<LoadingIndicatiorModule>());
 
 			SimpleIoc.Default.Register<MainViewModel>();
 			SimpleIoc.Default.Register<LoginViewModel>();

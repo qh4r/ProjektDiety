@@ -95,11 +95,11 @@ namespace DietyDataAccess.Accessors
 		/// <returns></returns>
 		public async Task<IUserProfile> GetUserProfileByName(string name)
 		{
-			using (var dietyContext = DietyDbContext)
-			{
+			//using (var dietyContext = DietyDbContext)
+			//{
 				var record = await DietyDbContext.UserProfiles.FirstOrDefaultAsync(x => x.UserName == name);
 				return record != null ? new UserProfile(record) : null;
-			}
+			//}
 		}
 		#endregion
 	}

@@ -4,233 +4,439 @@
     xmlns:local="clr-namespace:Diety"
     xmlns:templateControlls="clr-namespace:Diety.TemplateControlls"
     xmlns:extensions="clr-namespace:Diety.Helpers.Extensions"
-    xmlns:helpers="clr-namespace:Diety.Helpers">
+    xmlns:helpers="clr-namespace:Diety.Helpers"
+	xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing">
 	<!--<ResourceDictionary.MergedDictionaries>
 
 		<ResourceDictionary>-->
-			<Style TargetType="{x:Type templateControlls:PageBase}">
-				<Setter Property="Template">
-					<Setter.Value>
-						<ControlTemplate TargetType="{x:Type templateControlls:PageBase}">
-							<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-								<Grid.Resources>
-									<ResourceDictionary>
-										<ResourceDictionary.MergedDictionaries>
-											<ResourceDictionary Source="/Diety;component/Styles/Converters.xaml"/>
-											<ResourceDictionary Source="/Diety;component/Styles/CommonStyles.xaml"/>
-											<ResourceDictionary Source="/Diety;component/Resources/icons/Icons.xaml"/>
-										</ResourceDictionary.MergedDictionaries>
-									</ResourceDictionary>
-								</Grid.Resources>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto"/>
-									<RowDefinition Height="*"/>
-									<RowDefinition Height="Auto"/>
-								</Grid.RowDefinitions>
-								<!-- HEADER -->
-								<Grid Grid.Row="0" Background="{StaticResource HeaderBackgroundBrush}">
+	<Style TargetType="{x:Type templateControlls:PageBase}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type templateControlls:PageBase}">
+					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+						<Grid.Resources>
+							<ResourceDictionary>
+								<ResourceDictionary.MergedDictionaries>
+									<ResourceDictionary Source="/Diety;component/Styles/Converters.xaml"/>
+									<ResourceDictionary Source="/Diety;component/Styles/CommonStyles.xaml"/>
+									<ResourceDictionary Source="/Diety;component/Resources/icons/Icons.xaml"/>
+								</ResourceDictionary.MergedDictionaries>
+							</ResourceDictionary>
+						</Grid.Resources>
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="Auto"/>
+							</Grid.RowDefinitions>
+							<!-- HEADER -->
+							<Grid Grid.Row="0" Background="{StaticResource HeaderBackgroundBrush}">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<Button Grid.Column="0" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Center"
+						Command="{Binding PageBaseModel.GoHomeCommand}">
+									<Button.Template>
+										<ControlTemplate>
+											<Grid>
+												<Viewbox>
+													<Image Source="{StaticResource UserWhiteIcon32}"/>
+												</Viewbox>
+											</Grid>
+										</ControlTemplate>
+									</Button.Template>
+								</Button>
+								<TextBlock Grid.Column="1" Style="{StaticResource HeaderLabelStyle}" Text="{Binding PageBaseModel.UserModule.CurrentUser.UserName}"/>
+								<!--Logout-->
+								<Button Grid.Column="2" Margin="10,0" Command="{Binding PageBaseModel.LogOutCommand}">
+									<Button.Template>
+										<ControlTemplate>
+											<TextBlock Margin="0" HorizontalAlignment="Right" Style="{StaticResource SubHeaderLabelStyle}" Text="Wyloguj"/>
+										</ControlTemplate>
+									</Button.Template>
+								</Button>
+								<!-- App Control -->
+								<Grid Grid.Column="3" Margin="3" HorizontalAlignment="Right" VerticalAlignment="Center">
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto"/>
 										<ColumnDefinition Width="*"/>
 										<ColumnDefinition Width="Auto"/>
 										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="Auto"/>
 									</Grid.ColumnDefinitions>
-									<Button Grid.Column="0" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Center"
-						Command="{Binding PageBaseModel.GoHomeCommand}">
+									<Button Grid.Column="1" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+					extensions:WinodowStateControlButtonExtensions.IsMinimize="True">
 										<Button.Template>
 											<ControlTemplate>
 												<Grid>
 													<Viewbox>
-														<Image Source="{StaticResource UserWhiteIcon32}"/>
+														<Image Source="{StaticResource MinimizeIcon}"/>
 													</Viewbox>
 												</Grid>
 											</ControlTemplate>
 										</Button.Template>
 									</Button>
-									<TextBlock Grid.Column="1" Style="{StaticResource HeaderLabelStyle}" Text="{Binding PageBaseModel.UserModule.CurrentUser.UserName}"/>
-									<!--Logout-->
-									<Button Grid.Column="2" Margin="10,0" Command="{Binding PageBaseModel.LogOutCommand}">
+									<Button Grid.Column="2" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+					extensions:WinodowStateControlButtonExtensions.IsMaximize="True">
 										<Button.Template>
 											<ControlTemplate>
-												<TextBlock Margin="0" HorizontalAlignment="Right" Style="{StaticResource SubHeaderLabelStyle}" Text="Wyloguj"/>
+												<Grid>
+													<Viewbox>
+														<Image Source="{StaticResource MaximizeIcon}"/>
+													</Viewbox>
+												</Grid>
 											</ControlTemplate>
 										</Button.Template>
 									</Button>
-									<!-- App Control -->
-									<Grid Grid.Column="3" Margin="3" HorizontalAlignment="Right" VerticalAlignment="Center">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="*"/>
-											<ColumnDefinition Width="Auto"/>
-											<ColumnDefinition Width="Auto"/>
-											<ColumnDefinition Width="Auto"/>
-										</Grid.ColumnDefinitions>
-										<Button Grid.Column="1" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
-					extensions:WinodowStateControlButtonExtensions.IsMinimize="True">
-											<Button.Template>
-												<ControlTemplate>
-													<Grid>
-														<Viewbox>
-															<Image Source="{StaticResource MinimizeIcon}"/>
-														</Viewbox>
-													</Grid>
-												</ControlTemplate>
-											</Button.Template>
-										</Button>
-										<Button Grid.Column="2" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
-					extensions:WinodowStateControlButtonExtensions.IsMaximize="True">
-											<Button.Template>
-												<ControlTemplate>
-													<Grid>
-														<Viewbox>
-															<Image Source="{StaticResource MaximizeIcon}"/>
-														</Viewbox>
-													</Grid>
-												</ControlTemplate>
-											</Button.Template>
-										</Button>
-										<Button Grid.Column="3" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
+									<Button Grid.Column="3" Style="{StaticResource AppBarButtonStyle}" Margin="3,0" 
 					extensions:WinodowStateControlButtonExtensions.IsClose="True">
-											<Button.Template>
-												<ControlTemplate>
-													<Grid>
-														<Viewbox>
-															<Image Source="{StaticResource CloseIcon}"/>
-														</Viewbox>
-													</Grid>
-												</ControlTemplate>
-											</Button.Template>
+										<Button.Template>
+											<ControlTemplate>
+												<Grid>
+													<Viewbox>
+														<Image Source="{StaticResource CloseIcon}"/>
+													</Viewbox>
+												</Grid>
+											</ControlTemplate>
+										</Button.Template>
+									</Button>
+								</Grid>
+								<!-- //App Control -->
+
+							</Grid>
+							<!-- //HEADER -->
+							<!-- Body -->
+							<Grid Grid.Row="1">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<!-- NavTab -->
+								<Grid Grid.Column="0" Background="{StaticResource NavigationBarBacgkroundBursh}">
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto"/>
+											<RowDefinition Height="Auto"/>
+											<RowDefinition Height="Auto"/>
+											<RowDefinition Height="Auto"/>
+											<RowDefinition Height="*"/>
+										</Grid.RowDefinitions>
+										<Button Margin="0,20,0,10" Grid.Row="0" Command="{Binding PageBaseModel.NavigateToTabCommand}" Style="{StaticResource NavBarButtonStyle}">
+											<Button.CommandParameter>
+												<helpers:PageType>Home</helpers:PageType>
+											</Button.CommandParameter>
+											<Button.IsEnabled>
+												<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
+													<Binding.ConverterParameter>
+														<helpers:PageType>Home</helpers:PageType>
+													</Binding.ConverterParameter>
+												</Binding>
+											</Button.IsEnabled>
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="*"/>
+													<RowDefinition Height="Auto"/>
+												</Grid.RowDefinitions>
+												<Viewbox Grid.Row="0">
+													<Image Source="{StaticResource HomeIcon}"/>
+												</Viewbox>
+												<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
+											Start
+												</TextBlock>
+											</Grid>
+										</Button>
+										<Button Grid.Row="1" Command="{Binding PageBaseModel.NavigateToTabCommand}"  Style="{StaticResource NavBarButtonStyle}">
+											<Button.CommandParameter>
+												<helpers:PageType>Calendar</helpers:PageType>
+											</Button.CommandParameter>
+											<Button.IsEnabled>
+												<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
+													<Binding.ConverterParameter>
+														<helpers:PageType>Calendar</helpers:PageType>
+													</Binding.ConverterParameter>
+												</Binding>
+											</Button.IsEnabled>
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="*"/>
+													<RowDefinition Height="Auto"/>
+												</Grid.RowDefinitions>
+												<Viewbox Grid.Row="0">
+													<Image Source="{StaticResource CalendarIcon}"/>
+												</Viewbox>
+												<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
+											Kalendarz
+												</TextBlock>
+											</Grid>
+										</Button>
+										<Button Grid.Row="2" Command="{Binding PageBaseModel.NavigateToTabCommand}"  Style="{StaticResource NavBarButtonStyle}">
+											<Button.CommandParameter>
+												<helpers:PageType>Recipes</helpers:PageType>
+											</Button.CommandParameter>
+											<Button.IsEnabled>
+												<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
+													<Binding.ConverterParameter>
+														<helpers:PageType>Recipes</helpers:PageType>
+													</Binding.ConverterParameter>
+												</Binding>
+											</Button.IsEnabled>
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="*"/>
+													<RowDefinition Height="Auto"/>
+												</Grid.RowDefinitions>
+												<Viewbox Grid.Row="0">
+													<Image Source="{StaticResource RecipesIcon}"/>
+												</Viewbox>
+												<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
+											Przepisy
+												</TextBlock>
+											</Grid>
+										</Button>
+										<Button Grid.Row="3" Command="{Binding PageBaseModel.NavigateToTabCommand}"  Style="{StaticResource NavBarButtonStyle}">
+											<Button.CommandParameter>
+												<helpers:PageType>Statistics</helpers:PageType>
+											</Button.CommandParameter>
+											<Button.IsEnabled>
+												<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
+													<Binding.ConverterParameter>
+														<helpers:PageType>Statistics</helpers:PageType>
+													</Binding.ConverterParameter>
+												</Binding>
+											</Button.IsEnabled>
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="*"/>
+													<RowDefinition Height="Auto"/>
+												</Grid.RowDefinitions>
+												<Viewbox Grid.Row="0">
+													<Image Source="{StaticResource DiagramIcon}"/>
+												</Viewbox>
+												<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
+											Statystyki
+												</TextBlock>
+											</Grid>
 										</Button>
 									</Grid>
-									<!-- //App Control -->
-
 								</Grid>
-								<!-- //HEADER -->
-								<!-- Body -->
-								<Grid Grid.Row="1">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto"/>
-										<ColumnDefinition Width="*"/>
-									</Grid.ColumnDefinitions>
-									<!-- NavTab -->
-									<Grid Grid.Column="0" Background="{StaticResource NavigationBarBacgkroundBursh}">
-										<Grid>
-											<Grid.RowDefinitions>
-												<RowDefinition Height="Auto"/>
-												<RowDefinition Height="Auto"/>
-												<RowDefinition Height="Auto"/>
-												<RowDefinition Height="Auto"/>
-												<RowDefinition Height="*"/>
-											</Grid.RowDefinitions>
-											<Button Margin="0,20,0,10" Grid.Row="0" Command="{Binding PageBaseModel.NavigateToTabCommand}" Style="{StaticResource NavBarButtonStyle}">
-												<Button.CommandParameter>
-													<helpers:PageType>Home</helpers:PageType>
-												</Button.CommandParameter>
-												<Button.IsEnabled>
-													<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
-														<Binding.ConverterParameter>
-															<helpers:PageType>Home</helpers:PageType>
-														</Binding.ConverterParameter>
-													</Binding>
-												</Button.IsEnabled>
-												<Grid>
-													<Grid.RowDefinitions>
-														<RowDefinition Height="*"/>
-														<RowDefinition Height="Auto"/>
-													</Grid.RowDefinitions>
-													<Viewbox Grid.Row="0">
-														<Image Source="{StaticResource HomeIcon}"/>
-													</Viewbox>
-													<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
-											Start
-													</TextBlock>
-												</Grid>
-											</Button>
-											<Button Grid.Row="1" Command="{Binding PageBaseModel.NavigateToTabCommand}"  Style="{StaticResource NavBarButtonStyle}">
-												<Button.CommandParameter>
-													<helpers:PageType>Calendar</helpers:PageType>
-												</Button.CommandParameter>
-												<Button.IsEnabled>
-													<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
-														<Binding.ConverterParameter>
-															<helpers:PageType>Calendar</helpers:PageType>
-														</Binding.ConverterParameter>
-													</Binding>
-												</Button.IsEnabled>
-												<Grid>
-													<Grid.RowDefinitions>
-														<RowDefinition Height="*"/>
-														<RowDefinition Height="Auto"/>
-													</Grid.RowDefinitions>
-													<Viewbox Grid.Row="0">
-														<Image Source="{StaticResource CalendarIcon}"/>
-													</Viewbox>
-													<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
-											Kalendarz
-													</TextBlock>
-												</Grid>
-											</Button>
-											<Button Grid.Row="2" Command="{Binding PageBaseModel.NavigateToTabCommand}"  Style="{StaticResource NavBarButtonStyle}">
-												<Button.CommandParameter>
-													<helpers:PageType>Recipes</helpers:PageType>
-												</Button.CommandParameter>
-												<Button.IsEnabled>
-													<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
-														<Binding.ConverterParameter>
-															<helpers:PageType>Recipes</helpers:PageType>
-														</Binding.ConverterParameter>
-													</Binding>
-												</Button.IsEnabled>
-												<Grid>
-													<Grid.RowDefinitions>
-														<RowDefinition Height="*"/>
-														<RowDefinition Height="Auto"/>
-													</Grid.RowDefinitions>
-													<Viewbox Grid.Row="0">
-														<Image Source="{StaticResource RecipesIcon}"/>
-													</Viewbox>
-													<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
-											Przepisy
-													</TextBlock>
-												</Grid>
-											</Button>
-											<Button Grid.Row="3" Command="{Binding PageBaseModel.NavigateToTabCommand}"  Style="{StaticResource NavBarButtonStyle}">
-												<Button.CommandParameter>
-													<helpers:PageType>Statistics</helpers:PageType>
-												</Button.CommandParameter>
-												<Button.IsEnabled>
-													<Binding Path="PageBaseModel.MainFrameNavigation.CurrentPageKey" Converter="{StaticResource ActivePageTypeToBoolConverter}">
-														<Binding.ConverterParameter>
-															<helpers:PageType>Statistics</helpers:PageType>
-														</Binding.ConverterParameter>
-													</Binding>
-												</Button.IsEnabled>
-												<Grid>
-													<Grid.RowDefinitions>
-														<RowDefinition Height="*"/>
-														<RowDefinition Height="Auto"/>
-													</Grid.RowDefinitions>
-													<Viewbox Grid.Row="0">
-														<Image Source="{StaticResource DiagramIcon}"/>
-													</Viewbox>
-													<TextBlock Grid.Row="1" Style="{StaticResource NavbarLabelStyle}">
-											Statystyki
-													</TextBlock>
-												</Grid>
-											</Button>
-										</Grid>
-									</Grid>
-									<!-- //NavTab -->
-									<Grid Grid.Column="1">
-										<!--PAGE CONTENT -->
-										<ContentControl Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-									</Grid>
+								<!-- //NavTab -->
+								<Grid Grid.Column="1">
+									<!--PAGE CONTENT -->
+									<ContentControl Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 								</Grid>
-								<!-- //Body -->
 							</Grid>
-						</ControlTemplate>
-					</Setter.Value>
-				</Setter>
-			</Style>
-		<!--</ResourceDictionary>
+							<!-- //Body -->
+						</Grid>
+						
+						<!-- LOADER -->
+						<Grid Visibility="{Binding PageBaseModel.LoadingModule.IsLoadingVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+							<Border Background="White" Opacity="0.5"/>
+							<ed:Arc x:Name="arc" ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="20" StartAngle="0"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">								
+								<ed:Arc.Style>
+									<Style TargetType="ed:Arc">
+										<Style.Triggers>
+											<EventTrigger RoutedEvent="Loaded">
+												<BeginStoryboard>
+													<Storyboard RepeatBehavior="Forever">
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="380"/>
+														</DoubleAnimationUsingKeyFrames>
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="360"/>
+														</DoubleAnimationUsingKeyFrames>
+													</Storyboard>
+												</BeginStoryboard>
+											</EventTrigger>
+										</Style.Triggers>
+									</Style>
+								</ed:Arc.Style>
+							</ed:Arc>
+							<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="60" StartAngle="40"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+								<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+								<ed:Arc.Style>
+									<Style TargetType="ed:Arc">
+										<Style.Triggers>
+											<EventTrigger RoutedEvent="Loaded">
+												<BeginStoryboard>
+													<Storyboard RepeatBehavior="Forever">
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="420"/>
+														</DoubleAnimationUsingKeyFrames>
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="400"/>
+														</DoubleAnimationUsingKeyFrames>
+													</Storyboard>
+												</BeginStoryboard>
+											</EventTrigger>
+										</Style.Triggers>
+									</Style>
+								</ed:Arc.Style>
+							</ed:Arc>
+							<ed:Arc ArcThickness="1"   ArcThicknessUnit="Percent" EndAngle="100" StartAngle="80"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+								<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+								<ed:Arc.Style>
+									<Style TargetType="ed:Arc">
+										<Style.Triggers>
+											<EventTrigger RoutedEvent="Loaded">
+												<BeginStoryboard>
+													<Storyboard RepeatBehavior="Forever">
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="460"/>
+														</DoubleAnimationUsingKeyFrames>
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="440"/>
+														</DoubleAnimationUsingKeyFrames>
+													</Storyboard>
+												</BeginStoryboard>
+											</EventTrigger>
+										</Style.Triggers>
+									</Style>
+								</ed:Arc.Style>
+							</ed:Arc>
+							<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="140" StartAngle="120"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+								<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+								<ed:Arc.Style>
+									<Style TargetType="ed:Arc">
+										<Style.Triggers>
+											<EventTrigger RoutedEvent="Loaded">
+												<BeginStoryboard>
+													<Storyboard RepeatBehavior="Forever">
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="500"/>
+														</DoubleAnimationUsingKeyFrames>
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="480"/>
+														</DoubleAnimationUsingKeyFrames>
+													</Storyboard>
+												</BeginStoryboard>
+											</EventTrigger>
+										</Style.Triggers>
+									</Style>
+								</ed:Arc.Style>
+							</ed:Arc>
+							<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="180" StartAngle="160"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+								<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+								<ed:Arc.Style>
+									<Style TargetType="ed:Arc">
+										<Style.Triggers>
+											<EventTrigger RoutedEvent="Loaded">
+												<BeginStoryboard>
+													<Storyboard RepeatBehavior="Forever">
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="540"/>
+														</DoubleAnimationUsingKeyFrames>
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="520"/>
+														</DoubleAnimationUsingKeyFrames>
+													</Storyboard>
+												</BeginStoryboard>
+											</EventTrigger>
+										</Style.Triggers>
+									</Style>
+								</ed:Arc.Style>
+							</ed:Arc>
+							<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="220" StartAngle="200"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+								<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+								<ed:Arc.Style>
+									<Style TargetType="ed:Arc">
+										<Style.Triggers>
+											<EventTrigger RoutedEvent="Loaded">
+												<BeginStoryboard>
+													<Storyboard RepeatBehavior="Forever">
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="580"/>
+														</DoubleAnimationUsingKeyFrames>
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="560"/>
+														</DoubleAnimationUsingKeyFrames>
+													</Storyboard>
+												</BeginStoryboard>
+											</EventTrigger>
+										</Style.Triggers>
+									</Style>
+								</ed:Arc.Style>
+							</ed:Arc>
+							<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="260" StartAngle="240"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+								<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+								<ed:Arc.Style>
+									<Style TargetType="ed:Arc">
+										<Style.Triggers>
+											<EventTrigger RoutedEvent="Loaded">
+												<BeginStoryboard>
+													<Storyboard RepeatBehavior="Forever">
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="620"/>
+														</DoubleAnimationUsingKeyFrames>
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="600"/>
+														</DoubleAnimationUsingKeyFrames>
+													</Storyboard>
+												</BeginStoryboard>
+											</EventTrigger>
+										</Style.Triggers>
+									</Style>
+								</ed:Arc.Style>
+							</ed:Arc>
+							<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="300" StartAngle="280"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+								<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+								<ed:Arc.Style>
+									<Style TargetType="ed:Arc">
+										<Style.Triggers>
+											<EventTrigger RoutedEvent="Loaded">
+												<BeginStoryboard>
+													<Storyboard RepeatBehavior="Forever">
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="660"/>
+														</DoubleAnimationUsingKeyFrames>
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="640"/>
+														</DoubleAnimationUsingKeyFrames>
+													</Storyboard>
+												</BeginStoryboard>
+											</EventTrigger>
+										</Style.Triggers>
+									</Style>
+								</ed:Arc.Style>
+							</ed:Arc>
+							<ed:Arc ArcThickness="1"  ArcThicknessUnit="Percent" EndAngle="340" StartAngle="320"  Height="200" Width="200" Stretch="None" Stroke="Transparent" 
+					Grid.RowSpan="2" Fill="{StaticResource BrushButtonBackgroundColor}">
+								<!--Fill="{StaticResource BrushButtonBackgroundColor}">-->
+								<ed:Arc.Style>
+									<Style TargetType="ed:Arc">
+										<Style.Triggers>
+											<EventTrigger RoutedEvent="Loaded">
+												<BeginStoryboard>
+													<Storyboard RepeatBehavior="Forever">
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="700"/>
+														</DoubleAnimationUsingKeyFrames>
+														<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.StartAngle)">
+															<EasingDoubleKeyFrame KeyTime="0:0:2" Value="680"/>
+														</DoubleAnimationUsingKeyFrames>
+													</Storyboard>
+												</BeginStoryboard>
+											</EventTrigger>
+										</Style.Triggers>
+									</Style>
+								</ed:Arc.Style>
+							</ed:Arc>
+							<!--<Ellipse Height="190" Width="190" Fill="White"/>-->
+						</Grid>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<!--</ResourceDictionary>
 	</ResourceDictionary.MergedDictionaries>-->
 </ResourceDictionary>

@@ -1,4 +1,6 @@
+using System;
 using Diety.Helpers;
+using Diety.ViewModel.Modules;
 using Diety.ViewModel.Modules.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -18,6 +20,11 @@ namespace Diety.ViewModel
 		/// The _current user
 		/// </summary>
 		private ICurrentUserModule _userModule;
+
+		/// <summary>
+		/// The _loading module
+		/// </summary>
+		private ILoadingIndicatiorModule _loadingModule;
 
 		#endregion
 
@@ -98,20 +105,35 @@ namespace Diety.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the loading module.
+		/// </summary>
+		/// <value>
+		/// The loading module.
+		/// </value>
+		public ILoadingIndicatiorModule LoadingModule
+		{
+			get { return _loadingModule; }
+			set { Set(ref _loadingModule, value); }
+		}
+
 		#endregion
 
 		#region C-tors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="PageBaseViewModel"/> class.
+		/// Initializes a new instance of the <see cref="PageBaseViewModel" /> class.
 		/// </summary>
 		/// <param name="mainFrameNavigationService">The main frame navigation service.</param>
 		/// <param name="userModule">The user module.</param>
-		public PageBaseViewModel(IMainFrameNavigationService mainFrameNavigationService, ICurrentUserModule userModule)
+		/// <param name="loadingIndicatiorModule">The loading indicatior module.</param>
+		public PageBaseViewModel(IMainFrameNavigationService mainFrameNavigationService, ICurrentUserModule userModule,
+			ILoadingIndicatiorModule loadingIndicatiorModule)
 		{
 			MainFrameNavigation = mainFrameNavigationService;
-			UserModule = userModule;	
-		}
+			UserModule = userModule;
+			LoadingModule = loadingIndicatiorModule;
+		}		
 
 		#endregion
 	}

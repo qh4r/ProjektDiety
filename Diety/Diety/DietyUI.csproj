@@ -52,6 +52,7 @@
     <Reference Include="GalaSoft.MvvmLight.Platform">
       <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -119,6 +120,8 @@
     <Compile Include="Helpers\MealDataCalculator.cs" />
     <Compile Include="Helpers\PageType.cs" />
     <Compile Include="TemplateControlls\PageBase.cs" />
+    <Compile Include="ViewModel\Modules\Interfaces\ILoadingIndicatiorModule.cs" />
+    <Compile Include="ViewModel\Modules\LoadingIndicatiorModule.cs" />
     <Compile Include="ViewModel\StatisticsViewModel.cs" />
     <Compile Include="ViewModel\RecipesViewModel.cs" />
     <Compile Include="ViewModel\CalendarViewModel.cs" />

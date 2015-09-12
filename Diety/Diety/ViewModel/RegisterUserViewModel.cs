@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Diety.Helpers;
+using Diety.ViewModel.Modules.Interfaces;
 using DietyDataAccess.DataTypes;
 using Diety.ViewModel.PropertyGroups;
 using Diety.ViewModel.PropertyGroups.Interfaces;
@@ -64,7 +65,12 @@ namespace Diety.ViewModel
 		/// <summary>
 		/// The _password processing service
 		/// </summary>
-		private IPasswordProcessingService _passwordProcessingService;
+		private readonly IPasswordProcessingService _passwordProcessingService;
+
+		/// <summary>
+		/// The _loading module
+		/// </summary>
+		private ILoadingIndicatiorModule _loadingModule;
 
 		#endregion
 
@@ -159,32 +165,43 @@ namespace Diety.ViewModel
 		{
 			get
 			{
-				return new RelayCommand(() =>
+				return new RelayCommand(async () =>
 				{
-					if (UserName != null && UserName.Length > 3)
+					await UsernameLostFocusAction();
+				});
+			}
+		}
+
+		private async Task UsernameLostFocusAction()
+		{
+			if (UserName != null && UserName.Length > 3)
+			{
+				DispatcherHelper.RunAsync(async () =>
+				{
+					try
 					{
-						DispatcherHelper.RunAsync(async () =>
+						LoadingModule.ShowLoadingIndicatior();
+
+
+						var user = await _userProfilesAccess.GetUserProfileByName(UserName);
+						if (user != null)
 						{
-							try
-							{
-								var user = await _userProfilesAccess.GetUserProfileByName(UserName);
-								if (user != null)
-								{
-									ErrorStatus.UsernameErrorMessage = "Użytkownik o podanym loginie jest już zarejestrowany";
-								}
-							}
-							catch (Exception e)
-							{
-								//TODO ERROR POPUP
-								ErrorStatus.UsernameErrorMessage = "Dupa zbita";
-							}
-						});
+							ErrorStatus.UsernameErrorMessage = "Użytkownik o podanym loginie jest już zarejestrowany";
+						}
+						//await Task.Delay(1000);
+						LoadingModule.HideLoadingIndicator();
+
 					}
-					else
+					catch (Exception e)
 					{
-						ErrorStatus.UsernameErrorMessage = "Nazwa użytkownika musi zawierać od 3 do 20 znaków";
+						//TODO ERROR POPUP
+						ErrorStatus.UsernameErrorMessage = "Dupa zbita";
 					}
 				});
+			}
+			else
+			{
+				ErrorStatus.UsernameErrorMessage = "Nazwa użytkownika musi zawierać od 3 do 20 znaków";
 			}
 		}
 
@@ -301,9 +318,9 @@ namespace Diety.ViewModel
 					}
 					else
 					{
-						ErrorStatus.HeightErrorMessage = CheckForNumeric(Height) ? null : "Proszę podać liczbę zmiennoprzecinkową";	
+						ErrorStatus.HeightErrorMessage = CheckForNumeric(Height) ? null : "Proszę podać liczbę zmiennoprzecinkową";
 					}
-					
+
 				});
 			}
 		}
@@ -365,10 +382,13 @@ namespace Diety.ViewModel
 		/// <exception cref="System.NotImplementedException"></exception>
 		public RelayCommand GoBackCommand
 		{
-			get { return new RelayCommand(() =>
+			get
 			{
-				_frameNavigation.GoBack();
-			}); }
+				return new RelayCommand(() =>
+					{
+						_frameNavigation.GoBack();
+					});
+			}
 		}
 
 		/// <summary>
@@ -387,6 +407,7 @@ namespace Diety.ViewModel
 					{
 						try
 						{
+							LoadingModule.ShowLoadingIndicatior();
 							var hasedPassword = _passwordProcessingService.EncryptString(UserName, Password);
 							var newUser = new UserProfile
 							{
@@ -400,9 +421,11 @@ namespace Diety.ViewModel
 							{
 								_frameNavigation.GoBack();
 							}
+							LoadingModule.HideLoadingIndicator();
 						}
 						catch (Exception e)
 						{
+							LoadingModule.HideLoadingIndicator();
 							Debug.WriteLine(e.Message);
 							//TODO popup error
 						}
@@ -422,9 +445,21 @@ namespace Diety.ViewModel
 			get
 			{
 				return ErrorStatus.NoErrors && !String.IsNullOrWhiteSpace(Password)
-					&& !String.IsNullOrWhiteSpace(UserName) && !String.IsNullOrWhiteSpace(Weight) 
+					&& !String.IsNullOrWhiteSpace(UserName) && !String.IsNullOrWhiteSpace(Weight)
 					&& !String.IsNullOrWhiteSpace(Height) && !String.IsNullOrWhiteSpace(RepeatPassword);
 			}
+		}
+
+		/// <summary>
+		/// Gets or sets the loading module.
+		/// </summary>
+		/// <value>
+		/// The loading module.
+		/// </value>
+		public ILoadingIndicatiorModule LoadingModule
+		{
+			get { return _loadingModule; }
+			set { Set(ref _loadingModule, value); }
 		}
 
 		#endregion
@@ -437,13 +472,16 @@ namespace Diety.ViewModel
 		/// <param name="frameNavigation">The frame navigation.</param>
 		/// <param name="userProfilesAccess">The user profiles access.</param>
 		/// <param name="passwordProcessingService">The password processing service.</param>
-		public RegisterUserViewModel(IMainFrameNavigationService frameNavigation, 
-			IUserProfilesAccess userProfilesAccess, IPasswordProcessingService passwordProcessingService)
+		/// <param name="loadingIndicatiorModule">The loading indicatior module.</param>
+		public RegisterUserViewModel(IMainFrameNavigationService frameNavigation,
+			IUserProfilesAccess userProfilesAccess, IPasswordProcessingService passwordProcessingService,
+			ILoadingIndicatiorModule loadingIndicatiorModule)
 		{
 			_frameNavigation = frameNavigation;
 			ErrorStatus = new RehabilitationErrorStatus();
 			_userProfilesAccess = userProfilesAccess;
 			_passwordProcessingService = passwordProcessingService;
+			LoadingModule = loadingIndicatiorModule;
 		}
 
 
@@ -461,7 +499,7 @@ namespace Diety.ViewModel
 		private bool CheckForNumeric(string number)
 		{
 			double convertedNumber;
-			return Double.TryParse(number.Replace('.',','), out convertedNumber);
+			return Double.TryParse(number.Replace('.', ','), out convertedNumber);
 		}
 
 		#endregion

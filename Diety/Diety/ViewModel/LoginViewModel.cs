@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Diety.Helpers;
 using Diety.Helpers.Constatnts;
@@ -38,11 +39,6 @@ namespace Diety.ViewModel
 		private string _login;
 
 		/// <summary>
-		/// The _user profiles access
-		/// </summary>
-		private readonly IUserProfilesAccess _userProfilesAccess;
-
-		/// <summary>
 		/// The _error message
 		/// </summary>
 		private string _errorMessage;
@@ -51,6 +47,11 @@ namespace Diety.ViewModel
 		/// The _current user module
 		/// </summary>
 		private ICurrentUserModule _currentUserModule;
+
+		/// <summary>
+		/// The _loading module
+		/// </summary>
+		private ILoadingIndicatiorModule _loadingModule;
 
 		#endregion
 
@@ -117,6 +118,7 @@ namespace Diety.ViewModel
 					{
 						try
 						{
+							LoadingModule.ShowLoadingIndicatior();
 							if (await _currentUserModule.AttemptLogin(Login, Password))
 							{
 								_mainFrameNavigationService.NavigateTo(PageType.Home);
@@ -125,10 +127,12 @@ namespace Diety.ViewModel
 							{
 								ErrorMessage = Messages.WrongUsernameOrPassword;
 							}
+							LoadingModule.HideLoadingIndicator();
 						}
 						catch (Exception e)
 						{
 							//TODO ERROR POPUP
+							LoadingModule.HideLoadingIndicator();
 							ErrorMessage = "Dupa zbita";
 						}
 					});
@@ -177,21 +181,35 @@ namespace Diety.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the loading module.
+		/// </summary>
+		/// <value>
+		/// The loading module.
+		/// </value>
+		public ILoadingIndicatiorModule LoadingModule
+		{
+			get { return _loadingModule; }
+			set { Set(ref _loadingModule, value); }
+		}
+
 		#endregion
 
 		#region C-tors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LoginViewModel"/> class.
+		/// Initializes a new instance of the <see cref="LoginViewModel" /> class.
 		/// </summary>
 		/// <param name="mainFrameNavigationService">The main frame navigation service.</param>
 		/// <param name="userProfilesAccess">The user profiles access.</param>
 		/// <param name="currentUserModule">The current user module.</param>
-		public LoginViewModel(IMainFrameNavigationService mainFrameNavigationService, IUserProfilesAccess userProfilesAccess, ICurrentUserModule currentUserModule)
+		/// <param name="loadingIndicatiorModule">The loading indicatior module.</param>
+		public LoginViewModel(IMainFrameNavigationService mainFrameNavigationService, IUserProfilesAccess userProfilesAccess, ICurrentUserModule currentUserModule,
+			ILoadingIndicatiorModule loadingIndicatiorModule)
 		{
 			_mainFrameNavigationService = mainFrameNavigationService;
-			_userProfilesAccess = userProfilesAccess;
 			_currentUserModule = currentUserModule;
+			LoadingModule = loadingIndicatiorModule;
 		}
 
 		#endregion
