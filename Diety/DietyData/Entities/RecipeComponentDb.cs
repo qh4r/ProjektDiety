@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DietyCommonTypes.Enums;
 using DietyCommonTypes.Interfaces;
@@ -58,6 +59,14 @@ namespace DietyData.Entities
 		/// The amount.
 		/// </value>
 		public double Amount { get; set; }
+
+		/// <summary>
+		/// Gets or sets the recipes.
+		/// </summary>
+		/// <value>
+		/// The recipes.
+		/// </value>
+		public virtual ICollection<RecipeDb> Recipes { get; set; }
 
 		#endregion
 	}

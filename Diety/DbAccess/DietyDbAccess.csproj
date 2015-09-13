@@ -79,6 +79,10 @@
     <Compile Include="Migrations\201509082010054_Ograniczenia na nazwe uzytkownika.Designer.cs">
       <DependentUpon>201509082010054_Ograniczenia na nazwe uzytkownika.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509131211139_Zmiana relacji przepisow i skladnikow na wiele do wielu.cs" />
+    <Compile Include="Migrations\201509131211139_Zmiana relacji przepisow i skladnikow na wiele do wielu.Designer.cs">
+      <DependentUpon>201509131211139_Zmiana relacji przepisow i skladnikow na wiele do wielu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -124,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509082010054_Ograniczenia na nazwe uzytkownika.resx">
       <DependentUpon>201509082010054_Ograniczenia na nazwe uzytkownika.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509131211139_Zmiana relacji przepisow i skladnikow na wiele do wielu.resx">
+      <DependentUpon>201509131211139_Zmiana relacji przepisow i skladnikow na wiele do wielu.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

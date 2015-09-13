@@ -45,13 +45,13 @@ namespace DietyDataAccess.Accessors
 		/// <param name="takeCount">The take count.</param>
 		/// <returns></returns>
 		public async Task<IEnumerable<IRecipeComponent>> GetRecipeComponentsList(
-			Func<RecipeComponentDb, bool> searchCondition = null,
-			Func<RecipeComponentDb, object> orderRule = null,
+			Func<IRecipeComponent, bool> searchCondition = null,
+			Func<IRecipeComponent, object> orderRule = null,
 			int skipCount = 0, int takeCount = Int32.MaxValue)
 		{
 			using (var dietyContext = DietyDbContext)
 			{
-				IEnumerable<IRecipeComponentData> outputList;
+				IEnumerable<IRecipeComponent> outputList;
 				if (orderRule != null)
 				{
 					outputList =

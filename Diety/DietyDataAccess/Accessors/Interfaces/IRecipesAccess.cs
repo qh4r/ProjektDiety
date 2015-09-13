@@ -26,8 +26,8 @@ namespace DietyDataAccess.Accessors.Interfaces
 		/// <param name="takeCount">The take count.</param>
 		/// <returns></returns>
 		Task<IEnumerable<IRecipe>> GetRecipesList(
-			Func<RecipeDb, bool> searchCondition = null,
-			Func<RecipeDb, object> orderRule = null,
+			Func<IRecipe, bool> searchCondition = null,
+			Func<IRecipe, object> orderRule = null,
 			int skipCount = 0, int takeCount = Int32.MaxValue);
 
 		/// <summary>

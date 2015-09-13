@@ -65,6 +65,7 @@
 					</Button>
 				</Grid>
 			</Grid>
+			<!-- BODY -->
 			<Grid Grid.Row="1">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"/>

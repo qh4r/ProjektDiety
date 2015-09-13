@@ -7,11 +7,60 @@
       mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Recipes}"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="Home">
+	<Page.Resources>
+		<!--d:DataContext="{d:DesignInstance }"-->
+		<DataTemplate x:Key="RecipesListRowTempalte">
+			<Grid >
+				<Button Style="{StaticResource ListButtonStyle}"
+                        CommandParameter="{Binding}">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="0" Style="{StaticResource BaseLabelStyle}" Text="{Binding}"/>
+					</Grid>
+				</Button>
+			</Grid>
+		</DataTemplate>
+
+	</Page.Resources>
 	<Grid x:Name="RootGrid">
-
 		<templateControlls:PageBase HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-			<TextBlock Foreground="Tomato" FontSize="40">RECIPES</TextBlock>
+			<Grid Margin="10">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<TextBlock Style="{StaticResource BaseLabelStyle}" Grid.Row="1" Grid.Column="0"
+				Visibility="{Binding NoData, Converter={StaticResource BooleanToVisibilityConverter}}">
+					Brak Danych
+				</TextBlock>
+				<ListView 
+				  Grid.Row="1" Grid.Column="0"
+				Visibility="{Binding NoData, Converter={StaticResource BooleanToNegativeVisibilityConverter}}"
+                  Margin="20,10,20,0" 
+                  VerticalAlignment="Stretch" 
+                  VirtualizingStackPanel.VirtualizationMode="Recycling" 
+				  ItemContainerStyle="{StaticResource ListContaimerStyle}"
+				  ItemTemplate="{StaticResource RecipesListRowTempalte}"                  
+                  ItemsSource="{Binding FilteredRecipesCollection, Mode=TwoWay}" 
+					SelectionMode="Single">
+				</ListView>
+				<Button Style="{StaticResource RoundButtonStyle}" Grid.Row="2" Grid.Column="1" Command="{Binding AddRecipe}">
+					<Grid>
+						<Viewbox>
+							<Image Source="{StaticResource AddIcon}"/>
+						</Viewbox>
+					</Grid>
+				</Button>
+			</Grid>
 		</templateControlls:PageBase>
-
 	</Grid>
 </Page>

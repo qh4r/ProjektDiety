@@ -9,5 +9,6 @@
 	<BitmapImage UriSource="/Resources/Icons/Navigation/diagram64.png" x:Key="DiagramIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/Navigation/calendar64.png" x:Key="CalendarIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/Navigation/recipes64.png" x:Key="RecipesIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/add64.png" x:Key="AddIcon"/>
 
 </ResourceDictionary>

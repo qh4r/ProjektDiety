@@ -30,6 +30,11 @@
 		/// <summary>
 		/// The statistics
 		/// </summary>
-		Statistics
+		Statistics,
+
+		/// <summary>
+		/// The add edit recipe
+		/// </summary>
+		AddEditRecipe
 	}
 }

@@ -92,9 +92,9 @@ namespace DietyDataAccess.DataTypes
 		/// Initializes a new instance of the <see cref="RecipeComponent"/> class.
 		/// </summary>
 		/// <param name="recipeComponent">The recipe component.</param>
-		internal RecipeComponent(IRecipeComponentData recipeComponent)
+		internal RecipeComponent(IRecipeComponent recipeComponent)
 		{
-			_recipeComponent = recipeComponent;
+			_recipeComponent = recipeComponent as IRecipeComponentData;
 		}
 
 		/// <summary>

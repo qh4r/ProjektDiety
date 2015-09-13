@@ -8,4 +8,6 @@
 	<converters:BoolToZeroOpacityConverter x:Key="BoolToZeroOpacityConverter"/>
 	<converters:NullOrEmptyToZeroOpacityConverter x:Key="NullOrEmptyToZeroOpacityConverter"/>
 	<converters:ActivePageTypeToBoolConverter x:Key="ActivePageTypeToBoolConverter"/>
+	<converters:BooleanToNegativeVisibilityConverter x:Key="BooleanToNegativeVisibilityConverter"/>
+	<converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
 </ResourceDictionary>

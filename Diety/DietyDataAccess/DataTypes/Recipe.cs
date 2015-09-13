@@ -125,9 +125,9 @@ namespace DietyDataAccess.DataTypes
 		/// Initializes a new instance of the <see cref="Recipe"/> class.
 		/// </summary>
 		/// <param name="recipe">The recipe.</param>
-		internal Recipe(IRecipeData recipe)
+		internal Recipe(IRecipe recipe)
 		{
-			_recipe = recipe;
+			_recipe = recipe as IRecipeData;
 		}
 
 		/// <summary>

@@ -64,6 +64,7 @@ namespace Diety.ViewModel
 			SimpleIoc.Default.Register<RecipesViewModel>();
 			SimpleIoc.Default.Register<StatisticsViewModel>();
 			SimpleIoc.Default.Register<CalendarViewModel>();
+			SimpleIoc.Default.Register<AddEditRecipeViewModel>();
 		}
 
 		#endregion
@@ -82,7 +83,7 @@ namespace Diety.ViewModel
 			navigationService.Configure(PageType.Calendar, new Uri("/Views/Calendar.xaml", UriKind.Relative));
 			navigationService.Configure(PageType.Statistics, new Uri("/Views/Statistics.xaml", UriKind.Relative));
 			navigationService.Configure(PageType.Recipes, new Uri("/Views/Recipes.xaml", UriKind.Relative));
-
+			navigationService.Configure(PageType.AddEditRecipe, new Uri("/Views/AddEditRecipe.xaml", UriKind.Relative));
 
 
 
@@ -158,7 +159,7 @@ namespace Diety.ViewModel
 		/// </value>
 		public RecipesViewModel Recipes
 		{
-			get { return SimpleIoc.Default.GetInstance<RecipesViewModel>(); }
+			get { return SimpleIoc.Default.GetInstanceWithoutCaching<RecipesViewModel>(); }
 		}
 
 		/// <summary>
@@ -170,6 +171,17 @@ namespace Diety.ViewModel
 		public StatisticsViewModel Statistics
 		{
 			get { return SimpleIoc.Default.GetInstance<StatisticsViewModel>(); }
+		}
+
+		/// <summary>
+		/// Gets the add edit recipe.
+		/// </summary>
+		/// <value>
+		/// The add edit recipe.
+		/// </value>
+		public AddEditRecipeViewModel AddEditRecipe
+		{
+			get { return SimpleIoc.Default.GetInstanceWithoutCaching<AddEditRecipeViewModel>(); }
 		}
 
 

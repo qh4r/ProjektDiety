@@ -46,7 +46,7 @@ namespace DietyData.Entities
 				return ComponentsListData;
 			}
 			set { ComponentsListData = value as ICollection<RecipeComponentDb>; }
-		}
+		}		
 
 		/// <summary>
 		/// Gets or sets the type of the meal.
