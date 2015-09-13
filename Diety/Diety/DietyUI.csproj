@@ -110,6 +110,7 @@
     <Compile Include="Helpers\Converters\BooleanToNegativeVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\BoolToSolidColorBrushConverter.cs" />
     <Compile Include="Helpers\Converters\BoolToZeroOpacityConverter.cs" />
+    <Compile Include="Helpers\Converters\EnumToMealTypeConverter.cs" />
     <Compile Include="Helpers\Converters\EnumToStringConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToInverseVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToVisibilityConverter.cs" />
@@ -278,6 +279,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\add64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\trashBrown.png" />
+    <Resource Include="Resources\Icons\trashWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\accept32.png" />
+    <Resource Include="Resources\Icons\cancel32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

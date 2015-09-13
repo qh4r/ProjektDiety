@@ -10,4 +10,5 @@
 	<converters:ActivePageTypeToBoolConverter x:Key="ActivePageTypeToBoolConverter"/>
 	<converters:BooleanToNegativeVisibilityConverter x:Key="BooleanToNegativeVisibilityConverter"/>
 	<converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
+	<converters:EnumToMealTypeConverter x:Key="EnumToMealTypeConverter"/>
 </ResourceDictionary>

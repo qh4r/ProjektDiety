@@ -15,7 +15,7 @@ namespace DietyDataAccess.Accessors.Interfaces
 		/// </summary>
 		/// <param name="item">The meal history record.</param>
 		/// <returns></returns>
-		Task<IRecipe> AddMealRecord(IRecipe item);
+		Task<IRecipe> AddRecipe(IRecipe item);
 
 		/// <summary>
 		/// Gets the meal history records list.

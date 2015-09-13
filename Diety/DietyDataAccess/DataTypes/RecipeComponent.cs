@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight;
 
 namespace DietyDataAccess.DataTypes
 {
-	class RecipeComponent : ViewModelBase, IRecipeComponent
+	public class RecipeComponent : ViewModelBase, IRecipeComponent
 	{
 		#region Private Fields
 
@@ -100,9 +100,14 @@ namespace DietyDataAccess.DataTypes
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RecipeComponent"/> class.
 		/// </summary>
-		public RecipeComponent()
+		public RecipeComponent(IIngredient ingredient)
 		{
-			_recipeComponent = new RecipeComponentDb();
+			_recipeComponent = new RecipeComponentDb
+			{
+				Ingredient = (ingredient as Ingredient).UnwrapDataObject(),
+				Amount = 0,
+				Unit = default(UnitTypes)
+			};
 		}
 
 		#endregion

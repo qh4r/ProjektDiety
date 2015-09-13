@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using DietyCommonTypes.Interfaces;
@@ -20,18 +21,18 @@ namespace DietyDataAccess.Accessors
 		/// </summary>
 		/// <param name="item">The meal history record.</param>
 		/// <returns></returns>
-		public async Task<IRecipe> AddMealRecord(IRecipe item)
+		public async Task<IRecipe> AddRecipe(IRecipe item)
 		{
 			var wrappedRecord = item as Recipe;
 			var newMealRecord = wrappedRecord != null ? wrappedRecord.UnwrapDataObject() : item;
-
 			if (newMealRecord != null)
 			{
 				using (var dietyContext = DietyDbContext)
 				{
 					DietyDbContext.Recipes.Add(newMealRecord as RecipeDb);
-					await DietyDbContext.SaveChangesAsync();
+					var x = await DietyDbContext.SaveChangesAsync();
 				}
+				await Task.Yield();
 			}
 			return item;
 		}

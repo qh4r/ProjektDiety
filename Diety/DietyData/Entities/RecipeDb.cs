@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using DietyCommonTypes.Enums;
 using DietyCommonTypes.Interfaces;
 using DietyDataTransportTypes.Interfaces;
@@ -8,7 +9,7 @@ using DietyDataTransportTypes.Interfaces;
 namespace DietyData.Entities
 {
 	[Table("Recipes")]
-	public class RecipeDb : IRecipeData
+	public sealed class RecipeDb : IRecipeData
 	{
 		#region Properties
 
@@ -30,7 +31,7 @@ namespace DietyData.Entities
 		/// </value>
 		public string Name { get; set; }
 		[Column("ComponentsList")]
-		public virtual ICollection<RecipeComponentDb> ComponentsListData { get; set; }
+		public List<RecipeComponentDb> ComponentsListData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the components list.
@@ -45,7 +46,11 @@ namespace DietyData.Entities
 			{
 				return ComponentsListData;
 			}
-			set { ComponentsListData = value as ICollection<RecipeComponentDb>; }
+			set
+			{
+				var list = value.Select(recipeComponent => recipeComponent as RecipeComponentDb).ToList();
+				ComponentsListData = list;
+			}
 		}		
 
 		/// <summary>
@@ -71,6 +76,18 @@ namespace DietyData.Entities
 		/// The image.
 		/// </value>
 		public byte[] Image { get; set; }
+
+		#endregion
+
+		#region C-tors	
+
+		/// <summary>
+		/// Prevents a default instance of the <see cref="RecipeDb"/> class from being created.
+		/// </summary>
+		public RecipeDb()
+		{
+			ComponentsListData = new List<RecipeComponentDb>(); 
+		}
 
 		#endregion
 	}

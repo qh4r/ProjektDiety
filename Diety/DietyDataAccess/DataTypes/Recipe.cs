@@ -12,7 +12,7 @@ using GalaSoft.MvvmLight;
 
 namespace DietyDataAccess.DataTypes
 {
-	class Recipe : ViewModelBase ,IRecipe
+	public class Recipe : ViewModelBase, IRecipe
 	{
 		#region Private Fields
 
@@ -64,9 +64,29 @@ namespace DietyDataAccess.DataTypes
 			get { return _recipe.ComponentsList; }
 			set
 			{
-				_recipe.ComponentsList = value;
+				_recipe.ComponentsList = value.Select(x =>
+				{
+					var component = x as RecipeComponent;
+					if (component != null)
+					{
+						return component.UnwrapDataObject();
+					}
+					return x;
+				});
 				RaisePropertyChanged();
+				RaisePropertyChanged(() => ComponentsListEmpty);
 			}
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether [components list empty].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [components list empty]; otherwise, <c>false</c>.
+		/// </value>
+		public bool ComponentsListEmpty
+		{
+			get { return ComponentsList == null || !ComponentsList.Any(); }
 		}
 
 		/// <summary>
@@ -166,5 +186,15 @@ namespace DietyDataAccess.DataTypes
 		}
 
 		#endregion
+
+		#region Public Methods
+
+		public void AddComponent()
+		{
+
+		}
+
+		#endregion
+
 	}
 }
