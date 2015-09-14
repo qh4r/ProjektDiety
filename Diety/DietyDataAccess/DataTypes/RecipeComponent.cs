@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using DietyCommonTypes.Interfaces;
 using DietyData.Entities;
 using DietyDataTransportTypes.Interfaces;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace DietyDataAccess.DataTypes
 {
@@ -19,6 +21,16 @@ namespace DietyDataAccess.DataTypes
 		/// The _recipe component
 		/// </summary>
 		private readonly IRecipeComponentData _recipeComponent;
+
+		/// <summary>
+		/// The _amount text
+		/// </summary>
+		private string _amountText;
+
+		/// <summary>
+		/// The _amount error
+		/// </summary>
+		private bool _amountError;
 
 		#endregion
 
@@ -82,6 +94,60 @@ namespace DietyDataAccess.DataTypes
 				_recipeComponent.Amount = value;
 				RaisePropertyChanged();
 			}
+		}
+
+		/// <summary>
+		/// Gets or sets the amount text.
+		/// </summary>
+		/// <value>
+		/// The amount text.
+		/// </value>
+		public string AmountText
+		{
+			get
+			{
+				if (String.IsNullOrEmpty(_amountText))
+				{
+					_amountText = Amount.ToString(CultureInfo.CurrentCulture);
+					RaisePropertyChanged();
+				}
+				return _amountText;
+			}
+			set
+			{
+				double newValue;
+				Set(ref _amountText, value);
+				if (Double.TryParse(value, out newValue))
+				{
+					Amount = newValue;
+				}								
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether [amount error].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [amount error]; otherwise, <c>false</c>.
+		/// </value>
+		public bool AmountError
+		{
+			get { return _amountError; }
+			set { Set(ref _amountError, value); }
+		}
+
+		/// <summary>
+		/// Gets the amount got focus.
+		/// </summary>
+		/// <value>
+		/// The amount got focus.
+		/// </value>
+		public RelayCommand AmountGotFocus
+		{
+			get { return new RelayCommand(() =>
+			{
+				AmountError = false;
+			});}
 		}
 
 		#endregion

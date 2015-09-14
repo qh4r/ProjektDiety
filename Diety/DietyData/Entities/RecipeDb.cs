@@ -9,7 +9,7 @@ using DietyDataTransportTypes.Interfaces;
 namespace DietyData.Entities
 {
 	[Table("Recipes")]
-	public sealed class RecipeDb : IRecipeData
+	public class RecipeDb : IRecipeData
 	{
 		#region Properties
 
@@ -31,7 +31,7 @@ namespace DietyData.Entities
 		/// </value>
 		public string Name { get; set; }
 		[Column("ComponentsList")]
-		public List<RecipeComponentDb> ComponentsListData { get; set; }
+		virtual public List<RecipeComponentDb> ComponentsListData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the components list.

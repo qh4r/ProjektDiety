@@ -4,24 +4,149 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:templateControlls="clr-namespace:Diety.TemplateControlls"
+      xmlns:dataTypes="clr-namespace:DietyDataAccess.DataTypes;assembly=DietyDataAccess"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Recipes}"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="Home">
 	<Page.Resources>
-		<!--d:DataContext="{d:DesignInstance }"-->
+
+		<DataTemplate x:Key="RecipeComponentRowTempalte">
+			<Grid HorizontalAlignment="Stretch" d:DataContext="{d:DesignInstance dataTypes:RecipeComponent}">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Grid.Column="0" VerticalAlignment="Center"  Text="{Binding Ingredient.Name}" Style="{StaticResource BaseLabelStyle}"/>
+				<TextBlock Grid.Column="1" Margin="5,0"  VerticalAlignment="Center" Style="{StaticResource BaseLabelStyle}" Text="{Binding AmountText}"/>
+				<TextBlock Grid.Column="2" Margin="5,0" Style="{StaticResource BaseLabelStyle}"  
+										Text="{Binding Unit, Mode=TwoWay}" VerticalAlignment="Center"/>
+				<!--<TextBlock Grid.Column="2" Style="{StaticResource BaseLabelStyle}" Text="{Binding Unit}"/>-->
+			</Grid>
+		</DataTemplate>
+
 		<DataTemplate x:Key="RecipesListRowTempalte">
-			<Grid >
-				<Button Style="{StaticResource ListButtonStyle}"
-                        CommandParameter="{Binding}">
+			<Grid d:DataContext="{d:DesignInstance dataTypes:Recipe} ">
+				<Border Style="{StaticResource ListItemBorderStyle}">
 					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-							<ColumnDefinition Width="Auto"/>
-						</Grid.ColumnDefinitions>
-						<TextBlock Grid.Column="0" Style="{StaticResource BaseLabelStyle}" Text="{Binding}"/>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<Button Grid.Row="0"  Style="{StaticResource ListButtonStyle}" HorizontalContentAlignment="Stretch" BorderThickness="0" 
+						VerticalContentAlignment="Stretch" Command="{Binding DataContext.SelectRecipeCommand ,ElementName=RootGrid}"
+                        CommandParameter="{Binding}" IsEnabled="{Binding IsSelectedInverted}">
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<!-- Row1 -->
+								<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource NameLabelStyle}" 
+								   Text="{Binding Name}" />
+								<TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource BaseLabelStyle}" 
+								   HorizontalAlignment="Right" Text="{Binding MealType, Converter={StaticResource EnumToMealTypeConverter}}"/>
+								<!-- Row2 -->
+								<TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
+								<Run> Kalorie: </Run>
+								<Run FontWeight="Light">
+									<Binding Path="RecipeNutrientsSummary.Calories" Mode="OneWay"/>
+								</Run>
+								</TextBlock>
+								<TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
+								<Run> Białka: </Run>
+								<Run FontWeight="Light">
+									<Binding Path="RecipeNutrientsSummary.Proteins" Mode="OneWay"/>
+								</Run>
+								</TextBlock>
+								<TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
+								<Run> Cukry: </Run>
+								<Run FontWeight="Light">
+									<Binding Path="RecipeNutrientsSummary.Carbohydrates" Mode="OneWay"/>
+								</Run>
+								</TextBlock>
+								<TextBlock Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
+								<Run> Tłuszcze: </Run>
+								<Run FontWeight="Light">
+									<Binding Path="RecipeNutrientsSummary.Fats" Mode="OneWay"/>
+								</Run>
+								</TextBlock>
+							</Grid>
+						</Button>
+						<!-- DESCRIPTION -->
+						<Grid Margin="10" Grid.Row="1" Visibility="{Binding IsSelectedInverted, Converter={StaticResource BooleanToNegativeVisibilityConverter}}">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="Auto"/>
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" FontWeight="Medium" 
+									   Style="{StaticResource NameLabelStyle}">
+								Składniki:
+							</TextBlock>
+							<ListView Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" BorderThickness="0"				
+									  Margin="10,5" MaxHeight="200" 
+									  VerticalAlignment="Stretch" Background="Transparent"
+									  VirtualizingStackPanel.VirtualizationMode="Standard"
+									  ItemContainerStyle="{StaticResource ListContaimerStyle}"
+									  ItemTemplate="{StaticResource RecipeComponentRowTempalte}"                  
+									  ItemsSource="{Binding ComponentsList, Mode=TwoWay}" 
+									  SelectionMode="Single">
+							</ListView>
+							<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
+									   FontSize="18" FontWeight="Medium" Style="{StaticResource NameLabelStyle}">
+								Opis:
+							</TextBlock>
+							<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="10,5"
+									   Text="{Binding Description}"
+									   FontSize="16" Style="{StaticResource BaseLabelStyle}"/>
+
+
+							<Button Margin="10" Style="{StaticResource BrownButtonStyle}" 
+									Command="{Binding DataContext.EditRecipeCommand,ElementName=RootGrid}" 
+									CommandParameter="{Binding}"
+									Grid.Row="4" Grid.Column="0">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<Viewbox Grid.Column="0" Margin="0,0,15,0">
+										<Image Source="{StaticResource EditIcon}"/>
+									</Viewbox>
+									<TextBlock Grid.Column="1">Edytuj</TextBlock>
+								</Grid>
+							</Button>
+							<Button Margin="10" Style="{StaticResource BrownButtonStyle}" 
+									Grid.Row="4" Grid.Column="1" Command="{Binding DataContext.RemoveRecipeCommand ,ElementName=RootGrid}" 
+									CommandParameter="{Binding}">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<Viewbox Grid.Column="0" Margin="0,0,15,0" >
+										<Image Source="{StaticResource TrashWhiteIcon}"/>
+									</Viewbox>
+									<TextBlock Grid.Column="1">Usuń</TextBlock>
+								</Grid>
+							</Button>
+						</Grid>
 					</Grid>
-				</Button>
+				</Border>
 			</Grid>
 		</DataTemplate>
 
@@ -42,10 +167,23 @@
 				Visibility="{Binding NoData, Converter={StaticResource BooleanToVisibilityConverter}}">
 					Brak Danych
 				</TextBlock>
+				<!--Filter -->
+				<Border Style="{StaticResource BrownBorderStyle}" Grid.Row="0" Grid.Column="0">
+					<xctk:WatermarkTextBox 
+                                       Style="{StaticResource BaseTextBoxStyle}"
+										   WatermarkTemplate="{StaticResource WatermarkTemplate}"
+                                       TextWrapping="NoWrap"                                       
+                                       VerticalAlignment="Center"														   
+										HorizontalAlignment="Stretch"
+                                       Watermark="&#x1f50d;"														                                          
+                                       Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+					</xctk:WatermarkTextBox>
+				</Border>
+				<!-- List-->
 				<ListView 
-				  Grid.Row="1" Grid.Column="0"
+				  Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"
 				Visibility="{Binding NoData, Converter={StaticResource BooleanToNegativeVisibilityConverter}}"
-                  Margin="20,10,20,0" 
+                  Margin="20,10,20,0" BorderThickness="0"
                   VerticalAlignment="Stretch" 
                   VirtualizingStackPanel.VirtualizationMode="Recycling" 
 				  ItemContainerStyle="{StaticResource ListContaimerStyle}"
@@ -53,13 +191,24 @@
                   ItemsSource="{Binding FilteredRecipesCollection, Mode=TwoWay}" 
 					SelectionMode="Single">
 				</ListView>
-				<Button Style="{StaticResource RoundButtonStyle}" Grid.Row="2" Grid.Column="1" Command="{Binding AddRecipe}">
-					<Grid>
-						<Viewbox>
-							<Image Source="{StaticResource AddIcon}"/>
-						</Viewbox>
-					</Grid>
-				</Button>
+				<!-- ADD BUTTON -->
+				<Grid Grid.Row="2" Grid.Column="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+					<TextBlock Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource HeaderBackgroundBrush}">
+						Dodaj przepis!
+					</TextBlock>
+					<Button Grid.Row="1" Style="{StaticResource RoundButtonStyle}"  Command="{Binding AddRecipe}">
+						<Grid>
+							<Viewbox>
+								<Image Source="{StaticResource AddIcon}"/>
+							</Viewbox>
+						</Grid>
+					</Button>
+				</Grid>
 			</Grid>
 		</templateControlls:PageBase>
 	</Grid>

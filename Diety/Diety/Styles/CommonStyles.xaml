@@ -48,7 +48,12 @@
 			<SolidColorBrush x:Key="NavButtonPressedBackgroundColor" Color="#167E0D"/>
 			<SolidColorBrush x:Key="NavButtonDisabledBackgroundColor" Color="#F49D14"/>
 
-			<SolidColorBrush x:Key="ListButtonBorderColor" Color="#87512B"/>
+			<SolidColorBrush x:Key="BrownButtonBackgroundColor" Color="#834B23"/>
+			<SolidColorBrush x:Key="BrownButtonPointerOverColor" Color="#9A5C31"/>
+			<SolidColorBrush x:Key="BrownButtonPressedBackgroundColor" Color="#6D401F"/>
+			<SolidColorBrush x:Key="BrownButtonDisabledBackgroundColor" Color="#311B0B"/>
+
+			<SolidColorBrush x:Key="BrownBorderColor" Color="#87512B"/>
 			<SolidColorBrush x:Key="ListButtonBackgroundColor" Color="#FFF280"/>
 			<SolidColorBrush x:Key="ListButtonPointerOverColor" Color="#FAEC75"/>
 			<SolidColorBrush x:Key="ListButtonPressedBackgroundColor" Color="#FAE638"/>
@@ -71,8 +76,17 @@
 			</Style>
 
 			<Style x:Key="BrownBorderStyle" TargetType="Border" BasedOn="{StaticResource RoundBorderStyle}">
-				<Setter Property="BorderBrush" Value="{StaticResource ListButtonBorderColor}"/>
+				<Setter Property="BorderBrush" Value="{StaticResource BrownBorderColor}"/>
 			</Style>
+
+			<Style x:Key="ListItemBorderStyle" TargetType="Border">
+				<Setter Property="Background" Value="{StaticResource ListButtonDisabledBackgroundColor}"/>
+				<Setter Property="BorderBrush" Value="{StaticResource BrownBorderColor}" />
+				<Setter Property="HorizontalAlignment" Value="Stretch" />
+				<Setter Property="VerticalAlignment" Value="Stretch" />
+				<Setter Property="BorderThickness" Value="2" />
+			</Style>
+
 			<!-- //BORDER -->
 
 			<!-- TEXT BLOCKS -->
@@ -83,6 +97,12 @@
 				<Setter Property="FontSize" Value="18"/>
 				<Setter Property="TextWrapping" Value="Wrap"/>
 				<Setter Property="Foreground" Value="{StaticResource BrushFontColor}"/>
+			</Style>
+
+			<Style x:Key="NameLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseLabelStyle}">
+				<Setter Property="HorizontalAlignment" Value="Left"/>
+				<Setter Property="FontWeight" Value="DemiBold"/>
+				<Setter Property="FontSize" Value="20"/>
 			</Style>
 
 			<Style x:Key="WhiteLabelStyle" BasedOn="{StaticResource BaseLabelStyle}" TargetType="TextBlock">
@@ -325,11 +345,11 @@
 					</Setter.Value>
 				</Setter>
 			</Style>
-
+			
 			<Style x:Key="ListButtonStyle" TargetType="Button">
 				<Setter Property="Background" Value="{StaticResource ListButtonBackgroundColor}"/>
 				<Setter Property="Foreground" Value="{StaticResource BrushButtonFontColor}" />
-				<Setter Property="BorderBrush" Value="{StaticResource ListButtonBorderColor}" />
+				<Setter Property="BorderBrush" Value="{StaticResource BrownBorderColor}" />
 				<Setter Property="BorderThickness" Value="2" />
 				<Setter Property="Padding" Value="10" />
 				<Setter Property="Margin" Value="0"></Setter>
@@ -489,6 +509,87 @@
 				</Setter>
 			</Style>
 
+			<Style x:Key="BrownButtonStyle" TargetType="Button">
+				<Setter Property="Background" Value="{StaticResource BrownButtonBackgroundColor}"/>
+				<Setter Property="Foreground" Value="{StaticResource BrushButtonFontColor}" />
+				<Setter Property="BorderBrush" Value="{StaticResource BrushButtonBorderColor}" />
+				<Setter Property="BorderThickness" Value="0" />
+				<Setter Property="Padding" Value="30,10" />
+				<Setter Property="HorizontalAlignment" Value="Center" />
+				<Setter Property="VerticalAlignment" Value="Center" />
+				<Setter Property="FontFamily" Value="Calibri" />
+				<Setter Property="FontWeight" Value="Normal"/>
+				<Setter Property="FontSize" Value="15" />
+				<Setter Property="VerticalContentAlignment" Value="Center"/>
+				<Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="Button">
+							<Grid Margin="0">
+								<Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"								
+                                Margin="0"
+                                Padding="0"
+                                CornerRadius="10">
+									<ContentPresenter x:Name="ContentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+								</Border>
+
+								<VisualStateManager.VisualStateGroups>
+									<VisualStateGroup x:Name="CommonStates">
+										<VisualState x:Name="Normal" />
+
+										<VisualState x:Name="MouseOver">
+											<Storyboard>
+												<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                       Storyboard.TargetProperty="Background">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BrownButtonPointerOverColor}" />
+												</ObjectAnimationUsingKeyFrames>
+											</Storyboard>
+										</VisualState>
+
+										<VisualState x:Name="Pressed">
+											<Storyboard>
+												<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                       Storyboard.TargetProperty="Background">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BrownButtonPressedBackgroundColor}" />
+												</ObjectAnimationUsingKeyFrames>
+
+												<!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                                       Storyboard.TargetProperty="Foreground">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BrushButtonPressedFontColor}" />
+												</ObjectAnimationUsingKeyFrames>-->
+											</Storyboard>
+										</VisualState>
+
+										<VisualState x:Name="Disabled">
+											<Storyboard>
+												<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                       Storyboard.TargetProperty="Background">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BrownButtonDisabledBackgroundColor}" />
+												</ObjectAnimationUsingKeyFrames>
+											</Storyboard>
+										</VisualState>
+									</VisualStateGroup>
+
+									<VisualStateGroup x:Name="FocusStates">
+										<VisualState x:Name="Focused"/>
+										<VisualState x:Name="Unfocused" />
+										<VisualState x:Name="PointerFocused" />
+									</VisualStateGroup>
+								</VisualStateManager.VisualStateGroups>
+							</Grid>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
 
 			<!-- //BUTTONS -->
 
@@ -498,7 +599,7 @@
 				<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 				<Setter Property="Margin" Value="0,0,0,0" />				
 				<Setter Property="BorderThickness" Value="2"></Setter>
-				<Setter Property="BorderBrush" Value="{StaticResource ListButtonBorderColor}" />
+				<Setter Property="BorderBrush" Value="{StaticResource BrownBorderColor}" />
 				<Setter Property="Template">					
 					<Setter.Value>
 						<ControlTemplate TargetType="ListViewItem">

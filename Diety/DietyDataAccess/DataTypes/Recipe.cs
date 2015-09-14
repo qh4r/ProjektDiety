@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using DietyCommonTypes.Enums;
 using DietyCommonTypes.Interfaces;
 using DietyData.Entities;
+using DietyDataAccess.DataTypes.ComplementaryTypes;
+using DietyDataAccess.DataTypes.ComplementaryTypes.Interfaces;
+using DietyDataAccess.DataTypes.WrapperInterfaces;
 using DietyDataTransportTypes.Interfaces;
 using GalaSoft.MvvmLight;
 
 namespace DietyDataAccess.DataTypes
 {
-	public class Recipe : ViewModelBase, IRecipe
+	public class Recipe : ViewModelBase, IRecipeWrapper
 	{
 		#region Private Fields
 
@@ -20,6 +24,27 @@ namespace DietyDataAccess.DataTypes
 		/// The _recipe
 		/// </summary>
 		private readonly IRecipeData _recipe;
+
+		private IEnumerable<IRecipeComponent> _componentsList;
+		/// <summary>
+		/// The _name error
+		/// </summary>
+		private bool _nameError;
+
+		/// <summary>
+		/// The _components error
+		/// </summary>
+		private bool _componentsError;
+
+		/// <summary>
+		/// The _is selected
+		/// </summary>
+		private bool _isSelected;
+
+		/// <summary>
+		/// The _recipe nutrients summary
+		/// </summary>
+		private INutrientsSummary _recipeNutrientsSummary;
 
 		#endregion
 
@@ -54,6 +79,42 @@ namespace DietyDataAccess.DataTypes
 		}
 
 		/// <summary>
+		/// Gets or sets a value indicating whether this instance is selected.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if this instance is selected; otherwise, <c>false</c>.
+		/// </value>
+		public bool IsSelectedInverted
+		{
+			get { return !_isSelected; }
+			set { Set(ref _isSelected, value); }
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether [name error].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [name error]; otherwise, <c>false</c>.
+		/// </value>
+		public bool NameError
+		{
+			get { return _nameError; }
+			set { Set(ref _nameError, value); }
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether [components error].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [components error]; otherwise, <c>false</c>.
+		/// </value>
+		public bool ComponentsError
+		{
+			get { return _componentsError; }
+			set { Set(ref _componentsError, value); }
+		}
+
+		/// <summary>
 		/// Gets or sets the components list.
 		/// </summary>
 		/// <value>
@@ -61,20 +122,12 @@ namespace DietyDataAccess.DataTypes
 		/// </value>
 		public IEnumerable<IRecipeComponent> ComponentsList
 		{
-			get { return _recipe.ComponentsList; }
+			get { return _componentsList; }
 			set
 			{
-				_recipe.ComponentsList = value.Select(x =>
-				{
-					var component = x as RecipeComponent;
-					if (component != null)
-					{
-						return component.UnwrapDataObject();
-					}
-					return x;
-				});
-				RaisePropertyChanged();
+				Set(ref _componentsList, value);
 				RaisePropertyChanged(() => ComponentsListEmpty);
+				ComponentsError = false;
 			}
 		}
 
@@ -137,6 +190,18 @@ namespace DietyDataAccess.DataTypes
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the recipe nutrients summary.
+		/// </summary>
+		/// <value>
+		/// The recipe nutrients summary.
+		/// </value>
+		public INutrientsSummary RecipeNutrientsSummary
+		{
+			get { return _recipeNutrientsSummary; }
+			set { Set(ref _recipeNutrientsSummary, value); }
+		}
+
 		#endregion
 
 		#region C-tors
@@ -146,15 +211,18 @@ namespace DietyDataAccess.DataTypes
 		/// </summary>
 		/// <param name="recipe">The recipe.</param>
 		internal Recipe(IRecipe recipe)
-		{
+		{			
+			ComponentsList = recipe.ComponentsList.Select(x => new RecipeComponent(x));
+			CalculateNutrientsSummary();
 			_recipe = recipe as IRecipeData;
 		}
-
+		
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Recipe"/> class.
 		/// </summary>
 		public Recipe()
 		{
+			ComponentsList = new List<IRecipeComponent>();
 			_recipe = new RecipeDb();
 		}
 
@@ -169,7 +237,7 @@ namespace DietyDataAccess.DataTypes
 		internal IRecipeData UnwrapDataObject()
 		{
 			ICollection<IRecipeComponent> newList = new List<IRecipeComponent>();
-			foreach (var recipeComponent in _recipe.ComponentsList)
+			foreach (var recipeComponent in ComponentsList)
 			{
 				if (recipeComponent is RecipeComponent)
 				{
@@ -187,14 +255,28 @@ namespace DietyDataAccess.DataTypes
 
 		#endregion
 
-		#region Public Methods
+		#region Private Methods
 
-		public void AddComponent()
+		/// <summary>
+		/// Calculates the nutrients summary.
+		/// </summary>
+		private void CalculateNutrientsSummary()
 		{
-
+			if (!ComponentsListEmpty)
+			{
+				var nutrientsSummary = new NutrientsSummary();
+				foreach (var recipeComponent in ComponentsList)
+				{
+					nutrientsSummary.AddIngredient(recipeComponent.Ingredient, recipeComponent.Unit);
+				}
+				RecipeNutrientsSummary = nutrientsSummary;
+			}
 		}
+
+		
 
 		#endregion
 
+		
 	}
 }

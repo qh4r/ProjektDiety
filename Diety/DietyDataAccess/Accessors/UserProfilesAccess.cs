@@ -58,19 +58,20 @@ namespace DietyDataAccess.Accessors
 				if (orderRule != null)
 				{
 					outputList =
-						DietyDbContext.UserProfiles.Where(searchCondition ?? (x => true))
+						dietyContext.UserProfiles.Where(searchCondition ?? (x => true))
 							.OrderBy(orderRule)
 							.Skip(skipCount);
 				}
 				else
 				{
 					outputList =
-						DietyDbContext.UserProfiles.Where(searchCondition ?? (x => true))
+						dietyContext.UserProfiles.Where(searchCondition ?? (x => true))
 							.Skip(skipCount)
 							.Take(takeCount);
 				}
+				var result = outputList.ToList();
 				await Task.Yield();
-				return outputList.Select(x => new UserProfile(x));
+				return result.Select(x => new UserProfile(x));
 			}
 		}
 
@@ -84,7 +85,8 @@ namespace DietyDataAccess.Accessors
 			using (var dietyContext = DietyDbContext)
 			{
 				var record = await DietyDbContext.UserProfiles.FirstOrDefaultAsync(x => x.Id == id);
-				return record != null ? new UserProfile(record) : null;
+				var result = record != null ? new UserProfile(record) : null;
+				return result;
 			}
 		}
 

@@ -43,6 +43,7 @@
     <Compile Include="Enums\SportTypes.cs" />
     <Compile Include="Enums\UnitTypes.cs" />
     <Compile Include="Extensions\EnumStringValueAttribute.cs" />
+    <Compile Include="Extensions\UnitTypeValueModyfierAttribute.cs" />
     <Compile Include="Interfaces\IIngredient.cs" />
     <Compile Include="Interfaces\IMealHistoryRecord.cs" />
     <Compile Include="Interfaces\IRecipe.cs" />

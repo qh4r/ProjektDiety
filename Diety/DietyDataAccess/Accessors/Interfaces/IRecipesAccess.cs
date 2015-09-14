@@ -37,6 +37,13 @@ namespace DietyDataAccess.Accessors.Interfaces
 		/// <returns></returns>
 		Task<IRecipe> GetRecipe(long id);
 
+		/// <summary>
+		/// Removes the recipe.
+		/// </summary>
+		/// <param name="recipe">The recipe.</param>
+		/// <returns></returns>
+		Task RemoveRecipe(IRecipe recipe);
+
 		#endregion
 
 	}

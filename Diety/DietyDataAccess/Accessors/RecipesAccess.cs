@@ -39,7 +39,7 @@ namespace DietyDataAccess.Accessors
 					//	Id = newMealRecord.Id,
 					//	MealType = newMealRecord.MealType
 					//};					
-					dietyContext.Recipes.Add(newMealRecord as RecipeDb);
+					dietyContext.Recipes.AddOrUpdate(newMealRecord as RecipeDb);
 					await dietyContext.SaveChangesAsync();
 				}
 				await Task.Yield();
@@ -62,6 +62,8 @@ namespace DietyDataAccess.Accessors
 		{
 			using (var dietyContext = DietyDbContext)
 			{
+				dietyContext.Configuration.LazyLoadingEnabled = false;
+				dietyContext.Recipes.Include(x => x.ComponentsListData);
 				IEnumerable<IRecipe> outputList;
 				if (orderRule != null)
 				{
@@ -76,9 +78,10 @@ namespace DietyDataAccess.Accessors
 						DietyDbContext.Recipes.Where(searchCondition ?? (x => true))							
 							.Skip(skipCount)
 							.Take(takeCount);
-				}
+				}				
+				var result = outputList.ToList();				
 				await Task.Yield();
-				return outputList.Select(x => new Recipe(x));
+				return result.Select(x => new Recipe(x));
 			}
 		}
 
@@ -91,8 +94,24 @@ namespace DietyDataAccess.Accessors
 		{
 			using (var dietyContext = DietyDbContext)
 			{
-				var record = await DietyDbContext.Recipes.FirstOrDefaultAsync(x => x.Id == id);
+				var record = await dietyContext.Recipes.FirstOrDefaultAsync(x => x.Id == id);
 				return record != null ? new Recipe(record) : null;
+			}
+		}
+
+		/// <summary>
+		/// Removes the recipe.
+		/// </summary>
+		/// <param name="recipe">The recipe.</param>
+		/// <returns></returns>
+		public async Task RemoveRecipe(IRecipe recipe)
+		{
+			var wrappedRecord = recipe as Recipe;
+			var recipeDb = wrappedRecord != null ? wrappedRecord.UnwrapDataObject() : recipe;
+			using (var dietyContext = DietyDbContext)
+			{
+				dietyContext.Recipes.Remove(recipeDb as RecipeDb);
+				var x = await dietyContext.SaveChangesAsync();				
 			}
 		}
 

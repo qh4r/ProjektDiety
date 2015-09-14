@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -12,6 +13,7 @@ using DietyCommonTypes.Enums;
 using DietyCommonTypes.Interfaces;
 using DietyDataAccess.Accessors.Interfaces;
 using DietyDataAccess.DataTypes;
+using DietyDataAccess.DataTypes.WrapperInterfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
@@ -80,7 +82,7 @@ namespace Diety.ViewModel
 		/// <summary>
 		/// The _new recipe
 		/// </summary>
-		private Recipe _selectedRecipe;
+		private IRecipeWrapper _selectedRecipe;
 
 		/// <summary>
 		/// The _unit types collection
@@ -187,7 +189,7 @@ namespace Diety.ViewModel
 		/// <value>
 		/// The new recipe.
 		/// </value>
-		public Recipe SelectedRecipe
+		public IRecipeWrapper SelectedRecipe
 		{
 			get { return _selectedRecipe; }
 			set { Set(ref _selectedRecipe, value); }
@@ -270,11 +272,27 @@ namespace Diety.ViewModel
 			{
 				return new RelayCommand(async () =>
 				{
-					await SaveRecipe();
+					if (CheckForErrors())
+					{
+						await SaveRecipe();
+					}
 				});
 			}
 		}
-		
+
+		/// <summary>
+		/// Gets the name got focus.
+		/// </summary>
+		/// <value>
+		/// The name got focus.
+		/// </value>
+		public RelayCommand NameGotFocus
+		{
+			get { return new RelayCommand(() =>
+			{
+				SelectedRecipe.NameError = false;
+			}); }
+		}
 
 		#endregion
 
@@ -309,7 +327,8 @@ namespace Diety.ViewModel
 				UnitTypesCollection.Add(value);
 			}
 
-			SelectedRecipe = new Recipe();
+			var param = _mainFrameNavigation.Parameter as IRecipeWrapper;			
+			SelectedRecipe = param ?? new Recipe();
 
 			DispatcherHelper.RunAsync(async () =>
 			{
@@ -338,6 +357,49 @@ namespace Diety.ViewModel
 			FilteredIngredients = filteredList;
 		}
 
+		/// <summary>
+		/// Checks for errors.
+		/// </summary>
+		/// <returns></returns>
+		private bool CheckForErrors()
+		{
+			bool noErrors = true;
+			if(String.IsNullOrWhiteSpace(SelectedRecipe.Name))
+			{
+				noErrors = false;
+				SelectedRecipe.NameError = true;
+			}
+			if (SelectedRecipe.ComponentsList == null || !SelectedRecipe.ComponentsList.Any())
+			{
+				SelectedRecipe.ComponentsError = true;
+				return false;
+			}
+			try
+			{
+				foreach (var recipeComponent in SelectedRecipe.ComponentsList)
+				{
+
+					var component = (RecipeComponent) recipeComponent;
+					double checkValue;
+					if (!Double.TryParse(component.AmountText, out checkValue))
+					{
+						component.AmountError = true;
+						noErrors = false;
+					}
+				}
+			}
+			catch (InvalidCastException e)
+			{				
+				Debug.WriteLine(e.Message);
+				return false;
+			}
+			return noErrors;
+		}
+
+		/// <summary>
+		/// Saves the recipe.
+		/// </summary>
+		/// <returns></returns>
 		private async Task SaveRecipe()
 		{
 			try

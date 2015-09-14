@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ using Diety.Helpers;
 using Diety.ViewModel.Modules;
 using DietyCommonTypes.Interfaces;
 using DietyDataAccess.Accessors.Interfaces;
+using DietyDataAccess.DataTypes;
+using DietyDataAccess.DataTypes.WrapperInterfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
@@ -19,7 +22,7 @@ namespace Diety.ViewModel
 {
 	public class RecipesViewModel : ViewModelBase
 	{
-		
+
 		#region Private Fields
 
 		/// <summary>
@@ -46,6 +49,16 @@ namespace Diety.ViewModel
 		/// The _filtered recipes collection
 		/// </summary>
 		private ObservableCollection<IRecipe> _filteredRecipesCollection;
+
+		/// <summary>
+		/// The _selected recipe
+		/// </summary>
+		private IRecipeWrapper _selectedRecipe;
+
+		/// <summary>
+		/// The _filter text
+		/// </summary>
+		private string _filterText;
 
 		#endregion
 
@@ -111,10 +124,108 @@ namespace Diety.ViewModel
 		/// </value>
 		public RelayCommand AddRecipe
 		{
-			get { return new RelayCommand(() =>
+			get
 			{
-				_mainFrameNavigation.NavigateTo(PageType.AddEditRecipe);
-			}); }
+				return new RelayCommand(() =>
+					{
+						_mainFrameNavigation.NavigateTo(PageType.AddEditRecipe);
+					});
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the selected recipe.
+		/// </summary>
+		/// <value>
+		/// The selected recipe.
+		/// </value>
+		public IRecipeWrapper SelectedRecipe
+		{
+			get { return _selectedRecipe; }
+			set { Set(ref _selectedRecipe, value); }
+		}
+
+		/// <summary>
+		/// Gets the select recipe command.
+		/// </summary>
+		/// <value>
+		/// The select recipe command.
+		/// </value>
+		public RelayCommand<IRecipeWrapper> SelectRecipeCommand
+		{
+			get
+			{
+				return new RelayCommand<IRecipeWrapper>(recipe =>
+					{
+						if (SelectedRecipe != null)
+						{
+							SelectedRecipe.IsSelectedInverted = false;
+						}
+						SelectedRecipe = recipe;
+						SelectedRecipe.IsSelectedInverted = true;
+					});
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the filter text.
+		/// </summary>
+		/// <value>
+		/// The filter text.
+		/// </value>
+		public string FilterText
+		{
+			get { return _filterText; }
+			set
+			{
+				Set(ref _filterText, value);
+				FilterIngredientsAction();
+			}
+		}
+
+		/// <summary>
+		/// Gets the remove recipe command.
+		/// </summary>
+		/// <value>
+		/// The remove recipe command.
+		/// </value>
+		public RelayCommand<IRecipeWrapper> RemoveRecipeCommand
+		{
+			get
+			{
+				return new RelayCommand<IRecipeWrapper>(async recipe =>
+					{
+						//try
+						//{
+						//	await _recipesAccess.RemoveRecipe(recipe);
+						//	RecipesCollection.Remove(recipe);
+						//	var filteredList = FilteredRecipesCollection;
+						//	filteredList.Remove(recipe);
+						//	FilteredRecipesCollection = filteredList;
+						//}
+						//catch (Exception e)
+						//{
+
+						//}
+					});
+			}
+		}
+
+		/// <summary>
+		/// Gets the edit recipe command.
+		/// </summary>
+		/// <value>
+		/// The edit recipe command.
+		/// </value>
+		public RelayCommand<IRecipeWrapper> EditRecipeCommand
+		{
+			get
+			{
+				return new RelayCommand<IRecipeWrapper>(recipe =>
+				{
+					_mainFrameNavigation.NavigateTo(PageType.AddEditRecipe, recipe);
+				});
+			}
 		}
 
 		#endregion
@@ -133,19 +244,32 @@ namespace Diety.ViewModel
 			_recipesAccess = recipesAccess;
 			PageBaseModel = pageBaseViewModel;
 			DispatcherHelper.RunAsync(async () =>
-			{				
+			{
 				var recipes = await _recipesAccess.GetRecipesList(null, x => x.Name);
 				RecipesCollection = new ObservableCollection<IRecipe>(recipes);
 				FilteredRecipesCollection = new ObservableCollection<IRecipe>(RecipesCollection.Where(x => true));
 			});
 
-			//FilteredRecipesCollection.CollectionChanged += (sender, args) =>
-			//{
-			//	RaisePropertyChanged(() => NoData);
-			//};
-
-		}		
+		}
 
 		#endregion
+
+		#region Private Methods
+
+		/// <summary>
+		/// Filters the ingredients action.
+		/// </summary>
+		private void FilterIngredientsAction()
+		{
+			var filteredList = new ObservableCollection<IRecipe>();
+			foreach (var element in RecipesCollection.Where(element => element.Name.ToLower().Contains(FilterText.ToLower() ?? "")))
+			{
+				filteredList.Add(element);
+			}
+			FilteredRecipesCollection = filteredList;
+		}
+
+		#endregion
+
 	}
 }

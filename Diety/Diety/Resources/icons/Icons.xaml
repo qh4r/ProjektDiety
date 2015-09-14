@@ -14,6 +14,7 @@
 	<BitmapImage UriSource="/Resources/Icons/trashWhite.png" x:Key="TrashWhiteIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/accept32.png" x:Key="AcceptIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/cancel32.png" x:Key="CancelIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/editWhite.png" x:Key="EditIcon"/>
 
 
 </ResourceDictionary>

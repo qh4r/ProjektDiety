@@ -87,7 +87,10 @@
     <Compile Include="Accessors\RecipesAccess.cs" />
     <Compile Include="Accessors\MealHistoryRecordsAccess.cs" />
     <Compile Include="DataAccessBase.cs" />
+    <Compile Include="DataTypes\ComplementaryTypes\Interfaces\INutrientsSummary.cs" />
+    <Compile Include="DataTypes\ComplementaryTypes\NutrientsSummary.cs" />
     <Compile Include="DataTypes\Ingredient.cs" />
+    <Compile Include="DataTypes\WrapperInterfaces\IRecipeWrapper.cs" />
     <Compile Include="DataTypes\MealHistoryRecord.cs" />
     <Compile Include="DataTypes\Recipe.cs" />
     <Compile Include="DataTypes\RecipeComponent.cs" />

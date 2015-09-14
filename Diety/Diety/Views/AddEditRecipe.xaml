@@ -7,11 +7,17 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:dataTypes="clr-namespace:DietyDataAccess.DataTypes;assembly=DietyDataAccess"
+      xmlns:converters="clr-namespace:Diety.Helpers.Converters"
       DataContext="{Binding AddEditRecipe ,Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="AddEditRecipe">
 	<Page.Resources>
+
+		<converters:BoolToSolidColorBrushConverter ActiveColor="{StaticResource BrushErrorBorderColor}"
+												   NormalColor="{StaticResource BrownBorderColor}"
+												   x:Key="BoolToSolidColorBrushBorderConverter"/>
+
 		<!--d:DataContext="{d:DesignInstance }"-->
 		<DataTemplate x:Key="IngredientsListRowTempalte">
 			<Grid d:DataContext="{d:DesignInstance dataTypes:Ingredient}">
@@ -21,7 +27,7 @@
 					<Grid HorizontalAlignment="Stretch">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="*"/>							
+							<RowDefinition Height="*"/>
 						</Grid.RowDefinitions>
 						<TextBlock Grid.Row="0" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}" FontWeight="DemiBold" Text="{Binding Name}"/>
 						<Grid Grid.Row="1" HorizontalAlignment="Stretch">
@@ -75,12 +81,18 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Center"  Text="{Binding Ingredient.Name}" Style="{StaticResource BaseLabelStyle}"/>
-				<Border Grid.Column="0" Grid.Row="1" Style="{StaticResource BrownBorderStyle}">
-					<TextBox VerticalAlignment="Center" Style="{StaticResource BaseInputStyle}" Text="{Binding Amount, Mode=TwoWay}" />
+				<Border BorderBrush="{Binding AmountError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}" Grid.Column="0" Grid.Row="1" Style="{StaticResource BrownBorderStyle}">
+					<TextBox VerticalAlignment="Center" Style="{StaticResource BaseInputStyle}" Text="{Binding AmountText, Mode=TwoWay}">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="GotFocus">
+								<i:InvokeCommandAction Command="{Binding AmountGotFocus}"/>
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</TextBox>
 				</Border>
 				<xctk:WatermarkComboBox HorizontalContentAlignment="Center" Style="{StaticResource ComboBoxFlatStyle}" Grid.Column="1" 
 										Grid.Row="1" SelectedItem="{Binding Unit, Mode=TwoWay}"
-										ItemsSource="{Binding DataContext.UnitTypesCollection, ElementName=RootGrid}" VerticalAlignment="Center"/>				
+										ItemsSource="{Binding DataContext.UnitTypesCollection, ElementName=RootGrid}" VerticalAlignment="Center"/>
 				<!--<TextBlock Grid.Column="2" Style="{StaticResource BaseLabelStyle}" Text="{Binding Unit}"/>-->
 				<Button Grid.Column="2" Grid.Row="1" Command="{Binding DataContext.RemoveComponent, ElementName=RootGrid}" CommandParameter="{Binding}">
 					<Button.Template>
@@ -119,9 +131,15 @@
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="*"/>
 					</Grid.RowDefinitions>
-					<Border Style="{StaticResource BrownBorderStyle}" Grid.Row="0" Grid.Column="0" >
+					<Border Style="{StaticResource BrownBorderStyle}" BorderBrush="{Binding SelectedRecipe.NameError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}" Grid.Row="0" Grid.Column="0" >
 						<xctk:WatermarkTextBox Foreground="Black" Watermark="Nazwa" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
-								    Style="{StaticResource BaseTextBoxStyle}" Text="{Binding SelectedRecipe.Name, Mode=TwoWay }"/>			
+								    Style="{StaticResource BaseTextBoxStyle}" Text="{Binding SelectedRecipe.Name, Mode=TwoWay }">
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="GotFocus">
+									<i:InvokeCommandAction Command="{Binding NameGotFocus}"/>
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+						</xctk:WatermarkTextBox>
 					</Border>
 					<!-- MEAL TYPE -->
 					<Border Style="{StaticResource BrownBorderStyle}" Grid.Row="1" Grid.Column="0">
@@ -131,8 +149,9 @@
 												Style="{StaticResource ComboBoxFlatStyle}"
 											WatermarkTemplate="{StaticResource WatermarkTemplate}" 
 											 ItemsSource="{Binding MealTypesCollection, Converter={StaticResource EnumToStringConverter}}"/>
-						</Border>
+					</Border>
 					<!-- PICKED INGREDIENTS -->
+
 					<ListView Grid.Row="2" Grid.Column="0" BorderThickness="0"
 				Visibility="{Binding SelectedRecipe.ComponentsListEmpty, Converter={StaticResource BooleanToNegativeVisibilityConverter}}"
                   Margin="0,5" MaxHeight="200" 
@@ -143,6 +162,9 @@
                   ItemsSource="{Binding SelectedRecipe.ComponentsList, Mode=TwoWay}" 
 					SelectionMode="Single">
 					</ListView>
+					<TextBlock Grid.Column="0" Grid.Row="2"  Visibility="{Binding SelectedRecipe.ComponentsError, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource ErrorMessageLabelStyle}">
+						Lista składników nie może być pusta!
+					</TextBlock>
 					<!-- DESCRIPTION -->
 					<Border Style="{StaticResource BrownBorderStyle}" Grid.Row="3" Grid.Column="0"
 							VerticalAlignment="Stretch">
@@ -150,18 +172,17 @@
 											   ="{StaticResource WatermarkTemplate}" HorizontalAlignment="Stretch"
 											   VerticalAlignment="Stretch" TextWrapping="Wrap"
 								    Style="{StaticResource BaseTextBoxStyle}" Text="{Binding SelectedRecipe.Description, Mode=TwoWay}">
-	
+
 						</xctk:WatermarkTextBox>
 					</Border>
 					<!-- COMPONENTS -->
 				</Grid>
 				<Grid Grid.Column="1" Grid.Row="0" Margin="10">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="*"/>
-						</Grid.RowDefinitions>
-					<Border Style="{StaticResource BrownBorderStyle}" Grid.Row="0"
-							Visibility="{Binding NoData, Converter={StaticResource BooleanToNegativeVisibilityConverter}}">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+					<Border Style="{StaticResource BrownBorderStyle}" Grid.Row="0">							
 						<xctk:WatermarkTextBox 
                                        Style="{StaticResource BaseTextBoxStyle}"
 										   WatermarkTemplate="{StaticResource WatermarkTemplate}"
@@ -170,7 +191,7 @@
 										HorizontalAlignment="Stretch"
                                        Watermark="&#x1f50d;"														                                          
                                        Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-					</xctk:WatermarkTextBox>
+						</xctk:WatermarkTextBox>
 					</Border>
 					<ListView Grid.Row="1" BorderThickness="0"
 				Visibility="{Binding NoData, Converter={StaticResource BooleanToNegativeVisibilityConverter}}"
@@ -181,11 +202,11 @@
 				  ItemTemplate="{StaticResource IngredientsListRowTempalte}"                  
                   ItemsSource="{Binding FilteredIngredients, Mode=TwoWay}" 
 					SelectionMode="Single">
-				</ListView>
-				<TextBlock Grid.Row="0" Style="{StaticResource BaseLabelStyle}"
+					</ListView>
+					<TextBlock Grid.Row="1" Style="{StaticResource BaseLabelStyle}"
 				Visibility="{Binding NoData, Converter={StaticResource BooleanToVisibilityConverter}}">
 					Brak Danych
-				</TextBlock>
+					</TextBlock>
 				</Grid>
 				<!-- Footer -->
 				<Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5">

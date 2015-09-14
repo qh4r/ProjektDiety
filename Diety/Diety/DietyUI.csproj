@@ -288,6 +288,9 @@
     <Resource Include="Resources\Icons\accept32.png" />
     <Resource Include="Resources\Icons\cancel32.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\editWhite.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
