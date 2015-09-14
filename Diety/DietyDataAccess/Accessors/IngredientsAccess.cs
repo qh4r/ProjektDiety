@@ -55,19 +55,20 @@ namespace DietyDataAccess.Accessors
 				if (orderRule != null)
 				{
 					outputList =
-						DietyDbContext.Ingredients.Where(searchCondition ?? (x => true))
+						dietyContext.Ingredients.Where(searchCondition ?? (x => true))
 							.OrderBy(orderRule)
 							.Skip(skipCount);
 				}
 				else
 				{
 					outputList =
-						DietyDbContext.Ingredients.Where(searchCondition ?? (x => true))							
+						dietyContext.Ingredients.Where(searchCondition ?? (x => true))							
 							.Skip(skipCount)
 							.Take(takeCount);
 				}
+				var result = outputList.ToList();
 				await Task.Yield();
-				return outputList.Select(x => new Ingredient(x));
+				return result.Select(x => new Ingredient(x));
 			}
 		}
 

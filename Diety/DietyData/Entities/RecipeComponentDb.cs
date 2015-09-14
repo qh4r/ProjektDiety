@@ -60,13 +60,13 @@ namespace DietyData.Entities
 		/// </value>
 		public double Amount { get; set; }
 
-		/// <summary>
-		/// Gets or sets the recipes.
-		/// </summary>
-		/// <value>
-		/// The recipes.
-		/// </value>
-		public virtual ICollection<RecipeDb> Recipes { get; set; }
+		///// <summary>
+		///// Gets or sets the recipes.
+		///// </summary>
+		///// <value>
+		///// The recipes.
+		///// </value>
+		//public virtual ICollection<RecipeDb> Recipes { get; set; }
 
 		#endregion
 	}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using DietyCommonTypes.Interfaces;
@@ -29,8 +30,17 @@ namespace DietyDataAccess.Accessors
 			{
 				using (var dietyContext = DietyDbContext)
 				{
-					DietyDbContext.Recipes.Add(newMealRecord as RecipeDb);
-					var x = await DietyDbContext.SaveChangesAsync();
+					//newMealRecord as RecipeDb
+					//var newItem = new RecipeDb
+					//{
+					//	ComponentsList = newMealRecord.ComponentsList,
+					//	Description = newMealRecord.Description,
+					//	Name = newMealRecord.Name,
+					//	Id = newMealRecord.Id,
+					//	MealType = newMealRecord.MealType
+					//};					
+					dietyContext.Recipes.Add(newMealRecord as RecipeDb);
+					await dietyContext.SaveChangesAsync();
 				}
 				await Task.Yield();
 			}

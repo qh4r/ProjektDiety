@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography.X509Certificates;
 using DietyDataTransportTypes.Interfaces;
@@ -60,6 +61,14 @@ namespace DietyData.Entities
 		/// </value>
         public double Calories { get; set; }
 
+
+		/// <summary>
+		/// Gets or sets the recipes.
+		/// </summary>
+		/// <value>
+		/// The recipes.
+		/// </value>
+		public virtual ICollection<RecipeComponentDb> Recipes { get; set; }
         #endregion
     }
 }
