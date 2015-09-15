@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -83,9 +84,9 @@
     <Compile Include="Migrations\201509131211139_Zmiana relacji przepisow i skladnikow na wiele do wielu.Designer.cs">
       <DependentUpon>201509131211139_Zmiana relacji przepisow i skladnikow na wiele do wielu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509141710276_Dodanie polaczenia wiele do wielu dla skladnikow.cs" />
-    <Compile Include="Migrations\201509141710276_Dodanie polaczenia wiele do wielu dla skladnikow.Designer.cs">
-      <DependentUpon>201509141710276_Dodanie polaczenia wiele do wielu dla skladnikow.cs</DependentUpon>
+    <Compile Include="Migrations\201509152315268_poprawki modelu.cs" />
+    <Compile Include="Migrations\201509152315268_poprawki modelu.Designer.cs">
+      <DependentUpon>201509152315268_poprawki modelu.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -136,8 +137,8 @@
     <EmbeddedResource Include="Migrations\201509131211139_Zmiana relacji przepisow i skladnikow na wiele do wielu.resx">
       <DependentUpon>201509131211139_Zmiana relacji przepisow i skladnikow na wiele do wielu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509141710276_Dodanie polaczenia wiele do wielu dla skladnikow.resx">
-      <DependentUpon>201509141710276_Dodanie polaczenia wiele do wielu dla skladnikow.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509152315268_poprawki modelu.resx">
+      <DependentUpon>201509152315268_poprawki modelu.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

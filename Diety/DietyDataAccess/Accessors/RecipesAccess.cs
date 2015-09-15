@@ -14,7 +14,7 @@ using DietyDataTransportTypes.Interfaces;
 namespace DietyDataAccess.Accessors
 {
 	public class RecipesAccess : DataAccessBase, IRecipesAccess
-	{		
+	{
 		#region Public Methods
 
 		/// <summary>
@@ -29,20 +29,112 @@ namespace DietyDataAccess.Accessors
 			if (newMealRecord != null)
 			{
 				using (var dietyContext = DietyDbContext)
-				{
-					//newMealRecord as RecipeDb
-					//var newItem = new RecipeDb
-					//{
-					//	ComponentsList = newMealRecord.ComponentsList,
-					//	Description = newMealRecord.Description,
-					//	Name = newMealRecord.Name,
-					//	Id = newMealRecord.Id,
-					//	MealType = newMealRecord.MealType
-					//};					
-					dietyContext.Recipes.AddOrUpdate(newMealRecord as RecipeDb);
+				{				
+					var recipeDb = newMealRecord as RecipeDb;					
+					foreach (var component in recipeDb.ComponentsList)
+					{
+						dietyContext.Entry(component.Ingredient).State = EntityState.Unchanged;											
+					}
+					
+					dietyContext.Recipes.Add(recipeDb);
 					await dietyContext.SaveChangesAsync();
 				}
 				await Task.Yield();
+			}
+			return item;
+		}
+
+		/// <summary>
+		/// Updates the recipe.
+		/// </summary>
+		/// <param name="item">The item.</param>
+		/// <returns></returns>
+		public async Task<IRecipe> UpdateRecipe(IRecipe item)
+		{
+			var wrappedRecord = item as Recipe;
+			var recipe = wrappedRecord != null ? wrappedRecord.UnwrapDataObject() : item;
+			var recipeDb = recipe as RecipeDb;
+
+		
+			if (recipe != null)
+			{
+				var newRecipe = new RecipeDb
+				{
+					ComponentsList = recipeDb.ComponentsList,
+					Description = recipeDb.Description,
+					Image = recipeDb.Image,
+					MealType = recipeDb.MealType,
+					Name = recipeDb.Name
+				};
+				using (var dietyContext = DietyDbContext)
+				{
+					////dietyContext.Entry(recipeDb).State = EntityState.Detached;
+					//var oldRecipe = dietyContext.Recipes.FirstOrDefault(x => x.Id == recipe.Id);
+					//dietyContext.Recipes.Attach(oldRecipe);
+					//foreach (var recipeComponent in oldRecipe.ComponentsList)
+					//{
+					//	dietyContext.Entry(recipeComponent).State = EntityState.Deleted;
+					//}
+					//await dietyContext.SaveChangesAsync();
+					//dietyContext.Recipes.Remove(oldRecipe);
+					////dietyContext.Entry(oldRecipe).State = EntityState.Deleted;
+					dietyContext.Recipes.Attach(recipeDb);
+					recipeDb.ComponentsListData.RemoveAll(x => x.Id == 0);
+					dietyContext.Recipes.Remove(recipeDb);
+					await dietyContext.SaveChangesAsync();
+				}
+
+				using (var dietyContext = DietyDbContext)
+				{
+					foreach (var component in newRecipe.ComponentsList)
+					{
+						dietyContext.Entry(component.Ingredient).State = EntityState.Unchanged;
+					}
+
+					dietyContext.Recipes.Add(newRecipe);
+					await dietyContext.SaveChangesAsync();
+				}
+				//using (var dietyContext = DietyDbContext)
+				//{
+				//	var unmodified = dietyContext.Recipes.FirstOrDefault(x => x.Id == newMealRecord.Id);
+				//	var oldComponents = unmodified.ComponentsList.ToList();
+				//	foreach (var oldComponent in oldComponents)
+				//	{
+				//		if (newMealRecord.ComponentsList.All(x => x.Id != oldComponent.Id))
+				//		{
+				//			dietyContext.Entry(oldComponent).State = EntityState.Deleted;
+				//		}
+				//	}
+				//	await dietyContext.SaveChangesAsync();
+				//}
+
+				//using (var dietyContext = DietyDbContext)
+				//{
+				//	var recipeDb = newMealRecord as RecipeDb;
+
+				//	foreach (var component in recipeDb.ComponentsList)
+				//	{
+				//		if (component.Id == 0)
+				//		{
+				//			dietyContext.Entry(component).State = EntityState.Added;
+				//		}
+				//		else
+				//		{
+				//			dietyContext.Entry(component).State = EntityState.Modified;
+				//		}
+				//		dietyContext.Entry(component.Ingredient).State = EntityState.Added;						
+				//		dietyContext.Entry(component.Ingredient).State = EntityState.Unchanged;						
+				//	}
+
+				//	//dietyContext.Entry(recipeDb).State = EntityState.Added;
+				//	dietyContext.Entry(recipeDb).State = EntityState.Modified;
+				//	//dietyContext.Entry(recipeDb).Property(x => x.ComponentsListData).IsModified = true;
+				//	await dietyContext.SaveChangesAsync();
+				//}
+				//await Task.Yield();
+				
+
+			
 			}
 			return item;
 		}
@@ -62,24 +154,31 @@ namespace DietyDataAccess.Accessors
 		{
 			using (var dietyContext = DietyDbContext)
 			{
-				dietyContext.Configuration.LazyLoadingEnabled = false;
-				dietyContext.Recipes.Include(x => x.ComponentsListData);
+				
 				IEnumerable<IRecipe> outputList;
 				if (orderRule != null)
 				{
 					outputList =
-						DietyDbContext.Recipes.Where(searchCondition ?? (x => true))
+						dietyContext.Recipes.Where(searchCondition ?? (x => true))
 							.OrderBy(orderRule)
 							.Skip(skipCount);
 				}
 				else
 				{
 					outputList =
-						DietyDbContext.Recipes.Where(searchCondition ?? (x => true))							
+						dietyContext.Recipes.Where(searchCondition ?? (x => true))
 							.Skip(skipCount)
 							.Take(takeCount);
 				}				
-				var result = outputList.ToList();				
+				var result = outputList.ToList();
+				foreach (var r in result)
+				{
+					r.ComponentsList = r.ComponentsList.ToList();
+					foreach (var recipeComponent in r.ComponentsList)
+					{
+						recipeComponent.Ingredient = recipeComponent.Ingredient;
+					}
+				}
 				await Task.Yield();
 				return result.Select(x => new Recipe(x));
 			}
@@ -107,11 +206,12 @@ namespace DietyDataAccess.Accessors
 		public async Task RemoveRecipe(IRecipe recipe)
 		{
 			var wrappedRecord = recipe as Recipe;
-			var recipeDb = wrappedRecord != null ? wrappedRecord.UnwrapDataObject() : recipe;
+			var recipeDb = (wrappedRecord != null ? wrappedRecord.UnwrapDataObject() : recipe) as RecipeDb;
 			using (var dietyContext = DietyDbContext)
 			{
-				dietyContext.Recipes.Remove(recipeDb as RecipeDb);
-				var x = await dietyContext.SaveChangesAsync();				
+				dietyContext.Recipes.Attach(recipeDb);
+				dietyContext.Recipes.Remove(recipeDb);
+				var x = await dietyContext.SaveChangesAsync();
 			}
 		}
 

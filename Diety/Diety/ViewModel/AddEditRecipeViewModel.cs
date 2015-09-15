@@ -273,7 +273,7 @@ namespace Diety.ViewModel
 				return new RelayCommand(async () =>
 				{
 					if (CheckForErrors())
-					{
+					{						
 						await SaveRecipe();
 					}
 				});
@@ -293,6 +293,14 @@ namespace Diety.ViewModel
 				SelectedRecipe.NameError = false;
 			}); }
 		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether [editm mode enabled].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [editm mode enabled]; otherwise, <c>false</c>.
+		/// </value>
+		public bool EditModeEnabled { get; set; }
 
 		#endregion
 
@@ -327,9 +335,17 @@ namespace Diety.ViewModel
 				UnitTypesCollection.Add(value);
 			}
 
-			var param = _mainFrameNavigation.Parameter as IRecipeWrapper;			
-			SelectedRecipe = param ?? new Recipe();
-
+			var param = _mainFrameNavigation.Parameter as IRecipeWrapper;
+			if (param != null)
+			{
+				EditModeEnabled = true;
+				SelectedRecipe = param;
+			}
+			else
+			{
+				EditModeEnabled = false;
+				SelectedRecipe = new Recipe();
+			}
 			DispatcherHelper.RunAsync(async () =>
 			{
 				_loadingIndicatiorModule.ShowLoadingIndicatior();
@@ -338,7 +354,7 @@ namespace Diety.ViewModel
 				FilteredIngredients = new ObservableCollection<IIngredient>(AllIngredients.Where(x => true));
 				_loadingIndicatiorModule.HideLoadingIndicator();
 			});
-		}
+		}		
 
 		#endregion
 
@@ -405,7 +421,15 @@ namespace Diety.ViewModel
 			try
 			{
 				_loadingIndicatiorModule.ShowLoadingIndicatior();
-				var added = await _recipesAccess.AddRecipe(SelectedRecipe);
+				IRecipe added = null;
+				if (EditModeEnabled)
+				{
+					added = await _recipesAccess.UpdateRecipe(SelectedRecipe);
+				}
+				else
+				{
+					added  = await _recipesAccess.AddRecipe(SelectedRecipe);
+				}
 				if (added != null)
 				{
 					_mainFrameNavigation.GoBack();

@@ -29,6 +29,7 @@ namespace DietyData.Entities
 		/// The ingredient data.
 		/// </value>
 		[Column("Ingredient")]
+		[InverseProperty("Recipes")]
 		public virtual IngredientDb IngredientData { get; set; }
 
 		/// <summary>
@@ -60,12 +61,12 @@ namespace DietyData.Entities
 		/// </value>
 		public double Amount { get; set; }
 
-		///// <summary>
-		///// Gets or sets the recipes.
-		///// </summary>
-		///// <value>
-		///// The recipes.
-		///// </value>
+		/// <summary>
+		/// Gets or sets the recipes.
+		/// </summary>
+		/// <value>
+		/// The recipes.
+		/// </value>
 		//public virtual ICollection<RecipeDb> Recipes { get; set; }
 
 		#endregion

@@ -195,18 +195,18 @@ namespace Diety.ViewModel
 			{
 				return new RelayCommand<IRecipeWrapper>(async recipe =>
 					{
-						//try
-						//{
-						//	await _recipesAccess.RemoveRecipe(recipe);
-						//	RecipesCollection.Remove(recipe);
-						//	var filteredList = FilteredRecipesCollection;
-						//	filteredList.Remove(recipe);
-						//	FilteredRecipesCollection = filteredList;
-						//}
-						//catch (Exception e)
-						//{
+						try
+						{
+							await _recipesAccess.RemoveRecipe(recipe);
+							RecipesCollection.Remove(recipe);
+							var filteredList = FilteredRecipesCollection;
+							filteredList.Remove(recipe);
+							FilteredRecipesCollection = filteredList;
+						}
+						catch (Exception e)
+						{
 
-						//}
+						}
 					});
 			}
 		}
