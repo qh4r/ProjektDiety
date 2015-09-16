@@ -33,6 +33,15 @@ namespace DietyData.Entities
 		public virtual IngredientDb IngredientData { get; set; }
 
 		/// <summary>
+		/// Gets or sets the owner component.
+		/// </summary>
+		/// <value>
+		/// The owner component.
+		/// </value>
+		[InverseProperty("ComponentsListData")]
+		public virtual RecipeDb OwnerComponent { get; set; }
+
+		/// <summary>
 		/// Gets or sets the ingredient.
 		/// </summary>
 		/// <value>

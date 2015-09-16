@@ -48,8 +48,9 @@ namespace DietyDataAccess.Accessors.Interfaces
 		/// Updates the recipe.
 		/// </summary>
 		/// <param name="item">The item.</param>
+		/// <param name="previousComponentsList"></param>
 		/// <returns></returns>
-		Task<IRecipe> UpdateRecipe(IRecipe item);
+		Task<IRecipe> UpdateRecipe(IRecipe item, IEnumerable<IRecipeComponent> previousComponentsList);
 
 		#endregion
 

@@ -195,6 +195,12 @@ namespace Diety.ViewModel
 			set { Set(ref _selectedRecipe, value); }
 		}
 
+		/// <summary>
+		/// Gets the select ingredient command.
+		/// </summary>
+		/// <value>
+		/// The select ingredient command.
+		/// </value>
 		public RelayCommand<IIngredient> SelectIngredientCommand
 		{
 			get
@@ -302,6 +308,16 @@ namespace Diety.ViewModel
 		/// </value>
 		public bool EditModeEnabled { get; set; }
 
+
+		/// <summary>
+		/// Gets or sets the previous components list.
+		/// </summary>
+		/// <value>
+		/// The previous components list.
+		/// </value>
+		public IEnumerable<IRecipeComponent> PreviousComponentsList { get; set; }
+
+
 		#endregion
 
 		#region C-tors
@@ -340,6 +356,7 @@ namespace Diety.ViewModel
 			{
 				EditModeEnabled = true;
 				SelectedRecipe = param;
+				PreviousComponentsList = param.ComponentsList;
 			}
 			else
 			{
@@ -354,7 +371,7 @@ namespace Diety.ViewModel
 				FilteredIngredients = new ObservableCollection<IIngredient>(AllIngredients.Where(x => true));
 				_loadingIndicatiorModule.HideLoadingIndicator();
 			});
-		}		
+		}
 
 		#endregion
 
@@ -424,7 +441,7 @@ namespace Diety.ViewModel
 				IRecipe added = null;
 				if (EditModeEnabled)
 				{
-					added = await _recipesAccess.UpdateRecipe(SelectedRecipe);
+					added = await _recipesAccess.UpdateRecipe(SelectedRecipe, PreviousComponentsList);
 				}
 				else
 				{
