@@ -47,6 +47,11 @@
 			<SolidColorBrush x:Key="NavButtonPointerOverColor" Color="#1EA712"/>
 			<SolidColorBrush x:Key="NavButtonPressedBackgroundColor" Color="#167E0D"/>
 			<SolidColorBrush x:Key="NavButtonDisabledBackgroundColor" Color="#F49D14"/>
+		
+			<SolidColorBrush x:Key="SelectedDayColor" Color="#FCCE86"/>
+			<SolidColorBrush x:Key="SelectedTextColor" Color="#F49D14"/>
+
+
 
 			<SolidColorBrush x:Key="BrownButtonBackgroundColor" Color="#834B23"/>
 			<SolidColorBrush x:Key="BrownButtonPointerOverColor" Color="#9A5C31"/>

@@ -4,13 +4,443 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:templateControlls="clr-namespace:Diety.TemplateControlls"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Calendar}"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="Home">
+	<Page.Resources>
+		<ResourceDictionary>
+
+			<Style x:Key="LeftArrowButtonStyle"  TargetType="Button">
+				<Setter Property="Background" Value="White"/>
+				<Setter Property="Margin" Value="2px"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate >
+							<Grid>
+								<Rectangle Fill="{TemplateBinding Button.Background}"
+										   Height="{TemplateBinding Button.Height}"
+                                           Width="{TemplateBinding Button.Width}"/>
+								<Viewbox>
+									<Image Source="{StaticResource LeftBlackArrowIcon}"/>
+								</Viewbox>
+							</Grid>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<Style x:Key="RightArrowButtonStyle"  TargetType="Button">
+				<Setter Property="Background" Value="White"/>
+				<Setter Property="Margin" Value="2px"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate >
+							<Grid>
+								<Rectangle Fill="{TemplateBinding Button.Background}" 
+										   Height="{TemplateBinding Button.Height}"
+                                           Width="{TemplateBinding Button.Width}"/>
+								<Viewbox>
+									<Image Source="{StaticResource RightBlackArrowIcon}"/>
+								</Viewbox>
+							</Grid>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<Style TargetType="TextBlock" x:Key="MonthViewCalendarHeaderBlackTextStyle">
+				<Setter Property="FontFamily" Value="Calibri"/>
+				<Setter Property="FontSize" Value="24"/>
+				<Setter Property="Foreground" Value="#4b4b4b"/>
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="Margin" Value="5px, 0, 0, 0" />
+			</Style>
+
+			<Style TargetType="TextBlock" x:Key="MonthViewCalendarHeaderGrayTextStyle">
+				<Setter Property="FontFamily" Value="Calibri"/>
+				<Setter Property="FontSize" Value="20"/>
+				<Setter Property="Foreground" Value="#7c7c7c"/>
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="Margin" Value="5px, 0, 0, -2px" />
+			</Style>
+
+			<Style TargetType="Border" x:Key="MonthViewHeaderMenuBorderStyle">
+				<Setter Property="BorderThickness" Value="1px"/>
+				<Setter Property="BorderBrush" Value="#d0d0d0"/>
+			</Style>
+
+			<Style TargetType="Button" x:Key="MonthViewMonthNameButtonStyle">
+				<Setter Property="Background" Value="White"/>
+				<Setter Property="Foreground" Value="#4b4b4b"/>
+				<Setter Property="FontFamily" Value="Calibri"/>
+				<Setter Property="FontSize" Value="20px"/>
+				<Setter Property="Command" Value="{Binding DataContext.SelectMonthCommand, ElementName=RootGrid}"/>
+				<Setter Property="CommandParameter" Value="{Binding}"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate>
+							<Grid>
+								<Rectangle Fill="{TemplateBinding Button.Background}" Height="{TemplateBinding Button.Height}"
+                                                                                       Width="{TemplateBinding Button.Width}"/>
+								<TextBlock Text="{TemplateBinding Button.Content}" HorizontalAlignment="Center"
+                                                                                       VerticalAlignment="Center"/>
+							</Grid>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding IsSelected}" Value="true">
+						<Setter Property="Foreground" Value="{StaticResource SelectedTextColor}"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+
+			<Style TargetType="Border" x:Key="MonthViewDayCellBorderStyle">
+				<Setter Property="Background" Value="White"/>
+				<Setter Property="BorderBrush" Value="#d0d0d0"/>
+				<Setter Property="BorderThickness" Value="1px"/>
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding IsSelected}" Value="true">
+						<Setter Property="Background" Value="{StaticResource SelectedDayColor}"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+
+			<Style TargetType="Border" x:Key="MonthViewDayNumberBorderStyle">
+				<Setter Property="BorderThickness" Value="0"/>
+				<Setter Property="CornerRadius" Value="5"/>
+				<Setter Property="Margin" Value="1px"/>
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding IsToday}" Value="true">
+						<Setter Property="Border.Background" Value="#D0D0D0"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+
+			<Style TargetType="TextBlock" x:Key="MonthViewDayNumberTextStyle">
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="TextAlignment" Value="Left"/>
+				<Setter Property="Margin" Value="2"/>
+				<Setter Property="FontFamily" Value="Calibri"/>
+				<Setter Property="FontSize" Value="18px"/>
+				<Setter Property="Padding" Value="0px"/>
+				<Setter Property="Foreground" Value="#4b4b4b"></Setter>
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding IsTargetMonth}" Value="false">
+						<Setter Property="Foreground" Value="#a4a4a4"></Setter>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding IsToday}" Value="true">
+						<Setter Property="TextBlock.Foreground" Value="{StaticResource SelectedTextColor}"></Setter>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+
+			<Style TargetType="TextBlock" x:Key="MonthViewDayNameTextStyle">
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="TextAlignment" Value="Left"/>
+				<Setter Property="FontFamily" Value="Calibri"/>
+				<Setter Property="FontSize" Value="18px"/>
+				<Setter Property="Foreground" Value="#7c7c7c"/>
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding IsTargetMonth}" Value="false">
+						<Setter Property="Foreground" Value="#a4a4a4"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+
+			<Style TargetType="Border" x:Key="MonthViewEventBackBorderStyle">
+				<Setter Property="CornerRadius" Value="5"/>
+				<Setter Property="BorderThickness" Value="0"/>
+				<Style.Triggers>
+					<!-- MIXED EVENTS -->
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding GotForeignEvents}" Value="true"></Condition>
+							<Condition Binding="{Binding GotPrivateEvents}" Value="true"></Condition>
+							<Condition Binding="{Binding IsTargetMonth}" Value="true"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter Property="Background" Value="#ff9a1e"></Setter>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+					<!-- PRIVATE EVENTS -->
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding GotForeignEvents}" Value="false"></Condition>
+							<Condition Binding="{Binding GotPrivateEvents}" Value="true"></Condition>
+							<Condition Binding="{Binding IsTargetMonth}" Value="true"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter Property="Background" Value="{StaticResource SelectedTextColor}"></Setter>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+					<!-- FOREIGN EVENTS -->
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding GotForeignEvents}" Value="true"></Condition>
+							<Condition Binding="{Binding GotPrivateEvents}" Value="false"></Condition>
+							<Condition Binding="{Binding IsTargetMonth}" Value="true"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter Property="Background" Value="#ff9a1e"></Setter>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+					<!-- ALL EVENTS DIFFERENT MONTH -->
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding GotForeignEvents}" Value="true"/>
+							<Condition Binding="{Binding IsTargetMonth}" Value="false"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter Property="Background" Value="#d0d0d0"/>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding GotPrivateEvents}" Value="true"/>
+							<Condition Binding="{Binding IsTargetMonth}" Value="false"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter Property="Background" Value="#d0d0d0"/>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+				</Style.Triggers>
+			</Style>
+
+			<Style TargetType="Border" x:Key="MonthViewEventFrontBorderStyle">
+				<Setter Property="CornerRadius" Value="5"/>
+				<Setter Property="BorderThickness" Value="0"/>
+				<Style.Triggers>
+					<!-- MIXED EVENTS -->
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding GotForeignEvents}" Value="true"/>
+							<Condition Binding="{Binding GotPrivateEvents}" Value="true"/>
+							<Condition Binding="{Binding IsTargetMonth}" Value="true"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter Property="Background" Value="{StaticResource SelectedTextColor}"></Setter>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+					<!-- PRIVATE EVENTS -->
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding GotForeignEvents}" Value="false"/>
+							<Condition Binding="{Binding GotPrivateEvents}" Value="true"/>
+							<Condition Binding="{Binding IsTargetMonth}" Value="true"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter Property="Background" Value="{StaticResource SelectedTextColor}"></Setter>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+					<!-- FOREIGN EVENTS -->
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding GotForeignEvents}" Value="true"/>
+							<Condition Binding="{Binding GotPrivateEvents}" Value="false"/>
+							<Condition Binding="{Binding IsTargetMonth}" Value="true"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter Property="Background" Value="#ff9a1e"/>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+					<!-- ALL EVENTS DIFFERENT MONTH -->
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding GotForeignEvents}" Value="true"/>
+							<Condition Binding="{Binding IsTargetMonth}" Value="false"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter Property="Background" Value="#d0d0d0"/>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding GotPrivateEvents}" Value="true"/>
+							<Condition Binding="{Binding IsTargetMonth}" Value="false"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter Property="Background" Value="#d0d0d0"/>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+				</Style.Triggers>
+			</Style>
+
+			<Style TargetType="TextBlock" x:Key="MonthViewEventTextBlockStyle">
+				<Setter Property="Margin" Value="5px,0,0,0"/>
+				<Setter Property="FontFamily" Value="Calibri"/>
+				<Setter Property="FontSize" Value="20px"/>
+				<Setter Property="Foreground" Value="White"/>
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+			</Style>
+
+			<Style TargetType="Button" x:Key="MonthViewEventButtonStyle">
+				<Setter Property="Margin" Value="5px"/>
+				<Setter Property="Visibility" Value="{Binding EventsCount,
+					Converter={StaticResource IntToVisibilityConverter}, ConverterParameter=1}"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="9*"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<!-- BACKGROUND BORDER -->
+								<Border Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource MonthViewEventBackBorderStyle}"/>
+								<!-- FOREGROUND BORDER -->
+								<Border Grid.Column="0" Style="{StaticResource MonthViewEventFrontBorderStyle}"/>
+								<!-- EVENT DATA-->
+								<Grid Grid.Column="0" Grid.ColumnSpan="2">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<!-- EVENTS NUMBER -->
+									<TextBlock Grid.Column="0" Text="{Binding EventsCount}" Style="{StaticResource MonthViewEventTextBlockStyle}"
+                                                   Visibility="{Binding EventsCount, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter=1}"/>
+									<!-- EVENT TITLE -->
+									<TextBlock Grid.Column="1" Text="{Binding FirstEventTitle}" Style="{StaticResource MonthViewEventTextBlockStyle}"/>
+								</Grid>
+							</Grid>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<Style TargetType="Button" x:Key="MonthViewDayCellButtonStyle">
+				<Setter Property="Background" Value="Transparent"/>
+				<Setter Property="BorderThickness" Value="0"/>
+				<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+				<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate>
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Border Grid.Row="0" Grid.RowSpan="2">
+									<Border.Style>
+										<Style TargetType="Border">
+											<Setter Property="Background" Value="Transparent"/>
+										</Style>
+									</Border.Style>
+								</Border>
+								<StackPanel Grid.Row="0" Orientation="Horizontal">
+									<!--DAY NUMBER-->
+									<Border Style="{StaticResource MonthViewDayNumberBorderStyle}">
+										<TextBlock Text="{Binding DayNumber}" Style="{StaticResource MonthViewDayNumberTextStyle}"/>
+									</Border>
+									<!-- DAY NAME -->
+									<TextBlock Visibility="{Binding IsFirstRow}" Text="{Binding FirstRowDayName}" Style="{StaticResource MonthViewDayNameTextStyle}"/>
+								</StackPanel>
+								<!-- EVENT -->
+								<!--<Button Grid.Row="1" Command="{Binding DataContext.ShowEventsCommand, ElementName=RootGrid}" CommandParameter="{Binding}" Style="{StaticResource MonthViewEventButtonStyle}"/>-->
+							</Grid>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+		</ResourceDictionary>
+	</Page.Resources>
 	<Grid x:Name="RootGrid">
 
 		<templateControlls:PageBase HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-			<TextBlock Foreground="Tomato" FontSize="40">CALENDAR</TextBlock>
+			<Grid Margin="10">
+				<Control>
+					<Control.Style>
+						<Style TargetType="{x:Type Control}">
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="{x:Type Control}">
+										<Grid>
+											<Grid.RowDefinitions>
+												<RowDefinition Height="Auto"/>
+												<RowDefinition Height="Auto"/>
+												<RowDefinition Height="*"/>
+											</Grid.RowDefinitions>
+											<!-- HEADER -->
+											<StackPanel Grid.Row="0" Orientation="Horizontal">
+												<!--<StackPanel.Style>
+													<Style TargetType="StackPanel">
+														<Setter Property="Margin" Value="120, 0, 0, 0"/>
+													</Style>
+												</StackPanel.Style>-->
+												<TextBlock Text="Rok" Style="{StaticResource MonthViewCalendarHeaderBlackTextStyle}"/>												
+												<TextBlock Text="{Binding SelectedMonth.MonthDate.Year}" Style="{StaticResource MonthViewCalendarHeaderGrayTextStyle}"/>
+											</StackPanel>
+											<!-- HEADER  END-->
+											<!-- MONTHS MENU -->
+											<Border Grid.Row="1" Style="{StaticResource MonthViewHeaderMenuBorderStyle}">
+												<Grid>
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition Width="Auto"/>
+														<ColumnDefinition Width="*"/>
+														<ColumnDefinition Width="Auto"/>
+													</Grid.ColumnDefinitions>
+													<!-- LEFT ARROW -->
+													<Button Grid.Column="0" Style="{StaticResource LeftArrowButtonStyle}" Command="{Binding RotateMonthsCommand}">
+														<Button.CommandParameter>
+															<system:Int32>-6</system:Int32>
+														</Button.CommandParameter>
+													</Button>
+													<!-- MONTHS LIST -->
+													<ItemsControl ItemsSource="{Binding Months}" Grid.Column="1">
+														<ItemsControl.ItemTemplate>
+															<DataTemplate>
+																<Grid>
+																	<Button Content="{Binding VisibleName}" Style="{StaticResource MonthViewMonthNameButtonStyle}"/>
+																</Grid>
+															</DataTemplate>
+														</ItemsControl.ItemTemplate>
+														<ItemsControl.ItemsPanel>
+															<ItemsPanelTemplate>
+																<UniformGrid Columns="6"/>
+															</ItemsPanelTemplate>
+														</ItemsControl.ItemsPanel>
+													</ItemsControl>
+													<!-- RIGHT ARROW -->
+													<Button Grid.Column="2" Style="{StaticResource RightArrowButtonStyle}" Command="{Binding RotateMonthsCommand}">
+														<Button.CommandParameter>
+															<system:Int32>6</system:Int32>
+														</Button.CommandParameter>
+													</Button>
+												</Grid>
+											</Border>
+											<!-- MONTHS MENU END -->
+											<ItemsControl Grid.Row="2" ItemsSource="{Binding Days}" Margin="20px, 10px">
+												<ItemsControl.ItemTemplate>
+													<DataTemplate>
+														<!-- DAY -->
+														<Border Style="{StaticResource MonthViewDayCellBorderStyle}">
+															<Button Command="{Binding DataContext.SelectDayCommand, ElementName=RootGrid}"
+                                                            CommandParameter="{Binding}" Style="{StaticResource MonthViewDayCellButtonStyle}">
+															</Button>
+														</Border>
+														<!-- DAY END -->
+													</DataTemplate>
+												</ItemsControl.ItemTemplate>
+												<ItemsControl.ItemsPanel>
+													<ItemsPanelTemplate>
+														<UniformGrid Rows="6" Columns="7" />
+													</ItemsPanelTemplate>
+												</ItemsControl.ItemsPanel>
+											</ItemsControl>
+										</Grid>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</Control.Style>
+				</Control>
+			</Grid>
+
 		</templateControlls:PageBase>
 
 	</Grid>

@@ -113,6 +113,7 @@
     <Compile Include="Helpers\Converters\BoolToZeroOpacityConverter.cs" />
     <Compile Include="Helpers\Converters\EnumToMealTypeConverter.cs" />
     <Compile Include="Helpers\Converters\EnumToStringConverter.cs" />
+    <Compile Include="Helpers\Converters\IntToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToInverseVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToZeroOpacityConverter.cs" />
@@ -127,6 +128,8 @@
     <Compile Include="ViewModel\AddEditRecipeViewModel.cs" />
     <Compile Include="ViewModel\Modules\Interfaces\ILoadingIndicatiorModule.cs" />
     <Compile Include="ViewModel\Modules\LoadingIndicatiorModule.cs" />
+    <Compile Include="ViewModel\PropertyGroups\DayModel.cs" />
+    <Compile Include="ViewModel\PropertyGroups\MonthModel.cs" />
     <Compile Include="ViewModel\StatisticsViewModel.cs" />
     <Compile Include="ViewModel\RecipesViewModel.cs" />
     <Compile Include="ViewModel\CalendarViewModel.cs" />
@@ -291,6 +294,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\editWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\leftWhite.png" />
+    <Resource Include="Resources\Icons\rightWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\leftBlack.png" />
+    <Resource Include="Resources\Icons\rightBlack.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

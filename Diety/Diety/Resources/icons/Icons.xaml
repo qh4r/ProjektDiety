@@ -15,6 +15,9 @@
 	<BitmapImage UriSource="/Resources/Icons/accept32.png" x:Key="AcceptIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/cancel32.png" x:Key="CancelIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/editWhite.png" x:Key="EditIcon"/>
-
+	<BitmapImage UriSource="/Resources/Icons/leftWhite.png" x:Key="LeftWhiteArrowIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/leftBlack.png" x:Key="LeftBlackArrowIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/rightWhite.png" x:Key="RightWhiteArrowIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/rightBlack.png" x:Key="RightBlackArrowIcon"/>
 
 </ResourceDictionary>

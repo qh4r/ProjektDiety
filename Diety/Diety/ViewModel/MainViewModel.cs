@@ -12,7 +12,7 @@ namespace Diety.ViewModel
         public MainViewModel(IMainFrameNavigationService navigationService)
         {
 			//navigationService.NavigateTo(PageType.Login);
-			navigationService.NavigateTo(PageType.AddEditRecipe);
+			navigationService.NavigateTo(PageType.Calendar);
         }
     }
 }
