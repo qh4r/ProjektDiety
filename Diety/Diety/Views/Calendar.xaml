@@ -6,6 +6,7 @@
       xmlns:templateControlls="clr-namespace:Diety.TemplateControlls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:enums="clr-namespace:DietyCommonTypes.Enums;assembly=DietyCommonTypes"
       mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Calendar}"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="Home">
@@ -353,7 +354,11 @@
 
 		<templateControlls:PageBase HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 			<Grid Margin="10">
-				<Control>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="5*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Control Grid.Column="0">
 					<Control.Style>
 						<Style TargetType="{x:Type Control}">
 							<Setter Property="Template">
@@ -372,7 +377,7 @@
 														<Setter Property="Margin" Value="120, 0, 0, 0"/>
 													</Style>
 												</StackPanel.Style>-->
-												<TextBlock Text="Rok" Style="{StaticResource MonthViewCalendarHeaderBlackTextStyle}"/>												
+												<TextBlock Text="Rok" Style="{StaticResource MonthViewCalendarHeaderBlackTextStyle}"/>
 												<TextBlock Text="{Binding SelectedMonth.MonthDate.Year}" Style="{StaticResource MonthViewCalendarHeaderGrayTextStyle}"/>
 											</StackPanel>
 											<!-- HEADER  END-->
@@ -439,6 +444,89 @@
 						</Style>
 					</Control.Style>
 				</Control>
+				<Grid Grid.Column="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+
+					<!-- BREAKFAST -->
+					<Grid Grid.Row="0">
+						<!-- ADD BUTTON -->
+						<Grid Visibility="{Binding SelectedDay.Breakfast, Converter={StaticResource NullOrEmptyToInverseVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource BreakfastLabelColor}">
+						Dodaj Śniadanie!
+							</TextBlock>
+							<Button Grid.Row="1" Style="{StaticResource BreakfastButtonStyle}"  Command="{Binding AddMeal}">
+								<Button.CommandParameter>
+									<enums:MealTypes>Breakfast</enums:MealTypes>
+								</Button.CommandParameter>
+								<Grid>
+									<Viewbox>
+										<Image Source="{StaticResource AddIcon}"/>
+									</Viewbox>
+								</Grid>
+							</Button>
+						</Grid>
+					</Grid>
+					<!-- Dinner -->
+					<Grid Grid.Row="1">
+						<!-- ADD BUTTON -->
+						<Grid Visibility="{Binding SelectedDay.Dinner, Converter={StaticResource NullOrEmptyToInverseVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource DinnerLabelColor}">
+						Dodaj Obiad!
+							</TextBlock>
+							<Button Grid.Row="1" Style="{StaticResource DinnerButtonStyle}"  Command="{Binding AddMeal}">
+								<Button.CommandParameter>
+									<enums:MealTypes>Dinner</enums:MealTypes>
+								</Button.CommandParameter>
+								<Grid>
+									<Viewbox>
+										<Image Source="{StaticResource AddIcon}"/>
+									</Viewbox>
+								</Grid>
+							</Button>
+						</Grid>
+					</Grid>
+					<!-- Supper -->
+					<Grid Grid.Row="2">
+						<!-- ADD BUTTON -->
+						<Grid Visibility="{Binding SelectedDay.Supper, Converter={StaticResource NullOrEmptyToInverseVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource SupperLabelColor}">
+						Dodaj Kolacje!
+							</TextBlock>
+							<Button Grid.Row="1" Style="{StaticResource SupperButtonStyle}"  Command="{Binding AddMeal}">
+								<Button.CommandParameter>
+									<enums:MealTypes>Supper</enums:MealTypes>
+								</Button.CommandParameter>
+								<Grid>
+									<Viewbox>
+										<Image Source="{StaticResource AddIcon}"/>
+									</Viewbox>
+								</Grid>
+							</Button>
+						</Grid>
+					</Grid>
+				</Grid>
 			</Grid>
 
 		</templateControlls:PageBase>

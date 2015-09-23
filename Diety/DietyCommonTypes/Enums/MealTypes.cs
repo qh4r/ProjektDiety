@@ -22,10 +22,10 @@ namespace DietyCommonTypes.Enums
 		[EnumStringValue("Śniadanie")]
 		Breakfast,
 
-		/// <summary>
-		/// The additional meal
-		/// </summary>
-		[EnumStringValue("Dodatkowy posiłek")]
-		AdditionalMeal,
+		///// <summary>
+		///// The additional meal
+		///// </summary>
+		//[EnumStringValue("Dodatkowy posiłek")]
+		//AdditionalMeal,
 	}
 }

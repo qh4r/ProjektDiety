@@ -35,6 +35,11 @@
 		/// <summary>
 		/// The add edit recipe
 		/// </summary>
-		AddEditRecipe
+		AddEditRecipe,
+
+		/// <summary>
+		/// The meal selection
+		/// </summary>
+		MealSelection
 	}
 }

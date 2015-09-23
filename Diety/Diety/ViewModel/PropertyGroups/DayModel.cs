@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using DietyCommonTypes.Enums;
 using DietyCommonTypes.Interfaces;
 using GalaSoft.MvvmLight;
 
@@ -47,6 +48,21 @@ namespace CalendarControl.UI.ModelData.MonthView
 		/// The is selected
 		/// </summary>
 		private bool _isSelected;
+
+		/// <summary>
+		/// The _breakfast
+		/// </summary>
+		private IMealHistoryRecord _breakfast;
+
+		/// <summary>
+		/// The _supper
+		/// </summary>
+		private IMealHistoryRecord _supper;
+
+		/// <summary>
+		/// The _dinner
+		/// </summary>
+		private IMealHistoryRecord _dinner;
 
 		#endregion
 
@@ -136,6 +152,42 @@ namespace CalendarControl.UI.ModelData.MonthView
 			{
 				Set(ref _date, value);
 			}
+		}
+
+
+		/// <summary>
+		/// Gets the breakfast.
+		/// </summary>
+		/// <value>
+		/// The breakfast.
+		/// </value>
+		public IMealHistoryRecord Breakfast
+		{
+			get { return Events.FirstOrDefault(x => x.Recipe.MealType == MealTypes.Breakfast); }
+		}
+
+
+		/// <summary>
+		/// Gets the supper.
+		/// </summary>
+		/// <value>
+		/// The supper.
+		/// </value>
+		public IMealHistoryRecord Supper
+		{
+			get { return Events.FirstOrDefault(x => x.Recipe.MealType == MealTypes.Supper); }
+		}
+
+
+		/// <summary>
+		/// Gets the dinner.
+		/// </summary>
+		/// <value>
+		/// The dinner.
+		/// </value>
+		public IMealHistoryRecord Dinner
+		{
+			get { return Events.FirstOrDefault(x => x.Recipe.MealType == MealTypes.Dinner); }
 		}
 
 		/// <summary>

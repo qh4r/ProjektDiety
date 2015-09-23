@@ -10,6 +10,7 @@
 	<BitmapImage UriSource="/Resources/Icons/Navigation/calendar64.png" x:Key="CalendarIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/Navigation/recipes64.png" x:Key="RecipesIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/add64.png" x:Key="AddIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/add32.png" x:Key="AddSmallIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/trashBrown.png" x:Key="TrashBrownIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/trashWhite.png" x:Key="TrashWhiteIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/accept32.png" x:Key="AcceptIcon"/>

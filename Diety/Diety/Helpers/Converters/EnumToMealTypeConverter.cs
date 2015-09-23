@@ -50,10 +50,12 @@ namespace Diety.Helpers.Converters
 					case "Œniadanie":
 						return MealTypes.Breakfast;
 					default:
-						return MealTypes.AdditionalMeal;
+						return MealTypes.Breakfast;
+						//return MealTypes.AdditionalMeal;
 				}
 			}
-			return MealTypes.AdditionalMeal;
+			return MealTypes.Breakfast;
+			//return MealTypes.AdditionalMeal;
 		}
 
 		#endregion

@@ -26,8 +26,8 @@ namespace DietyDataAccess.Accessors.Interfaces
 		/// <param name="takeCount">The take count.</param>
 		/// <returns></returns>
 		Task<IEnumerable<IMealHistoryRecord>> GetMealHistoryRecordsList(
-			Func<MealHistoryRecordDb, bool> searchCondition = null,
-			Func<MealHistoryRecordDb, object> orderRule = null,
+			Func<IMealHistoryRecord, bool> searchCondition = null,
+			Func<IMealHistoryRecord, object> orderRule = null,
 			int skipCount = 0, int takeCount = Int32.MaxValue);
 
 		/// <summary>

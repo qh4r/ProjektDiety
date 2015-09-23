@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 using Diety.Helpers;
 using Diety.ViewModel.Modules;
 using Diety.ViewModel.Modules.Interfaces;
@@ -65,6 +66,8 @@ namespace Diety.ViewModel
 			SimpleIoc.Default.Register<StatisticsViewModel>();
 			SimpleIoc.Default.Register<CalendarViewModel>();
 			SimpleIoc.Default.Register<AddEditRecipeViewModel>();
+			SimpleIoc.Default.Register<MealSelectionViewModel>();
+
 		}
 
 		#endregion
@@ -84,6 +87,7 @@ namespace Diety.ViewModel
 			navigationService.Configure(PageType.Statistics, new Uri("/Views/Statistics.xaml", UriKind.Relative));
 			navigationService.Configure(PageType.Recipes, new Uri("/Views/Recipes.xaml", UriKind.Relative));
 			navigationService.Configure(PageType.AddEditRecipe, new Uri("/Views/AddEditRecipe.xaml", UriKind.Relative));
+			navigationService.Configure(PageType.MealSelection, new Uri("/Views/MealSelection.xaml", UriKind.Relative));
 
 
 
@@ -148,7 +152,7 @@ namespace Diety.ViewModel
 		/// </value>
 		public CalendarViewModel Calendar
 		{
-			get { return SimpleIoc.Default.GetInstance<CalendarViewModel>(); }
+			get { return SimpleIoc.Default.GetInstanceWithoutCaching<CalendarViewModel>(); }
 		}
 
 		/// <summary>
@@ -182,6 +186,17 @@ namespace Diety.ViewModel
 		public AddEditRecipeViewModel AddEditRecipe
 		{
 			get { return SimpleIoc.Default.GetInstanceWithoutCaching<AddEditRecipeViewModel>(); }
+		}
+
+		/// <summary>
+		/// Gets the meal selection.
+		/// </summary>
+		/// <value>
+		/// The meal selection.
+		/// </value>
+		public MealSelectionViewModel MealSelection
+		{
+			get { return SimpleIoc.Default.GetInstanceWithoutCaching<MealSelectionViewModel>(); }
 		}
 
 

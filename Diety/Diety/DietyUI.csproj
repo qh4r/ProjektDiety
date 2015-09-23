@@ -126,6 +126,8 @@
     <Compile Include="Helpers\PageType.cs" />
     <Compile Include="TemplateControlls\PageBase.cs" />
     <Compile Include="ViewModel\AddEditRecipeViewModel.cs" />
+    <Compile Include="ViewModel\PropertyGroups\MealNavigationData.cs" />
+    <Compile Include="ViewModel\MealSelectionViewModel.cs" />
     <Compile Include="ViewModel\Modules\Interfaces\ILoadingIndicatiorModule.cs" />
     <Compile Include="ViewModel\Modules\LoadingIndicatiorModule.cs" />
     <Compile Include="ViewModel\PropertyGroups\DayModel.cs" />
@@ -155,6 +157,9 @@
     </Compile>
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MealSelection.xaml.cs">
+      <DependentUpon>MealSelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Recipes.xaml.cs">
       <DependentUpon>Recipes.xaml</DependentUpon>
@@ -206,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MealSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -302,6 +311,9 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\leftBlack.png" />
     <Resource Include="Resources\Icons\rightBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\add32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

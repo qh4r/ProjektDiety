@@ -108,9 +108,9 @@ namespace DietyDataAccess.DataTypes
 		/// Initializes a new instance of the <see cref="MealHistoryRecord"/> class.
 		/// </summary>
 		/// <param name="mealHistoryRecord">The meal history record.</param>
-		internal MealHistoryRecord(IMealHistoryRecordData mealHistoryRecord)
+		internal MealHistoryRecord(IMealHistoryRecord mealHistoryRecord)
 		{
-			_mealHistoryRecord = mealHistoryRecord;
+			_mealHistoryRecord = mealHistoryRecord as IMealHistoryRecordData;
 		}
 
 		/// <summary>
