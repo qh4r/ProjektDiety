@@ -86,6 +86,16 @@ namespace Diety.ViewModel
 		/// </summary>
 		private ILoadingIndicatiorModule _loadingIndicatiorModule;
 
+		/// <summary>
+		/// The _current user module
+		/// </summary>
+		private ICurrentUserModule _currentUserModule;
+
+		/// <summary>
+		/// The _dialog service
+		/// </summary>
+		private IDialogService _dialogService;
+
 		#endregion
 
 		#region Properties
@@ -268,14 +278,39 @@ namespace Diety.ViewModel
 		/// </value>
 		public RelayCommand<MealTypes> AddMeal
 		{
-			get { return new RelayCommand<MealTypes>(mealType =>
+			get
 			{
-				_mainFrameNavigation.NavigateTo(PageType.MealSelection, new MealNavigationData
+				return new RelayCommand<MealTypes>(mealType =>
+					{
+						_mainFrameNavigation.NavigateTo(PageType.MealSelection, new MealNavigationData
+						{
+							MealFilterType = mealType,
+							SelectedDate = SelectedDay.Date
+						});
+					});
+			}
+		}
+
+		/// <summary>
+		/// Gets the show details dialog.
+		/// </summary>
+		/// <value>
+		/// The show details dialog.
+		/// </value>
+		public RelayCommand<IMealHistoryRecord> ShowDetailsDialog
+		{
+			get
+			{
+				return new RelayCommand<IMealHistoryRecord>(meal =>
 				{
-					MealFilterType = mealType,
-					SelectedDate = SelectedDay.Date
+					var dialogResult = _dialogService.ShowMealDetailsDialog(new MealDetailsDialogModel
+					{
+						IsPast = SelectedDay.IsPast,
+						Meal = meal
+					});
+					Debug.WriteLine(dialogResult);
 				});
-			}); }
+			}
 		}
 
 		#endregion
@@ -288,13 +323,20 @@ namespace Diety.ViewModel
 		/// <param name="mainFrameNavigationService">The main frame navigation service.</param>
 		/// <param name="pageBaseViewModel">The page base view model.</param>
 		/// <param name="mealHistoryRecordsAccess">The meal history records access.</param>
-		public CalendarViewModel(IMainFrameNavigationService mainFrameNavigationService, IPageBaseViewModel pageBaseViewModel, IMealHistoryRecordsAccess mealHistoryRecordsAccess, ILoadingIndicatiorModule loadingIndicatiorModule)
+		/// <param name="loadingIndicatiorModule">The loading indicatior module.</param>
+		/// <param name="currentUserModule">The current user module.</param>
+		/// <param name="dialogService">The dialog service.</param>
+		public CalendarViewModel(IMainFrameNavigationService mainFrameNavigationService, IPageBaseViewModel pageBaseViewModel,
+			IMealHistoryRecordsAccess mealHistoryRecordsAccess, ILoadingIndicatiorModule loadingIndicatiorModule,
+			ICurrentUserModule currentUserModule, IDialogService dialogService)
 		{
 			CurrentDate = DateTime.Today;
 			_mainFrameNavigation = mainFrameNavigationService;
 			PageBaseModel = pageBaseViewModel;
 			_mealHistoryRecordsAccess = mealHistoryRecordsAccess;
 			_loadingIndicatiorModule = loadingIndicatiorModule;
+			_currentUserModule = currentUserModule;
+			_dialogService = dialogService;
 
 			Days = new ObservableCollection<DayModel>();
 			Months = new ObservableCollection<MonthModel>();
@@ -375,7 +417,7 @@ namespace Diety.ViewModel
 			DateTime displayedDayDate = GetCorrectStartingDate(targetDate);
 			//TODO
 			//EventsData = EventService.GetEventsList(displayedDayDate);
-			var newEvents = await _mealHistoryRecordsAccess.GetMealHistoryRecordsList(x => x.Date >= displayedDayDate && x.Date <= displayedDayDate.AddDays(42));
+			var newEvents = await _mealHistoryRecordsAccess.GetMealHistoryRecordsList(x => x.Date >= displayedDayDate && x.Date <= displayedDayDate.AddDays(42) && x.Owner.Id == _currentUserModule.CurrentUser.Id);
 			if (newEvents != null)
 			{
 				Days.Clear();
@@ -386,7 +428,7 @@ namespace Diety.ViewModel
 			//for performance improvement.
 			var calendarEventDatas = EventsData as IMealHistoryRecord[] ?? EventsData.ToArray();
 			for (int box = 0; box < 42; box++)
-			{				
+			{
 				if (IsCurrentlySelected(displayedDayDate))
 				{
 					dayInstance = SelectedDay;
@@ -458,9 +500,7 @@ namespace Diety.ViewModel
 		private bool ExistEventsForDay(IMealHistoryRecord eventData, DayModel dayInstance)
 		{
 			//TODO
-			//return eventData.StartDate.Date == dayInstance.Date || eventData.EndDate == dayInstance.Date ||
-			//	   (eventData.StartDate.Date < dayInstance.Date && eventData.EndDate > dayInstance.Date);
-			return false;
+			return eventData.Date.Date == dayInstance.Date;
 		}
 
 		/// <summary>

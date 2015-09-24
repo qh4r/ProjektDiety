@@ -61,7 +61,7 @@ namespace DietyDataAccess.DataTypes
 			get { return _mealHistoryRecord.Recipe; }
 			set
 			{
-				_mealHistoryRecord.Recipe = value;
+				_mealHistoryRecord.Recipe = value as RecipeDb ?? (value as Recipe).UnwrapDataObject();
 				RaisePropertyChanged();
 			}
 		}
@@ -78,7 +78,7 @@ namespace DietyDataAccess.DataTypes
 			get { return _mealHistoryRecord.Owner; }
 			set
 			{
-				_mealHistoryRecord.Owner = value;
+				_mealHistoryRecord.Owner = value as UserProfileDb ?? (value as UserProfile).UnwrapDataObject();
 				RaisePropertyChanged();
 			}
 		}

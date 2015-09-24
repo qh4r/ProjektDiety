@@ -84,7 +84,7 @@ namespace DietyDataAccess.Accessors
 		{
 			using (var dietyContext = DietyDbContext)
 			{
-				var record = await DietyDbContext.UserProfiles.FirstOrDefaultAsync(x => x.Id == id);
+				var record = await dietyContext.UserProfiles.FirstOrDefaultAsync(x => x.Id == id);
 				var result = record != null ? new UserProfile(record) : null;
 				return result;
 			}
@@ -97,11 +97,12 @@ namespace DietyDataAccess.Accessors
 		/// <returns></returns>
 		public async Task<IUserProfile> GetUserProfileByName(string name)
 		{
-			//using (var dietyContext = DietyDbContext)
-			//{
-				var record = await DietyDbContext.UserProfiles.FirstOrDefaultAsync(x => x.UserName == name);
-				return record != null ? new UserProfile(record) : null;
-			//}
+			using (var dietyContext = DietyDbContext)
+			{
+				var record = await dietyContext.UserProfiles.FirstOrDefaultAsync(x => x.UserName == name);
+				var result = record != null ? new UserProfile(record) : null;
+				return result;
+			}
 		}
 		#endregion
 	}

@@ -106,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dialogs\MealDetailsDialog.xaml.cs">
+      <DependentUpon>MealDetailsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Constatnts\ConstantValues.cs" />
     <Compile Include="Helpers\Constatnts\Messages.cs" />
     <Compile Include="Helpers\Converters\ActivePageTypeToBoolConverter.cs" />
     <Compile Include="Helpers\Converters\BooleanToNegativeVisibilityConverter.cs" />
@@ -126,6 +130,11 @@
     <Compile Include="Helpers\PageType.cs" />
     <Compile Include="TemplateControlls\PageBase.cs" />
     <Compile Include="ViewModel\AddEditRecipeViewModel.cs" />
+    <Compile Include="LocalEnums\DialogResultType.cs" />
+    <Compile Include="ViewModel\Modules\DialogService.cs" />
+    <Compile Include="ViewModel\Modules\Interfaces\IDialogService.cs" />
+    <Compile Include="ViewModel\PropertyGroups\Interfaces\IMealDetailsDialogModel.cs" />
+    <Compile Include="ViewModel\PropertyGroups\MealDetailsDialogModel.cs" />
     <Compile Include="ViewModel\PropertyGroups\MealNavigationData.cs" />
     <Compile Include="ViewModel\MealSelectionViewModel.cs" />
     <Compile Include="ViewModel\Modules\Interfaces\ILoadingIndicatiorModule.cs" />
@@ -170,6 +179,10 @@
     <Compile Include="Views\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dialogs\MealDetailsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

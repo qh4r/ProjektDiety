@@ -3,10 +3,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
 using Diety.Helpers;
+using Diety.ViewModel.Modules.Interfaces;
 using Diety.ViewModel.PropertyGroups;
 using DietyCommonTypes.Enums;
 using DietyCommonTypes.Interfaces;
 using DietyDataAccess.Accessors.Interfaces;
+using DietyDataAccess.DataTypes;
 using DietyDataAccess.DataTypes.WrapperInterfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -63,6 +65,21 @@ namespace Diety.ViewModel
 		/// The _selected date
 		/// </summary>
 		private DateTime _selectedDate;
+
+		/// <summary>
+		/// The _meal history records access
+		/// </summary>
+		private IMealHistoryRecordsAccess _mealHistoryRecordsAccess;
+
+		/// <summary>
+		/// The _current user module
+		/// </summary>
+		private ICurrentUserModule _currentUserModule;
+
+		/// <summary>
+		/// The _loading indicatior module
+		/// </summary>
+		private ILoadingIndicatiorModule _loadingIndicatiorModule;
 
 		#endregion
 
@@ -194,21 +211,76 @@ namespace Diety.ViewModel
 			set { Set(ref _selectedDate, value); }
 		}
 
+		/// <summary>
+		/// Gets the go back command.
+		/// </summary>
+		/// <value>
+		/// The go back command.
+		/// </value>
+		public RelayCommand GoBackCommand
+		{
+			get { return new RelayCommand(() =>
+			{
+				_mainFrameNavigation.GoBack();
+			});}
+		}
+
+		/// <summary>
+		/// Gets the add meal command.
+		/// </summary>
+		/// <value>
+		/// The add meal command.
+		/// </value>
+		public RelayCommand AddMealCommand
+		{
+			get { return new RelayCommand(() =>
+			{
+				var meal = new MealHistoryRecord
+				{
+					Date = SelectedDate,
+					Owner = _currentUserModule.CurrentUser,
+					Recipe = SelectedRecipe,
+				};
+				try
+				{
+					_loadingIndicatiorModule.ShowLoadingIndicatior();
+					var addedMeal = _mealHistoryRecordsAccess.AddMealRecord(meal);
+					if (addedMeal != null && addedMeal.Id != 0)
+					{
+						_mainFrameNavigation.GoBack();
+					}
+				}
+				catch (Exception e)
+				{
+					_loadingIndicatiorModule.HideLoadingIndicator();
+					//TODO addpopup
+				}
+				_loadingIndicatiorModule.HideLoadingIndicator();
+			}, () => SelectedRecipe != null); }
+		}
+
 		#endregion
 
 		#region C-tors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="HomeViewModel"/> class.
+		/// Initializes a new instance of the <see cref="HomeViewModel" /> class.
 		/// </summary>
 		/// <param name="mainFrameNavigationService">The main frame navigation service.</param>
 		/// <param name="pageBaseViewModel">The page base view model.</param>
 		/// <param name="recipesAccess">The recipes access.</param>
-		public MealSelectionViewModel(IMainFrameNavigationService mainFrameNavigationService, IPageBaseViewModel pageBaseViewModel, IRecipesAccess recipesAccess)
+		/// <param name="mealHistoryRecordsAccess">The meal history records access.</param>
+		/// <param name="currentUserModule">The current user module.</param>
+		public MealSelectionViewModel(IMainFrameNavigationService mainFrameNavigationService, IPageBaseViewModel pageBaseViewModel, 
+			IRecipesAccess recipesAccess, IMealHistoryRecordsAccess mealHistoryRecordsAccess, ICurrentUserModule currentUserModule,
+			ILoadingIndicatiorModule loadingIndicatiorModule)
 		{
 			_mainFrameNavigation = mainFrameNavigationService;
 			_recipesAccess = recipesAccess;
 			PageBaseModel = pageBaseViewModel;
+			_mealHistoryRecordsAccess = mealHistoryRecordsAccess;
+			_currentUserModule = currentUserModule;
+			_loadingIndicatiorModule = loadingIndicatiorModule;
 			var mealData = _mainFrameNavigation.Parameter as MealNavigationData;
 			if (mealData != null)
 			{

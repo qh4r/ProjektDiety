@@ -12,7 +12,7 @@ using DietyDataTransportTypes.Interfaces;
 namespace DietyDataAccess.Accessors
 {
 	public class MealHistoryRecordsAccess : DataAccessBase, IMealHistoryRecordsAccess
-	{		
+	{
 		#region Public Methods
 
 		/// <summary>
@@ -29,9 +29,13 @@ namespace DietyDataAccess.Accessors
 			{
 				using (var dietyContext = DietyDbContext)
 				{
-					DietyDbContext.MealHistoryRecords.Add(newMealRecord as MealHistoryRecordDb);
-					await DietyDbContext.SaveChangesAsync();
+					var mealDb = newMealRecord as MealHistoryRecordDb;
+					dietyContext.Entry(mealDb.Owner).State = EntityState.Unchanged;
+					dietyContext.Entry(mealDb.RecipeData).State = EntityState.Unchanged;
+					dietyContext.MealHistoryRecords.Add(mealDb);
+					await dietyContext.SaveChangesAsync();
 				}
+				await Task.Yield();
 			}
 			return item;
 		}
@@ -55,20 +59,29 @@ namespace DietyDataAccess.Accessors
 				if (orderRule != null)
 				{
 					outputList =
-						DietyDbContext.MealHistoryRecords.Where(searchCondition ?? (x => true))
+						dietyContext.MealHistoryRecords.Where(searchCondition ?? (x => true))
 							.OrderBy(orderRule)
 							.Skip(skipCount);
 				}
 				else
 				{
 					outputList =
-						DietyDbContext.MealHistoryRecords.Where(searchCondition ?? (x => true))							
+						dietyContext.MealHistoryRecords.Where(searchCondition ?? (x => true))
 							.Skip(skipCount)
 							.Take(takeCount);
 				}
 				await Task.Yield();
-				return outputList.Select(x => new MealHistoryRecord(x));
-			}
+				var result = outputList.Select(x => new MealHistoryRecord(x)).ToList();
+				foreach (var meal in result)
+				{
+					meal.Recipe = meal.Recipe;
+					foreach (var component in meal.Recipe.ComponentsList)
+					{
+						component.Ingredient = component.Ingredient;
+					}
+				}
+				return result;
+			}			
 		}
 
 		/// <summary>
@@ -80,8 +93,9 @@ namespace DietyDataAccess.Accessors
 		{
 			using (var dietyContext = DietyDbContext)
 			{
-				var record = await DietyDbContext.MealHistoryRecords.FirstOrDefaultAsync(x => x.Id == id);
-				return record != null ? new MealHistoryRecord(record) : null;
+				var record = await dietyContext.MealHistoryRecords.FirstOrDefaultAsync(x => x.Id == id);
+				var result = record != null ? new MealHistoryRecord(record) : null;
+				return result;
 			}
 		}
 

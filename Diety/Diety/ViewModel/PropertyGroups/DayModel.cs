@@ -238,6 +238,17 @@ namespace CalendarControl.UI.ModelData.MonthView
 			get { return Events.Count; }
 		}
 
+		/// <summary>
+		/// Gets a value indicating whether this instance is past.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if this instance is past; otherwise, <c>false</c>.
+		/// </value>
+		public bool IsPast
+		{
+			get { return Date.Date < DateTime.Now.Date; }
+		}
+
 		///// <summary>
 		///// Gets the first event title.
 		///// </summary>

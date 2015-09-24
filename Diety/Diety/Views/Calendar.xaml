@@ -7,6 +7,8 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:enums="clr-namespace:DietyCommonTypes.Enums;assembly=DietyCommonTypes"
+      xmlns:monthView="clr-namespace:CalendarControl.UI.ModelData.MonthView"
+      xmlns:converters="clr-namespace:Diety.Helpers.Converters"
       mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Calendar}"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="Home">
@@ -312,6 +314,18 @@
 				</Setter>
 			</Style>
 
+			<converters:BoolToSolidColorBrushConverter x:Key="BreakfastElipseConverter" 
+													   ActiveColor="{StaticResource BreakfastButtonDisabledBackgroundColor}"
+													   NormalColor="{StaticResource BreakfastButtonBackgroundColor}"/>
+
+			<converters:BoolToSolidColorBrushConverter x:Key="DinnerElipseConverter" 
+													   ActiveColor="{StaticResource DinnerButtonDisabledBackgroundColor}"
+													   NormalColor="{StaticResource DinnerButtonBackgroundColor}"/>
+
+			<converters:BoolToSolidColorBrushConverter x:Key="SupperElipseConverter" 
+													   ActiveColor="{StaticResource SupperButtonDisabledBackgroundColor}"
+													   NormalColor="{StaticResource SupperButtonBackgroundColor}"/>
+			
 			<Style TargetType="Button" x:Key="MonthViewDayCellButtonStyle">
 				<Setter Property="Background" Value="Transparent"/>
 				<Setter Property="BorderThickness" Value="0"/>
@@ -320,7 +334,7 @@
 				<Setter Property="Template">
 					<Setter.Value>
 						<ControlTemplate>
-							<Grid>
+							<Grid d:DataContext="{d:DesignInstance monthView:DayModel}">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
 									<RowDefinition Height="*"/>
@@ -340,6 +354,25 @@
 									<!-- DAY NAME -->
 									<TextBlock Visibility="{Binding IsFirstRow}" Text="{Binding FirstRowDayName}" Style="{StaticResource MonthViewDayNameTextStyle}"/>
 								</StackPanel>
+								<Grid Grid.Row="1">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<Ellipse Height="30" Width="30" Grid.Column="0" HorizontalAlignment="Center" 
+											 VerticalAlignment="Center" Visibility="{Binding Breakfast, Converter={StaticResource NullOrEmptyToVisibilityConverter}}"
+											 Fill="{Binding IsPast, Converter={StaticResource BreakfastElipseConverter}}">
+									</Ellipse>
+									<Ellipse Height="30" Width="30" Grid.Column="1" HorizontalAlignment="Center"
+											 VerticalAlignment="Center" Visibility="{Binding Dinner, Converter={StaticResource NullOrEmptyToVisibilityConverter}}"
+											 Fill="{Binding IsPast, Converter={StaticResource DinnerElipseConverter}}">
+									</Ellipse>
+									<Ellipse Height="30" Width="30" Grid.Column="2" HorizontalAlignment="Center"
+											 VerticalAlignment="Center" Visibility="{Binding Supper, Converter={StaticResource NullOrEmptyToVisibilityConverter}}"
+											 Fill="{Binding IsPast, Converter={StaticResource SupperElipseConverter}}">
+									</Ellipse>
+								</Grid>
 								<!-- EVENT -->
 								<!--<Button Grid.Row="1" Command="{Binding DataContext.ShowEventsCommand, ElementName=RootGrid}" CommandParameter="{Binding}" Style="{StaticResource MonthViewEventButtonStyle}"/>-->
 							</Grid>
@@ -475,6 +508,19 @@
 								</Grid>
 							</Button>
 						</Grid>
+						<Grid Visibility="{Binding SelectedDay.Breakfast, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource BreakfastLabelColor}">
+							 Śniadanie:
+							</TextBlock>
+							<Button Grid.Row="1" HorizontalAlignment="Stretch" Style="{StaticResource RedBorderButtonStyle}" 
+									Content="{Binding SelectedDay.Breakfast.Recipe.Name}" Command="{Binding ShowDetailsDialog}" CommandParameter="{Binding SelectedDay.Breakfast}"/>
+						</Grid>
 					</Grid>
 					<!-- Dinner -->
 					<Grid Grid.Row="1">
@@ -500,6 +546,19 @@
 								</Grid>
 							</Button>
 						</Grid>
+						<Grid Visibility="{Binding SelectedDay.Dinner, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource DinnerLabelColor}">
+							 Obiad:
+							</TextBlock>
+							<Button Grid.Row="1" HorizontalAlignment="Stretch" Style="{StaticResource YellowBorderButtonStyle}" 
+									Content="{Binding SelectedDay.Dinner.Recipe.Name}" Command="{Binding ShowDetailsDialog}" CommandParameter="{Binding SelectedDay.Dinner}"/>
+						</Grid>
 					</Grid>
 					<!-- Supper -->
 					<Grid Grid.Row="2">
@@ -524,6 +583,19 @@
 									</Viewbox>
 								</Grid>
 							</Button>
+						</Grid>
+						<Grid Visibility="{Binding SelectedDay.Supper, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource SupperLabelColor}">
+							 Kolacja:
+							</TextBlock>
+							<Button Grid.Row="1" HorizontalAlignment="Stretch" Style="{StaticResource GreenBorderButtonStyle}" 
+									 Content="{Binding SelectedDay.Supper.Recipe.Name}" Command="{Binding ShowDetailsDialog}" CommandParameter="{Binding SelectedDay.Supper}"/>
 						</Grid>
 					</Grid>
 				</Grid>

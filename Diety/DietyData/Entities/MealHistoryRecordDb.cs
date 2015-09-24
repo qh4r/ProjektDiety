@@ -37,7 +37,7 @@ namespace DietyData.Entities
 		/// The recipe data.
 		/// </value>
 		[Column("Recipe")]
-		public RecipeDb RecipeData { get; set; }
+		public virtual RecipeDb RecipeData { get; set; }
 
 		/// <summary>
 		/// Gets or sets the recipe.
