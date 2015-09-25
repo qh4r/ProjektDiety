@@ -31,7 +31,7 @@
 		</ResourceDictionary>
 	</Window.Resources>
 	<Grid>
-		<Grid d:DataContext="{d:DesignInstance propertyGroups:MealDetailsDialogModel} ">
+		<Grid d:DataContext="{d:DesignInstance propertyGroups:MealDetailsDialogModel}" Margin="10">
 			<Grid Background="White">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>

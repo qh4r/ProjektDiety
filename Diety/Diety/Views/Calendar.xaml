@@ -497,7 +497,8 @@
 							   Foreground="{StaticResource BreakfastLabelColor}">
 						Dodaj Śniadanie!
 							</TextBlock>
-							<Button Grid.Row="1" Style="{StaticResource BreakfastButtonStyle}"  Command="{Binding AddMeal}">
+							<Button Grid.Row="1" Style="{StaticResource BreakfastButtonStyle}"  Command="{Binding AddMeal}"
+									IsEnabled="{Binding SelectedDay.IsPast, Converter={StaticResource NegateBooleanConverter}}">
 								<Button.CommandParameter>
 									<enums:MealTypes>Breakfast</enums:MealTypes>
 								</Button.CommandParameter>
@@ -535,7 +536,8 @@
 							   Foreground="{StaticResource DinnerLabelColor}">
 						Dodaj Obiad!
 							</TextBlock>
-							<Button Grid.Row="1" Style="{StaticResource DinnerButtonStyle}"  Command="{Binding AddMeal}">
+							<Button Grid.Row="1" Style="{StaticResource DinnerButtonStyle}"  Command="{Binding AddMeal}"
+									IsEnabled="{Binding SelectedDay.IsPast, Converter={StaticResource NegateBooleanConverter}}">
 								<Button.CommandParameter>
 									<enums:MealTypes>Dinner</enums:MealTypes>
 								</Button.CommandParameter>
@@ -573,7 +575,8 @@
 							   Foreground="{StaticResource SupperLabelColor}">
 						Dodaj Kolacje!
 							</TextBlock>
-							<Button Grid.Row="1" Style="{StaticResource SupperButtonStyle}"  Command="{Binding AddMeal}">
+							<Button Grid.Row="1" Style="{StaticResource SupperButtonStyle}"  Command="{Binding AddMeal}"
+									IsEnabled="{Binding SelectedDay.IsPast, Converter={StaticResource NegateBooleanConverter}}">
 								<Button.CommandParameter>
 									<enums:MealTypes>Supper</enums:MealTypes>
 								</Button.CommandParameter>

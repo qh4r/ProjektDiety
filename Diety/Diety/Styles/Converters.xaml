@@ -12,4 +12,6 @@
 	<converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
 	<converters:EnumToMealTypeConverter x:Key="EnumToMealTypeConverter"/>
 	<converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+	<converters:NegateBooleanConverter x:Key="NegateBooleanConverter"/>
+	
 </ResourceDictionary>

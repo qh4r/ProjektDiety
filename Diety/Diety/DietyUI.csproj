@@ -118,6 +118,7 @@
     <Compile Include="Helpers\Converters\EnumToMealTypeConverter.cs" />
     <Compile Include="Helpers\Converters\EnumToStringConverter.cs" />
     <Compile Include="Helpers\Converters\IntToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\NegateBooleanConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToInverseVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\NullOrEmptyToZeroOpacityConverter.cs" />
