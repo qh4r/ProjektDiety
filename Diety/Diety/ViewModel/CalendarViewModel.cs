@@ -324,7 +324,6 @@ namespace Diety.ViewModel
 						catch (Exception e)
 						{
 							//TODO popuperror
-							Debug.WriteLine(e.Message);
 							_loadingIndicatiorModule.HideLoadingIndicator();
 						}
 					}
@@ -519,7 +518,6 @@ namespace Diety.ViewModel
 		/// <returns></returns>
 		private bool ExistEventsForDay(IMealHistoryRecord eventData, DayModel dayInstance)
 		{
-			//TODO
 			return eventData.Date.Date == dayInstance.Date;
 		}
 

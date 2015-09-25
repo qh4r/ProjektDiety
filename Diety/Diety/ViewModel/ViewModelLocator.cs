@@ -143,7 +143,7 @@ namespace Diety.ViewModel
 		/// </value>
 		public HomeViewModel Home
 		{
-			get { return SimpleIoc.Default.GetInstance<HomeViewModel>(); }
+			get { return SimpleIoc.Default.GetInstanceWithoutCaching<HomeViewModel>(); }
 		}
 
 		/// <summary>

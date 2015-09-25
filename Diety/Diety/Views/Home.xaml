@@ -6,13 +6,171 @@
       xmlns:extensions="clr-namespace:Diety.Helpers.Extensions"
       xmlns:templateControlls="clr-namespace:Diety.TemplateControlls"
       xmlns:helpers="clr-namespace:Diety.Helpers"
+      xmlns:enums="clr-namespace:DietyCommonTypes.Enums;assembly=DietyCommonTypes"
       mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Home}"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="Home">
+	<Page.Resources>
+		<ResourceDictionary>
+			
+			<Style TargetType="TextBlock" x:Key="HomeTimerStyle">
+				<Setter Property="FontSize" Value="30"/>
+				<Setter Property="FontFamily" Value="Calibri"/>				
+				<Setter Property="Foreground" Value="#7c7c7c"/>
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="HorizontalAlignment" Value="Center"/>
+				<Setter Property="Margin" Value="5px, 0, 0, -2px" />
+			</Style>
+			
+		</ResourceDictionary>
+	</Page.Resources>
+	
 	<Grid x:Name="RootGrid">
 	
 		<templateControlls:PageBase HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-			<TextBlock Foreground="Tomato" FontSize="40">HOME</TextBlock>
+			<Grid Margin="10">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>					
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<!-- BUTTONS -->
+				<Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="10">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+
+					<!-- BREAKFAST -->
+					<Grid Grid.Row="0">
+						<!-- ADD BUTTON -->
+						<Grid Visibility="{Binding SelectedDay.Breakfast, Converter={StaticResource NullOrEmptyToInverseVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource BreakfastLabelColor}">
+						Dodaj Śniadanie!
+							</TextBlock>
+							<Button Grid.Row="1" Style="{StaticResource BreakfastButtonStyle}"  Command="{Binding AddMeal}"
+									IsEnabled="{Binding SelectedDay.IsPast, Converter={StaticResource NegateBooleanConverter}}">
+								<Button.CommandParameter>
+									<enums:MealTypes>Breakfast</enums:MealTypes>
+								</Button.CommandParameter>
+								<Grid>
+									<Viewbox>
+										<Image Source="{StaticResource AddIcon}"/>
+									</Viewbox>
+								</Grid>
+							</Button>
+						</Grid>
+						<Grid Visibility="{Binding SelectedDay.Breakfast, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource BreakfastLabelColor}">
+							 Śniadanie:
+							</TextBlock>
+							<Button Grid.Row="1" HorizontalAlignment="Stretch" Style="{StaticResource RedBorderButtonStyle}" 
+									Content="{Binding SelectedDay.Breakfast.Recipe.Name}" Command="{Binding ShowDetailsDialog}" CommandParameter="{Binding SelectedDay.Breakfast}"/>
+						</Grid>
+					</Grid>
+					<!-- Dinner -->
+					<Grid Grid.Row="1">
+						<!-- ADD BUTTON -->
+						<Grid Visibility="{Binding SelectedDay.Dinner, Converter={StaticResource NullOrEmptyToInverseVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource DinnerLabelColor}">
+						Dodaj Obiad!
+							</TextBlock>
+							<Button Grid.Row="1" Style="{StaticResource DinnerButtonStyle}"  Command="{Binding AddMeal}"
+									IsEnabled="{Binding SelectedDay.IsPast, Converter={StaticResource NegateBooleanConverter}}">
+								<Button.CommandParameter>
+									<enums:MealTypes>Dinner</enums:MealTypes>
+								</Button.CommandParameter>
+								<Grid>
+									<Viewbox>
+										<Image Source="{StaticResource AddIcon}"/>
+									</Viewbox>
+								</Grid>
+							</Button>
+						</Grid>
+						<Grid Visibility="{Binding SelectedDay.Dinner, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource DinnerLabelColor}">
+							 Obiad:
+							</TextBlock>
+							<Button Grid.Row="1" HorizontalAlignment="Stretch" Style="{StaticResource YellowBorderButtonStyle}" 
+									Content="{Binding SelectedDay.Dinner.Recipe.Name}" Command="{Binding ShowDetailsDialog}" CommandParameter="{Binding SelectedDay.Dinner}"/>
+						</Grid>
+					</Grid>
+					<!-- Supper -->
+					<Grid Grid.Row="2">
+						<!-- ADD BUTTON -->
+						<Grid Visibility="{Binding SelectedDay.Supper, Converter={StaticResource NullOrEmptyToInverseVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource SupperLabelColor}">
+						Dodaj Kolacje!
+							</TextBlock>
+							<Button Grid.Row="1" Style="{StaticResource SupperButtonStyle}"  Command="{Binding AddMeal}"
+									IsEnabled="{Binding SelectedDay.IsPast, Converter={StaticResource NegateBooleanConverter}}">
+								<Button.CommandParameter>
+									<enums:MealTypes>Supper</enums:MealTypes>
+								</Button.CommandParameter>
+								<Grid>
+									<Viewbox>
+										<Image Source="{StaticResource AddIcon}"/>
+									</Viewbox>
+								</Grid>
+							</Button>
+						</Grid>
+						<Grid Visibility="{Binding SelectedDay.Supper, Converter={StaticResource NullOrEmptyToVisibilityConverter}}" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="2*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontFamily="Buxton Sketch" TextWrapping="Wrap" FontSize="18"
+							   Foreground="{StaticResource SupperLabelColor}">
+							 Kolacja:
+							</TextBlock>
+							<Button Grid.Row="1" HorizontalAlignment="Stretch" Style="{StaticResource GreenBorderButtonStyle}" 
+									 Content="{Binding SelectedDay.Supper.Recipe.Name}" Command="{Binding ShowDetailsDialog}" CommandParameter="{Binding SelectedDay.Supper}"/>
+						</Grid>
+					</Grid>
+				</Grid>
+
+				<!-- TIME -->
+				<TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource HomeTimerStyle}" Text="{Binding FormattedDateSummary}"/>
+				<!-- PERSON ICON -->
+				<Viewbox Stretch="Uniform" StretchDirection="DownOnly" Grid.Row="1" Grid.Column="1">
+					<Image Source="{StaticResource HomeLogoIcon}"/>
+				</Viewbox>
+			</Grid>
 		</templateControlls:PageBase>
 	
 	</Grid>

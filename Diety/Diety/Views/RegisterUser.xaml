@@ -81,10 +81,14 @@
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="2*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="3*"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Grid Grid.Row="1" Grid.Column="1">
+				<Viewbox Stretch="Uniform" StretchDirection="DownOnly" Grid.Row="1" Grid.Column="1">
+					<Image Margin="10,0" Source="{StaticResource PersonIcon}"/>
+				</Viewbox>
+				<Grid VerticalAlignment="Center" Grid.Row="1" Grid.Column="2">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
@@ -192,14 +196,13 @@
 					</Border>
 					<TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource ErrorMessageLabelStyle}" Text="{Binding ErrorStatus.HeightErrorMessage}"/>
 				</Grid>
-				<Grid Grid.Row="3" Grid.Column="1">
+				<Grid Grid.Row="3" Grid.Column="0" ColumnSpan="4">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>						
 						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
 					</Grid.ColumnDefinitions>
 					<Button Grid.Column="0" IsEnabled="{Binding IsRegistrationPossible}" Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding RegisterCommand}">Zatwierdź</Button>
-					<Button Grid.Column="2" Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding GoBackCommand}">Wróć</Button>
+					<Button Grid.Column="1" Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding GoBackCommand}">Wróć</Button>
 				</Grid>
 			</Grid>
 		</Grid>

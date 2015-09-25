@@ -21,5 +21,7 @@
 	<BitmapImage UriSource="/Resources/Icons/rightWhite.png" x:Key="RightWhiteArrowIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/rightBlack.png" x:Key="RightBlackArrowIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/logo.png" x:Key="LogoIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/person.png" x:Key="PersonIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/homeLogo.png" x:Key="HomeLogoIcon"/>
 
 </ResourceDictionary>
