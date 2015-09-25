@@ -7,11 +7,13 @@
 		      xmlns:dataTypes="clr-namespace:DietyDataAccess.DataTypes;assembly=DietyDataAccess"
 		      xmlns:monthView="clr-namespace:CalendarControl.UI.ModelData.MonthView"
 		      xmlns:propertyGroups="clr-namespace:Diety.ViewModel.PropertyGroups"
+		      xmlns:extensions="clr-namespace:Diety.Helpers.Extensions"
 		      ShowInTaskbar="False" WindowStyle="None"
         Title="MonthEventsDialog" Width="600" Topmost="True"
 		x:Name="MonthEventsDialogWindow"
 		AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize"
-		WindowStartupLocation="Manual">
+		WindowStartupLocation="Manual"
+		extensions:DialogExtension.DialogResult="{Binding DialogResult}">
 	<Window.Resources>
 		<ResourceDictionary>
 			<DataTemplate x:Key="RecipeComponentRowTempalte">
@@ -29,7 +31,7 @@
 				</Grid>
 			</DataTemplate>
 		</ResourceDictionary>
-	</Window.Resources>
+	</Window.Resources>	
 	<Grid>
 		<Grid d:DataContext="{d:DesignInstance propertyGroups:MealDetailsDialogModel}" Background="White">
 			<Grid Margin="10">
@@ -119,7 +121,7 @@
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
-					<Button Grid.Column="0" Margin="5" IsCancel="True"
+					<Button Grid.Column="0" Margin="5" Command="{Binding ConfirmDialogCommand}" IsEnabled="{Binding IsPast, Converter={StaticResource NegateBooleanConverter}}"
 					Style="{StaticResource BaseNormalButtonStyle}">
 						<Grid>
 							<Grid.ColumnDefinitions>
@@ -129,10 +131,10 @@
 							<Viewbox Margin="0,0,15,0" HorizontalAlignment="Left" Grid.Column="0">
 								<Image Source="{StaticResource TrashWhiteIcon}"/>
 							</Viewbox>
-							<TextBlock Grid.Column="1" FontSize="24" VerticalAlignment="Center">Usun</TextBlock>
+							<TextBlock Grid.Column="1" FontSize="24" VerticalAlignment="Center">Usuń</TextBlock>
 						</Grid>
 					</Button>
-					<Button Grid.Column="1" Margin="5" IsDefault="True"
+					<Button Grid.Column="1" Margin="5" IsCancel="True" IsDefault="True"
 					Style="{StaticResource BaseNormalButtonStyle}">
 						<Grid>
 							<Grid.ColumnDefinitions>

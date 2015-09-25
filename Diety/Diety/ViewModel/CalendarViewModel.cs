@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using CalendarControl.UI.ModelData.MonthView;
 using Diety.Helpers;
 using Diety.Helpers.Converters;
+using Diety.LocalEnums;
 using Diety.ViewModel.Modules;
 using Diety.ViewModel.Modules.Interfaces;
 using Diety.ViewModel.PropertyGroups;
@@ -251,7 +252,7 @@ namespace Diety.ViewModel
 				return new GalaSoft.MvvmLight.Command.RelayCommand<DayModel>(day =>
 				{
 					//TODO
-					//MessageBox.Show(day.Events.First().Description, day.Events.First().Subject);
+					//MessageBox.Show(day.Meals.First().Description, day.Meals.First().Subject);
 				}, day => day.IsTargetMonth);
 			}
 		}
@@ -301,14 +302,33 @@ namespace Diety.ViewModel
 		{
 			get
 			{
-				return new RelayCommand<IMealHistoryRecord>(meal =>
+				return new RelayCommand<IMealHistoryRecord>(async meal =>
 				{
 					var dialogResult = _dialogService.ShowMealDetailsDialog(new MealDetailsDialogModel
 					{
 						IsPast = SelectedDay.IsPast,
 						Meal = meal
 					});
-					Debug.WriteLine(dialogResult);
+					if (dialogResult == DialogResultType.Delete)
+					{
+						try
+						{
+							_loadingIndicatiorModule.ShowLoadingIndicatior();
+							var result = await _mealHistoryRecordsAccess.DeleteMeal(meal);
+							if(result != null)
+							{
+								_loadingIndicatiorModule.HideLoadingIndicator();
+								await RefreshDays(SelectedDay.Date);
+							}							
+						}
+						catch (Exception e)
+						{
+							//TODO popuperror
+							Debug.WriteLine(e.Message);
+							_loadingIndicatiorModule.HideLoadingIndicator();
+						}
+					}
+
 				});
 			}
 		}
@@ -438,10 +458,10 @@ namespace Diety.ViewModel
 				{
 					dayInstance = InitializeDayInstance(displayedDayDate, box);
 				}
-				dayInstance.Events.Clear();
+				dayInstance.Meals.Clear();
 				foreach (var plannedEvent in calendarEventDatas.Where(eventData => ExistEventsForDay(eventData, dayInstance)))
 				{
-					dayInstance.Events.Add(plannedEvent);
+					dayInstance.Meals.Add(plannedEvent);
 				}
 				if (SelectedDay == null && dayInstance.IsToday)
 				{

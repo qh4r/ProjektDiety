@@ -37,7 +37,15 @@ namespace DietyDataAccess.Accessors.Interfaces
 		/// <returns></returns>
 		Task<IMealHistoryRecord> GetMealHistoryRecord(long id);
 
+		/// <summary>
+		/// Deletes the meal.
+		/// </summary>
+		/// <param name="meal">The meal.</param>
+		/// <returns></returns>
+		Task<bool?> DeleteMeal(IMealHistoryRecord meal);
+
 		#endregion
 
+		
 	}
 }

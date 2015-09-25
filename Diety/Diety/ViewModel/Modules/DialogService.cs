@@ -33,9 +33,9 @@ namespace Diety.ViewModel.Modules
 			var result = dialog.ShowDialog();
 			if (result.HasValue && result.Value)
 			{
-				return DialogResultType.Edit;
+				return DialogResultType.Delete;
 			}
-			return DialogResultType.Ok;
+			return DialogResultType.Cancel;
 		}
 
 		#endregion

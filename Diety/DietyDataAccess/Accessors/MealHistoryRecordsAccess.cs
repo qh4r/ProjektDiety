@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using DietyCommonTypes.Interfaces;
 using DietyData.Entities;
@@ -30,8 +32,22 @@ namespace DietyDataAccess.Accessors
 				using (var dietyContext = DietyDbContext)
 				{
 					var mealDb = newMealRecord as MealHistoryRecordDb;
+					//dietyContext.Entry(mealDb.Owner).State = EntityState.Added;
+					//dietyContext.UserProfiles.Attach(mealDb.Owner as UserProfileDb);
+
+					//dietyContext.Entry(mealDb.RecipeData).State = EntityState.Added;
+					//dietyContext.Recipes.Attach(mealDb.RecipeData);
 					dietyContext.Entry(mealDb.Owner).State = EntityState.Unchanged;
+					//dietyContext.Entry(mealDb.RecipeData).State = EntityState.Unchanged;
+					var recipe = dietyContext.Recipes.Find(mealDb.Recipe.Id);
+					mealDb.RecipeData = recipe;
 					dietyContext.Entry(mealDb.RecipeData).State = EntityState.Unchanged;
+
+					foreach (var component in mealDb.RecipeData.ComponentsListData)
+					{
+						dietyContext.Entry(component).State = EntityState.Unchanged;
+					}
+
 					dietyContext.MealHistoryRecords.Add(mealDb);
 					await dietyContext.SaveChangesAsync();
 				}
@@ -72,9 +88,9 @@ namespace DietyDataAccess.Accessors
 				}
 				await Task.Yield();
 				var result = outputList.Select(x => new MealHistoryRecord(x)).ToList();
-				
+
 				return result;
-			}			
+			}
 		}
 
 		/// <summary>
@@ -89,6 +105,29 @@ namespace DietyDataAccess.Accessors
 				var record = await dietyContext.MealHistoryRecords.FirstOrDefaultAsync(x => x.Id == id);
 				var result = record != null ? new MealHistoryRecord(record) : null;
 				return result;
+			}
+		}
+
+		public async Task<bool?> DeleteMeal(IMealHistoryRecord meal)
+		{
+			var wrappedRecord = meal as MealHistoryRecord;
+			var recordDb = (wrappedRecord != null ? wrappedRecord.UnwrapDataObject() : meal) as MealHistoryRecordDb;
+			using (var dietyContext = DietyDbContext)
+			{
+				////dietyContext.MealHistoryRecords.Attach(recipeDb);
+				////dietyContext.MealHistoryRecords.Remove(recipeDb);
+				////var x = await dietyContext.SaveChangesAsync();
+
+				//return x > 0;
+
+				dietyContext.MealHistoryRecords.Attach(recordDb);
+
+				recordDb.Owner = null;
+				recordDb.RecipeData = null;
+				recordDb.Date = new DateTime(1753, 1, 1, 0, 0, 0);
+				dietyContext.MealHistoryRecords.AddOrUpdate(recordDb);
+				var changesCount = await dietyContext.SaveChangesAsync();
+				return changesCount > 0;
 			}
 		}
 

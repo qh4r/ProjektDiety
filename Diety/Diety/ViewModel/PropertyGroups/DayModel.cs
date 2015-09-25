@@ -163,7 +163,7 @@ namespace CalendarControl.UI.ModelData.MonthView
 		/// </value>
 		public IMealHistoryRecord Breakfast
 		{
-			get { return Events.FirstOrDefault(x => x.Recipe.MealType == MealTypes.Breakfast); }
+			get { return Meals.FirstOrDefault(x => x.Recipe.MealType == MealTypes.Breakfast); }
 		}
 
 
@@ -175,7 +175,7 @@ namespace CalendarControl.UI.ModelData.MonthView
 		/// </value>
 		public IMealHistoryRecord Supper
 		{
-			get { return Events.FirstOrDefault(x => x.Recipe.MealType == MealTypes.Supper); }
+			get { return Meals.FirstOrDefault(x => x.Recipe.MealType == MealTypes.Supper); }
 		}
 
 
@@ -187,7 +187,7 @@ namespace CalendarControl.UI.ModelData.MonthView
 		/// </value>
 		public IMealHistoryRecord Dinner
 		{
-			get { return Events.FirstOrDefault(x => x.Recipe.MealType == MealTypes.Dinner); }
+			get { return Meals.FirstOrDefault(x => x.Recipe.MealType == MealTypes.Dinner); }
 		}
 
 		/// <summary>
@@ -225,7 +225,7 @@ namespace CalendarControl.UI.ModelData.MonthView
 		/// <value>
 		/// The events.
 		/// </value>
-		public ObservableCollection<IMealHistoryRecord> Events { get; set; }
+		public ObservableCollection<IMealHistoryRecord> Meals { get; set; }
 
 		/// <summary>
 		/// Gets the events count.
@@ -233,9 +233,9 @@ namespace CalendarControl.UI.ModelData.MonthView
 		/// <value>
 		/// The events count.
 		/// </value>
-		public object EventsCount
+		public object MealsCount
 		{
-			get { return Events.Count; }
+			get { return Meals.Count; }
 		}
 
 		/// <summary>
@@ -257,17 +257,17 @@ namespace CalendarControl.UI.ModelData.MonthView
 		///// </value>
 		//public object FirstEventTitle
 		//{
-		//	get { return Events.Count > 0 ? Events.Count == 1 ? Events.First().Subject : "Termine" : null; }
+		//	get { return Meals.Count > 0 ? Meals.Count == 1 ? Meals.First().Subject : "Termine" : null; }
 		//}
 
 		//public bool GotForeignEvents
 		//{
-		//	get { return Events.Any(x => x.IsForeign); }
+		//	get { return Meals.Any(x => x.IsForeign); }
 		//}
 
 		//public bool GotPrivateEvents
 		//{
-		//	get { return Events.Any(x => !x.IsForeign); }
+		//	get { return Meals.Any(x => !x.IsForeign); }
 		//}
 
 		#endregion
@@ -279,7 +279,7 @@ namespace CalendarControl.UI.ModelData.MonthView
 		/// </summary>
 		public DayModel()
 		{
-			Events = new ObservableCollection<IMealHistoryRecord>();
+			Meals = new ObservableCollection<IMealHistoryRecord>();
 		}
 
 		#endregion

@@ -13,7 +13,7 @@ namespace Diety.Helpers
 {
 	class MainFrameNavigationService : ObservableObject, IMainFrameNavigationService
 	{
-		#region Public Events
+		#region Public Meals
 
 		/// <summary>
 		/// Occurs when [release all event].

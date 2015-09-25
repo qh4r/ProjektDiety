@@ -22,12 +22,26 @@ namespace DietyData.Entities
 		public long Id { get; set; }
 
 		/// <summary>
+		/// Gets or sets the date data.
+		/// </summary>
+		/// <value>
+		/// The date data.
+		/// </value>
+		[Column("Date")]
+		public DateTime? DateData { get; set; }
+
+		/// <summary>
 		/// Gets or sets the date.
 		/// </summary>
 		/// <value>
 		/// The date.
 		/// </value>
-		public DateTime Date { get; set; }
+		[NotMapped]
+		public DateTime Date
+		{
+			get { return DateData ?? default(DateTime); }
+			set { DateData = value; }
+		}
 
 
 		/// <summary>

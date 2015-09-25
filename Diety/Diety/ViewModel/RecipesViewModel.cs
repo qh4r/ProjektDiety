@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Diety.Helpers;
@@ -205,7 +206,7 @@ namespace Diety.ViewModel
 						}
 						catch (Exception e)
 						{
-
+							MessageBox.Show("Element jest planowanym posiłkiem");
 						}
 					});
 			}

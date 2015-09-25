@@ -233,7 +233,7 @@ namespace Diety.ViewModel
 		/// </value>
 		public RelayCommand AddMealCommand
 		{
-			get { return new RelayCommand(() =>
+			get { return new RelayCommand(async () =>
 			{
 				var meal = new MealHistoryRecord
 				{
@@ -244,7 +244,7 @@ namespace Diety.ViewModel
 				try
 				{
 					_loadingIndicatiorModule.ShowLoadingIndicatior();
-					var addedMeal = _mealHistoryRecordsAccess.AddMealRecord(meal);
+					var addedMeal = await _mealHistoryRecordsAccess.AddMealRecord(meal);
 					if (addedMeal != null && addedMeal.Id != 0)
 					{
 						_mainFrameNavigation.GoBack();

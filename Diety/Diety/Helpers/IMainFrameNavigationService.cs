@@ -9,7 +9,7 @@ namespace Diety.Helpers
 {
 	public interface IMainFrameNavigationService
 	{
-		#region Events
+		#region Meals
 
 		/// <summary>
 		/// Occurs when [release all event].

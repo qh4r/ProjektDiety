@@ -1,6 +1,7 @@
 using Diety.ViewModel.PropertyGroups.Interfaces;
 using DietyCommonTypes.Interfaces;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace Diety.ViewModel.PropertyGroups
 {
@@ -17,6 +18,11 @@ namespace Diety.ViewModel.PropertyGroups
 		/// The _is past
 		/// </summary>
 		private bool _isPast;
+
+		/// <summary>
+		/// The _dialog result
+		/// </summary>
+		private bool? _dialogResult;
 
 		#endregion
 
@@ -46,6 +52,31 @@ namespace Diety.ViewModel.PropertyGroups
 			set { Set(ref _isPast, value); }
 		}
 
+		/// <summary>
+		/// Gets or sets a value indicating whether [dialog result].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [dialog result]; otherwise, <c>false</c>.
+		/// </value>
+		public bool? DialogResult
+		{
+			get { return _dialogResult; }
+			set { Set(ref _dialogResult, value); }
+		}
+
+		/// <summary>
+		/// Gets the confirm dialog command.
+		/// </summary>
+		/// <value>
+		/// The confirm dialog command.
+		/// </value>
+		public RelayCommand ConfirmDialogCommand
+		{
+			get { return new RelayCommand(() =>
+			{
+				DialogResult = true;
+			});}
+		}
 		#endregion
 	}
 }
