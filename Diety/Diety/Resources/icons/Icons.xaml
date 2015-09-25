@@ -20,5 +20,6 @@
 	<BitmapImage UriSource="/Resources/Icons/leftBlack.png" x:Key="LeftBlackArrowIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/rightWhite.png" x:Key="RightWhiteArrowIcon"/>
 	<BitmapImage UriSource="/Resources/Icons/rightBlack.png" x:Key="RightBlackArrowIcon"/>
+	<BitmapImage UriSource="/Resources/Icons/logo.png" x:Key="LogoIcon"/>
 
 </ResourceDictionary>

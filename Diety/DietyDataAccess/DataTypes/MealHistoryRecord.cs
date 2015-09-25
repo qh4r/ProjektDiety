@@ -19,6 +19,16 @@ namespace DietyDataAccess.DataTypes
 		/// </summary>
 		private readonly IMealHistoryRecordData _mealHistoryRecord;
 
+		/// <summary>
+		/// The _owner
+		/// </summary>
+		private IUserProfile _owner;
+
+		/// <summary>
+		/// The _recipe
+		/// </summary>
+		private IRecipe _recipe;
+
 		#endregion
 
 		#region Public Properties
@@ -58,11 +68,12 @@ namespace DietyDataAccess.DataTypes
 		/// </value>
 		public IRecipe Recipe
 		{
-			get { return _mealHistoryRecord.Recipe; }
+			get { return _recipe; }
 			set
 			{
-				_mealHistoryRecord.Recipe = value as RecipeDb ?? (value as Recipe).UnwrapDataObject();
-				RaisePropertyChanged();
+				Set(ref _recipe, value);
+				//_mealHistoryRecord.Recipe = value as RecipeDb ?? (value as Recipe).UnwrapDataObject();
+				//RaisePropertyChanged();
 			}
 		}
 
@@ -75,11 +86,12 @@ namespace DietyDataAccess.DataTypes
 		/// </value>
 		public IUserProfile Owner
 		{
-			get { return _mealHistoryRecord.Owner; }
+			get { return _owner; }
 			set
 			{
-				_mealHistoryRecord.Owner = value as UserProfileDb ?? (value as UserProfile).UnwrapDataObject();
-				RaisePropertyChanged();
+				Set(ref _owner, value);
+				//_mealHistoryRecord.Owner = value as UserProfileDb ?? (value as UserProfile).UnwrapDataObject();
+				//RaisePropertyChanged();
 			}
 		}
 
@@ -111,6 +123,13 @@ namespace DietyDataAccess.DataTypes
 		internal MealHistoryRecord(IMealHistoryRecord mealHistoryRecord)
 		{
 			_mealHistoryRecord = mealHistoryRecord as IMealHistoryRecordData;
+			Owner = mealHistoryRecord.Owner;
+			foreach (var component in mealHistoryRecord.Recipe.ComponentsList)
+			{
+				component.Ingredient = component.Ingredient;
+			}
+			Recipe = new Recipe(mealHistoryRecord.Recipe);
+
 		}
 
 		/// <summary>
@@ -131,12 +150,12 @@ namespace DietyDataAccess.DataTypes
 		/// <returns></returns>
 		internal IMealHistoryRecordData UnwrapDataObject()
 		{
-			var owner = _mealHistoryRecord.Owner as UserProfile;
+			var owner = Owner as UserProfile;
 			if (owner != null)
 			{
 				_mealHistoryRecord.Owner = owner.UnwrapDataObject();
 			}
-			var recipe = _mealHistoryRecord.Recipe as Recipe;
+			var recipe = Recipe as Recipe;
 			if (recipe != null)
 			{
 				_mealHistoryRecord.Recipe = recipe.UnwrapDataObject();

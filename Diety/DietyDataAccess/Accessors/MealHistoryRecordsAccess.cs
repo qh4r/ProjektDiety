@@ -72,14 +72,7 @@ namespace DietyDataAccess.Accessors
 				}
 				await Task.Yield();
 				var result = outputList.Select(x => new MealHistoryRecord(x)).ToList();
-				foreach (var meal in result)
-				{
-					meal.Recipe = meal.Recipe;
-					foreach (var component in meal.Recipe.ComponentsList)
-					{
-						component.Ingredient = component.Ingredient;
-					}
-				}
+				
 				return result;
 			}			
 		}
