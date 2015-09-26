@@ -26,8 +26,8 @@ namespace DietyDataAccess.Accessors.Interfaces
 		/// <param name="takeCount">The take count.</param>
 		/// <returns></returns>
 		Task<IEnumerable<IWeightHistoryRecord>> GetWeightHistoryRecordsList(
-			Func<WeightHistoryRecordDb, bool> searchCondition = null,
-			Func<WeightHistoryRecordDb, object> orderRule = null,
+			Func<IWeightHistoryRecord, bool> searchCondition = null,
+			Func<IWeightHistoryRecord, object> orderRule = null,
 			int skipCount = 0, int takeCount = Int32.MaxValue);
 
 		/// <summary>

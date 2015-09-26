@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight;
 
 namespace DietyDataAccess.DataTypes
 {
-	class WeightHistoryRecord : ViewModelBase, IWeightHistoryRecord
+	public class WeightHistoryRecord : ViewModelBase, IWeightHistoryRecord
 	{
 		#region Private Fields
 
@@ -18,6 +18,11 @@ namespace DietyDataAccess.DataTypes
 		/// The _weight history record
 		/// </summary>
 		private readonly IWeightHistoryRecordData _weightHistoryRecord;
+
+		/// <summary>
+		/// The _owner
+		/// </summary>
+		private IUserProfile _owner;
 
 		#endregion
 
@@ -75,12 +80,8 @@ namespace DietyDataAccess.DataTypes
 		/// </value>
 		public IUserProfile Owner
 		{
-			get { return _weightHistoryRecord.Owner; }
-			set
-			{
-				_weightHistoryRecord.Owner = value;
-				RaisePropertyChanged();
-			}
+			get { return _owner; }
+			set { Set(ref _owner, value); }
 		}
 
 		#endregion
@@ -91,9 +92,10 @@ namespace DietyDataAccess.DataTypes
 		/// Initializes a new instance of the <see cref="WeightHistoryRecord"/> class.
 		/// </summary>
 		/// <param name="weightHistoryRecord">The weight history record.</param>
-		internal WeightHistoryRecord(IWeightHistoryRecordData weightHistoryRecord)
+		internal WeightHistoryRecord(IWeightHistoryRecord weightHistoryRecord)
 		{
-			_weightHistoryRecord = weightHistoryRecord;
+			_weightHistoryRecord = weightHistoryRecord as IWeightHistoryRecordData;
+			Owner = weightHistoryRecord.Owner;
 		}
 
 		/// <summary>
@@ -115,10 +117,10 @@ namespace DietyDataAccess.DataTypes
 		/// <returns></returns>
 		internal IWeightHistoryRecordData UnwrapDataObject()
 		{
-			var owner = _weightHistoryRecord.Owner as UserProfile;
+			var owner = Owner as UserProfile;
 			if (owner != null)
 			{
-				_weightHistoryRecord.Owner = owner;
+				_weightHistoryRecord.Owner = owner.UnwrapDataObject();
 			}
 			return _weightHistoryRecord;
 		}

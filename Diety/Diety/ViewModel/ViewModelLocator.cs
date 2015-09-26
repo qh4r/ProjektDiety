@@ -176,7 +176,7 @@ namespace Diety.ViewModel
 		/// </value>
 		public StatisticsViewModel Statistics
 		{
-			get { return SimpleIoc.Default.GetInstance<StatisticsViewModel>(); }
+			get { return SimpleIoc.Default.GetInstanceWithoutCaching<StatisticsViewModel>(); }
 		}
 
 		/// <summary>

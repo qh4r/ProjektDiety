@@ -31,75 +31,76 @@
 				</Grid>
 			</DataTemplate>
 		</ResourceDictionary>
-	</Window.Resources>	
+	</Window.Resources>
 	<Grid>
 		<Grid d:DataContext="{d:DesignInstance propertyGroups:MealDetailsDialogModel}" Background="White">
-			<Grid Margin="10">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-				<Grid>
+			<Border BorderBrush="{StaticResource DialogBorderColor}" BorderThickness="2">
+				<Grid Margin="10">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="*"/>
+						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-					</Grid.ColumnDefinitions>
-					<!-- Row1 -->
-					<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource NameLabelStyle}" 
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<!-- Row1 -->
+						<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource NameLabelStyle}" 
 								   Text="{Binding Meal.Recipe.Name}" />
-					<TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource BaseLabelStyle}" 
+						<TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource BaseLabelStyle}" 
 								   HorizontalAlignment="Right" Text="{Binding Meal.Recipe.MealType, Converter={StaticResource EnumToMealTypeConverter}}"/>
-					<!-- Row2 -->
-					<TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
+						<!-- Row2 -->
+						<TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
 								<Run> Kalorie: </Run>
 								<Run FontWeight="Light">
 									<Binding Path="Meal.Recipe.RecipeNutrientsSummary.Calories" Mode="OneWay"/>
 								</Run>
-					</TextBlock>
-					<TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
+						</TextBlock>
+						<TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
 								<Run> Białka: </Run>
 								<Run FontWeight="Light">
 									<Binding Path="Meal.Recipe.RecipeNutrientsSummary.Proteins" Mode="OneWay"/>
 								</Run>
-					</TextBlock>
-					<TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
+						</TextBlock>
+						<TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
 								<Run> Cukry: </Run>
 								<Run FontWeight="Light">
 									<Binding Path="Meal.Recipe.RecipeNutrientsSummary.Carbohydrates" Mode="OneWay"/>
 								</Run>
-					</TextBlock>
-					<TextBlock Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
+						</TextBlock>
+						<TextBlock Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" Style="{StaticResource BaseLabelStyle}">
 								<Run> Tłuszcze: </Run>
 								<Run FontWeight="Light">
 									<Binding Path="Meal.Recipe.RecipeNutrientsSummary.Fats" Mode="OneWay"/>
 								</Run>
-					</TextBlock>
-				</Grid>
-				<!-- DESCRIPTION -->
-				<Grid Margin="10" Grid.Row="1">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="*"/>
-						<RowDefinition Height="Auto"/>
-					</Grid.RowDefinitions>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-					</Grid.ColumnDefinitions>
-					<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" FontWeight="Medium" 
+						</TextBlock>
+					</Grid>
+					<!-- DESCRIPTION -->
+					<Grid Margin="10" Grid.Row="1">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" FontWeight="Medium" 
 									   Style="{StaticResource NameLabelStyle}">
 								Składniki:
-					</TextBlock>
-					<ListView Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" BorderThickness="0"				
+						</TextBlock>
+						<ListView Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" BorderThickness="0"				
 									  Margin="10,5" MaxHeight="200" 
 									  VerticalAlignment="Stretch" Background="Transparent"
 									  VirtualizingStackPanel.VirtualizationMode="Standard"
@@ -107,48 +108,49 @@
 									  ItemTemplate="{StaticResource RecipeComponentRowTempalte}"                  
 									  ItemsSource="{Binding Meal.Recipe.ComponentsList, Mode=TwoWay}" 
 									  SelectionMode="Single">
-					</ListView>
-					<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
+						</ListView>
+						<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
 									   FontSize="18" FontWeight="Medium" Style="{StaticResource NameLabelStyle}">
 								Opis:
-					</TextBlock>
-					<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="10,5"
+						</TextBlock>
+						<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="10,5"
 									   Text="{Binding Meal.Recipe.Description}"
 									   FontSize="16" Style="{StaticResource BaseLabelStyle}"/>
-				</Grid>
-				<Grid Grid.Row="2"  Margin="5">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-					</Grid.ColumnDefinitions>
-					<Button Grid.Column="0" Margin="5" Command="{Binding ConfirmDialogCommand}" IsEnabled="{Binding IsPast, Converter={StaticResource NegateBooleanConverter}}"
+					</Grid>
+					<Grid Grid.Row="2"  Margin="5">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Button Grid.Column="0" Margin="5" Command="{Binding ConfirmDialogCommand}" IsEnabled="{Binding IsPast, Converter={StaticResource NegateBooleanConverter}}"
 					Style="{StaticResource BaseNormalButtonStyle}">
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"/>
-								<ColumnDefinition Width="*"/>
-							</Grid.ColumnDefinitions>
-							<Viewbox Margin="0,0,15,0" HorizontalAlignment="Left" Grid.Column="0">
-								<Image Source="{StaticResource TrashWhiteIcon}"/>
-							</Viewbox>
-							<TextBlock Grid.Column="1" FontSize="24" VerticalAlignment="Center">Usuń</TextBlock>
-						</Grid>
-					</Button>
-					<Button Grid.Column="1" Margin="5" IsCancel="True" IsDefault="True"
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<Viewbox Margin="0,0,15,0" HorizontalAlignment="Left" Grid.Column="0">
+									<Image Source="{StaticResource TrashWhiteIcon}"/>
+								</Viewbox>
+								<TextBlock Grid.Column="1" FontSize="24" VerticalAlignment="Center">Usuń</TextBlock>
+							</Grid>
+						</Button>
+						<Button Grid.Column="1" Margin="5" IsCancel="True" IsDefault="True"
 					Style="{StaticResource BaseNormalButtonStyle}">
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"/>
-								<ColumnDefinition Width="*"/>
-							</Grid.ColumnDefinitions>
-							<Viewbox Margin="0,0,15,0" HorizontalAlignment="Left" Grid.Column="0">
-								<Image Source="{StaticResource CancelIcon}"/>
-							</Viewbox>
-							<TextBlock FontSize="24" VerticalAlignment="Center" Grid.Column="1">Wróć</TextBlock>
-						</Grid>
-					</Button>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<Viewbox Margin="0,0,15,0" HorizontalAlignment="Left" Grid.Column="0">
+									<Image Source="{StaticResource CancelIcon}"/>
+								</Viewbox>
+								<TextBlock FontSize="24" VerticalAlignment="Center" Grid.Column="1">Wróć</TextBlock>
+							</Grid>
+						</Button>
+					</Grid>
 				</Grid>
-			</Grid>
+			</Border>
 		</Grid>
 	</Grid>
 </Window>

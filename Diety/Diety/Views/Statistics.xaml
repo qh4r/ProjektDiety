@@ -4,14 +4,72 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:templateControlls="clr-namespace:Diety.TemplateControlls"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:converters="clr-namespace:Diety.Helpers.Converters"
       mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=Statistics}"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="Home">
+	<i:Interaction.Triggers>
+		<i:EventTrigger EventName="Loaded">
+			<i:InvokeCommandAction Command="{Binding PageLoadedCommand}"/>
+		</i:EventTrigger>
+	</i:Interaction.Triggers>
+	<Page.Resources>
+		<ResourceDictionary>
+			<converters:BoolToSolidColorBrushConverter ActiveColor="{StaticResource BrushErrorBorderColor}"
+												   NormalColor="{StaticResource BrushInputBorderColor}"
+												   x:Key="BoolToSolidColorBrushBorderConverter"/>
+			<converters:BoolToSolidColorBrushConverter ActiveColor="{StaticResource BrushErrorBorderColor}"
+												   NormalColor="{StaticResource BrushInputFontColor}"
+												   x:Key="BoolToSolidColorBrushInputConverter"/>
+		</ResourceDictionary>
+	</Page.Resources>
 	<Grid x:Name="RootGrid">
-
 		<templateControlls:PageBase HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-			<TextBlock Foreground="Tomato" FontSize="40">STATISTICS</TextBlock>
-		</templateControlls:PageBase>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<telerik:RadCartesianChart Grid.Row="0" x:Name="Chart">
+					<telerik:RadCartesianChart.HorizontalAxis>
+						<telerik:DateTimeContinuousAxis LabelFitMode="MultiLine"
+                                    LabelFormat="dd.MM.yy hh:mm"/>
+					</telerik:RadCartesianChart.HorizontalAxis>
 
+					<telerik:RadCartesianChart.VerticalAxis>
+						<telerik:LinearAxis/>
+					</telerik:RadCartesianChart.VerticalAxis>
+
+					<telerik:RadCartesianChart.Series>
+						<telerik:LineSeries Stroke="Orange" ItemsSource="{Binding}" StrokeThickness="2"/>
+					</telerik:RadCartesianChart.Series>
+				</telerik:RadCartesianChart>
+				<Grid Grid.Row="1" Margin="10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Border Margin="0,10" BorderBrush="{Binding WeightError, Converter={StaticResource BoolToSolidColorBrushBorderConverter}}"
+					Style="{StaticResource RoundBorderStyle}" Grid.Column="0">
+						<xctk:WatermarkTextBox Foreground ="{Binding WeightError, Converter={StaticResource BoolToSolidColorBrushInputConverter}}"
+									   Watermark="Waga" Margin="10,0" WatermarkTemplate="{StaticResource WatermarkTemplate}"
+								    Style="{StaticResource BaseTextBoxStyle}" Text="{Binding Weight, Mode=TwoWay}">
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="GotFocus">
+									<i:InvokeCommandAction Command="{Binding WeightGotFocus}"/>
+								</i:EventTrigger>
+								<i:EventTrigger EventName="LostFocus">
+									<i:InvokeCommandAction Command="{Binding WeightLostFocus}"/>
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+						</xctk:WatermarkTextBox>
+					</Border>
+					<Button Grid.Column="1" Style="{StaticResource BaseNormalButtonStyle}" Command="{Binding AddMeasurement}">Pomiar Wagi</Button>
+				</Grid>
+			</Grid>			
+		</templateControlls:PageBase>
 	</Grid>
 </Page>

@@ -23,15 +23,22 @@ namespace DietyDataAccess.Accessors
 		public async Task<IWeightHistoryRecord> AddMealRecord(IWeightHistoryRecord item)
 		{
 			var wrappedRecord = item as WeightHistoryRecord;
-			var newMealRecord = wrappedRecord != null ? wrappedRecord.UnwrapDataObject() : item;
+			var newWeightRecord = wrappedRecord != null ? wrappedRecord.UnwrapDataObject() : item;
 
-			if (newMealRecord != null)
+			if (newWeightRecord != null)
 			{
 				using (var dietyContext = DietyDbContext)
 				{
-					DietyDbContext.WeightHistoryRecords.Add(newMealRecord as WeightHistoryRecordDb);
-					await DietyDbContext.SaveChangesAsync();
+					var weightDb = newWeightRecord as WeightHistoryRecordDb;					
+
+					dietyContext.Entry(weightDb.Owner).State = EntityState.Unchanged;
+
+
+
+					dietyContext.WeightHistoryRecords.Add(weightDb);
+					await dietyContext.SaveChangesAsync();
 				}
+				await Task.Yield();
 			}
 			return item;
 		}
@@ -45,29 +52,31 @@ namespace DietyDataAccess.Accessors
 		/// <param name="takeCount">The take count.</param>
 		/// <returns></returns>
 		public async Task<IEnumerable<IWeightHistoryRecord>> GetWeightHistoryRecordsList(
-			Func<WeightHistoryRecordDb, bool> searchCondition = null,
-			Func<WeightHistoryRecordDb, object> orderRule = null,
+			Func<IWeightHistoryRecord, bool> searchCondition = null,
+			Func<IWeightHistoryRecord, object> orderRule = null,
 			int skipCount = 0, int takeCount = Int32.MaxValue)
 		{
 			using (var dietyContext = DietyDbContext)
 			{
-				IEnumerable<IWeightHistoryRecordData> outputList;
+				IEnumerable<IWeightHistoryRecord> outputList;
 				if (orderRule != null)
 				{
 					outputList =
-						DietyDbContext.WeightHistoryRecords.Where(searchCondition ?? (x => true))
+						dietyContext.WeightHistoryRecords.Where(searchCondition ?? (x => true))
 							.OrderBy(orderRule)
 							.Skip(skipCount);
 				}
 				else
 				{
 					outputList =
-						DietyDbContext.WeightHistoryRecords.Where(searchCondition ?? (x => true))							
+						dietyContext.WeightHistoryRecords.Where(searchCondition ?? (x => true))							
 							.Skip(skipCount)
 							.Take(takeCount);
 				}
 				await Task.Yield();
-				return outputList.Select(x => new WeightHistoryRecord(x));
+				var result = outputList.Select(x => new WeightHistoryRecord(x)).ToList();
+
+				return result;
 			}
 		}
 

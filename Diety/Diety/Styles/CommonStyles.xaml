@@ -43,6 +43,8 @@
 				<GradientStop Offset="1" Color="#0C4A06"/>
 			</LinearGradientBrush>
 
+			<SolidColorBrush x:Key="DialogBorderColor" Color="#F49D14"/>
+
 			<SolidColorBrush x:Key="NavButtonBackgroundColor" Color="#51F842"/>
 			<SolidColorBrush x:Key="NavButtonPointerOverColor" Color="#1EA712"/>
 			<SolidColorBrush x:Key="NavButtonPressedBackgroundColor" Color="#167E0D"/>
