@@ -44,7 +44,7 @@
 					</telerik:RadCartesianChart.VerticalAxis>
 
 					<telerik:RadCartesianChart.Series>
-						<telerik:LineSeries Stroke="Orange" ItemsSource="{Binding}" StrokeThickness="2"/>
+						<telerik:LineSeries Stroke="Orange" CategoryBinding="Date" ValueBinding="Value"  ItemsSource="{Binding ChartRecordsCollection}" StrokeThickness="2"/>
 					</telerik:RadCartesianChart.Series>
 				</telerik:RadCartesianChart>
 				<Grid Grid.Row="1" Margin="10">

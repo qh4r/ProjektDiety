@@ -22,44 +22,14 @@ namespace Diety.Views
 	/// Interaction logic for Statistics.xaml
 	/// </summary>
 	public partial class Statistics : Page
-	{
-		#region Public Properties
-
-		public StatisticsViewModel StatsViewModel { get; set; }
-
-		#endregion
-
+	{		
 		#region C-tors
 
 		public Statistics()
 		{
-			InitializeComponent();
-			StatsViewModel = DataContext as StatisticsViewModel;
-			if (StatsViewModel != null)
-			{
-				StatsViewModel.LoadData += ReloadChart;
-			}
+			InitializeComponent();		
 		}		
 
 		#endregion
-
-		#region Private Methods
-
-		/// <summary>
-		/// Reloads the chart.
-		/// </summary>
-		/// <param name="chartData">The chart data.</param>
-		private void ReloadChart(IEnumerable<ChartData> chartData)
-		{
-			LineSeries series = (LineSeries) Chart.Series[0];
-
-			series.CategoryBinding = new PropertyNameDataPointBinding() {PropertyName = "Date"};
-			series.ValueBinding = new PropertyNameDataPointBinding() {PropertyName = "Value"};
-
-			series.DataContext = chartData;
-		}
-
-		#endregion
-
 	}
 }

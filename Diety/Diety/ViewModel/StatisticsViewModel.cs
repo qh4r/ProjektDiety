@@ -129,7 +129,7 @@ namespace Diety.ViewModel
 								Date = x.Date,
 								Value = x.Weight
 							}));
-							OnLoadData(ChartRecordsCollection);
+							//OnLoadData(ChartRecordsCollection);
 						}
 
 						_loadingIndicatiorModule.HideLoadingIndicator();
@@ -311,6 +311,10 @@ namespace Diety.ViewModel
 
 		#region EventHandlers
 
+		/// <summary>
+		/// Called when [load data].
+		/// </summary>
+		/// <param name="chartData">The chart data.</param>
 		protected void OnLoadData(IEnumerable<ChartData> chartData)
 		{
 			var handler = LoadData;
